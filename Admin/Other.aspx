@@ -32,8 +32,8 @@
                                     <td class="px-6 py-4"><%# Container.ItemIndex + 1 %></td>
                                     <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("name") %></td>
                                     <td class="px-6 py-4 space-x-5">
-                                        <a href="Update_State.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="Delete_State.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                        <a href="Manage_State.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a href="Manage_State.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -43,9 +43,11 @@
             </div>
         </div>
 
+        <hr class="w-96 h-1 mx-auto my-4 border-0 rounded md:my-10 bg-gray-700">
+
         <%-- City --%>
         <div class="relative w-fit">
-            <a href="Add_Users.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add City</a>
+            <a href="Add_City.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add City</a>
         </div>
         <%-- Table to display City --%>
         <div class="relative">
@@ -65,11 +67,11 @@
                             <ItemTemplate>
                                 <tr class="hover:bg-gray-300">
                                     <td class="px-6 py-4"><%# Container.ItemIndex + 1 %></td>
-                                    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("name") %></td>
-                                    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("name") %></td>
+                                    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("sname") %></td>
+                                    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("cname") %></td>
                                     <td class="px-6 py-4 space-x-5">
-                                        <a href="Manage_User.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="Delete_User.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                        <a href="Manage_City.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a href="Manage_City.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -79,40 +81,33 @@
             </div>
         </div>
 
+        <hr class="w-96 h-1 mx-auto my-4 border-0 rounded md:my-10 bg-gray-700">
 
         <%-- Brand --%>
         <div class="relative w-fit">
-            <a href="Add_Users.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add User</a>
+            <a href="Add_Brand.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add Brand</a>
         </div>
         <%-- Table to display Brand --%>
         <div class="relative">
-            <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">Admins</h4>
+            <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">Mobile Brands</h4>
             <div class="overflow-x-auto shadow-md sm:rounded-lg mr-2">
                 <table id="tblBrand" class="w-[100%] text-sm text-center rtl:text-right text-black">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">Sr. No</th>
                             <th scope="col" class="px-6 py-3">Name</th>
-                            <th scope="col" class="px-6 py-3">Email</th>
-                            <th scope="col" class="px-6 py-3">Contact</th>
-                            <%--<th scope="col" class="px-6 py-3">City</th>--%>
-                            <th scope="col" class="px-6 py-3">Status</th>
                             <th scope="col" class="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <asp:Repeater ID="Repeater2" runat="server">
+                        <asp:Repeater ID="rptBrand" runat="server">
                             <ItemTemplate>
                                 <tr class="hover:bg-gray-300">
                                     <td class="px-6 py-4"><%# Container.ItemIndex + 1 %></td>
                                     <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("name") %></td>
-                                    <td class="px-6 py-4"><%# Eval("email") %></td>
-                                    <td class="px-6 py-4"><%# Eval("contact") %></td>
-                                    <%--<td class="px-6 py-4"><%# Eval("City") %></td>--%>
-                                    <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" %>
                                     <td class="px-6 py-4 space-x-5">
-                                        <a href="Manage_User.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="Delete_User.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                        <a href="Manage_Brand.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a href="Manage_Brand.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -122,40 +117,33 @@
             </div>
         </div>
 
+        <hr class="w-96 h-1 mx-auto my-4 border-0 rounded md:my-10 bg-gray-700">
 
         <%-- Color --%>
         <div class="relative w-fit">
-            <a href="Add_Users.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add User</a>
+            <a href="Add_Color.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add Color</a>
         </div>
         <%-- Table to display Color --%>
         <div class="relative">
-            <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">Admins</h4>
+            <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">Mobile Colors</h4>
             <div class="overflow-x-auto shadow-md sm:rounded-lg mr-2">
                 <table id="tblColor" class="w-[100%] text-sm text-center rtl:text-right text-black">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">Sr. No</th>
                             <th scope="col" class="px-6 py-3">Name</th>
-                            <th scope="col" class="px-6 py-3">Email</th>
-                            <th scope="col" class="px-6 py-3">Contact</th>
-                            <%--<th scope="col" class="px-6 py-3">City</th>--%>
-                            <th scope="col" class="px-6 py-3">Status</th>
                             <th scope="col" class="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <asp:Repeater ID="Repeater3" runat="server">
+                        <asp:Repeater ID="rptColor" runat="server">
                             <ItemTemplate>
                                 <tr class="hover:bg-gray-300">
                                     <td class="px-6 py-4"><%# Container.ItemIndex + 1 %></td>
                                     <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("name") %></td>
-                                    <td class="px-6 py-4"><%# Eval("email") %></td>
-                                    <td class="px-6 py-4"><%# Eval("contact") %></td>
-                                    <%--<td class="px-6 py-4"><%# Eval("City") %></td>--%>
-                                    <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" %>
                                     <td class="px-6 py-4 space-x-5">
-                                        <a href="Manage_User.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="Delete_User.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                        <a href="Manage_Color.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a href="Manage_Color.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -165,40 +153,33 @@
             </div>
         </div>
 
+        <hr class="w-96 h-1 mx-auto my-4 border-0 rounded md:my-10 bg-gray-700">
 
         <%-- Storage --%>
         <div class="relative w-fit">
-            <a href="Add_Users.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add User</a>
+            <a href="Add_Storage.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add Storage</a>
         </div>
         <%-- Table to display Storage --%>
         <div class="relative">
-            <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">Admins</h4>
+            <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">Mobile Storage</h4>
             <div class="overflow-x-auto shadow-md sm:rounded-lg mr-2">
                 <table id="tblStorage" class="w-[100%] text-sm text-center rtl:text-right text-black">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">Sr. No</th>
-                            <th scope="col" class="px-6 py-3">Name</th>
-                            <th scope="col" class="px-6 py-3">Email</th>
-                            <th scope="col" class="px-6 py-3">Contact</th>
-                            <%--<th scope="col" class="px-6 py-3">City</th>--%>
-                            <th scope="col" class="px-6 py-3">Status</th>
+                            <th scope="col" class="px-6 py-3">Storage</th>
                             <th scope="col" class="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <asp:Repeater ID="Repeater4" runat="server">
+                        <asp:Repeater ID="rptStorage" runat="server">
                             <ItemTemplate>
                                 <tr class="hover:bg-gray-300">
                                     <td class="px-6 py-4"><%# Container.ItemIndex + 1 %></td>
-                                    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("name") %></td>
-                                    <td class="px-6 py-4"><%# Eval("email") %></td>
-                                    <td class="px-6 py-4"><%# Eval("contact") %></td>
-                                    <%--<td class="px-6 py-4"><%# Eval("City") %></td>--%>
-                                    <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" %>
+                                    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("storage") %></td>
                                     <td class="px-6 py-4 space-x-5">
-                                        <a href="Manage_User.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="Delete_User.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                        <a href="Manage_Storage.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a href="Manage_Storage.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -241,15 +222,15 @@
             "lengthChange": true,
             "searching": true,
             language: {
-                searchPlaceholder: "Search State",
+                searchPlaceholder: "Search City",
             },
             "ordering": true,
             "info": true,
             responsive: true,
             "autoWidth": false,
             "lengthMenu": [
-                [5, 15, -1],
-                [5, 15, "All"]
+                [5, 25, 50],
+                [5, 25, 50]
             ],
         });
 
@@ -260,7 +241,7 @@
             "lengthChange": true,
             "searching": true,
             language: {
-                searchPlaceholder: "Search State",
+                searchPlaceholder: "Search Brand",
             },
             "ordering": true,
             "info": true,
@@ -279,7 +260,7 @@
             "lengthChange": true,
             "searching": true,
             language: {
-                searchPlaceholder: "Search State",
+                searchPlaceholder: "Search Color",
             },
             "ordering": true,
             "info": true,
@@ -298,7 +279,7 @@
             "lengthChange": true,
             "searching": true,
             language: {
-                searchPlaceholder: "Search State",
+                searchPlaceholder: "Search Storage",
             },
             "ordering": true,
             "info": true,

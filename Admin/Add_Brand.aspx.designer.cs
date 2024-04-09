@@ -11,52 +11,34 @@ namespace OMSMS6.Admin
 {
 
 
-    public partial class Other
+    public partial class Add_Brand
     {
 
         /// <summary>
-        /// rptState control.
+        /// addBrandForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptState;
+        protected global::System.Web.UI.HtmlControls.HtmlForm addBrandForm;
 
         /// <summary>
-        /// rptCity control.
+        /// txtBrand control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptCity;
+        protected global::System.Web.UI.WebControls.TextBox txtBrand;
 
         /// <summary>
-        /// rptBrand control.
+        /// btnAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptBrand;
-
-        /// <summary>
-        /// rptColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptColor;
-
-        /// <summary>
-        /// rptStorage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptStorage;
+        protected global::System.Web.UI.WebControls.Button btnAdd;
     }
 }
