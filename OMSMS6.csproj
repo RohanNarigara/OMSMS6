@@ -66,15 +66,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\Add_Brand.aspx" />
+    <Content Include="Admin\Add_City.aspx" />
     <Content Include="Admin\Add_Color.aspx" />
     <Content Include="Admin\Add_State.aspx" />
     <Content Include="Admin\Add_Storage.aspx" />
     <Content Include="Admin\Add_Users.aspx" />
     <Content Include="Admin\Add_User_OTP.aspx" />
+    <Content Include="Admin\AD_User.aspx" />
     <Content Include="Admin\Change_Password.aspx" />
     <Content Include="Admin\Default.aspx" />
     <Content Include="Admin\Delete_User.aspx" />
     <Content Include="Admin\Edit_Profile.aspx" />
+    <Content Include="Admin\Manage_City.aspx" />
     <Content Include="Admin\Manage_User.aspx" />
     <Content Include="Admin\Other.aspx" />
     <Content Include="Admin\Users.aspx" />
@@ -108,6 +111,13 @@
     </Compile>
     <Compile Include="Admin\Add_Brand.aspx.designer.cs">
       <DependentUpon>Add_Brand.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Add_City.aspx.cs">
+      <DependentUpon>Add_City.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Add_City.aspx.designer.cs">
+      <DependentUpon>Add_City.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Add_Color.aspx.cs">
       <DependentUpon>Add_Color.aspx</DependentUpon>
@@ -151,6 +161,13 @@
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
+    <Compile Include="Admin\AD_User.aspx.cs">
+      <DependentUpon>AD_User.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AD_User.aspx.designer.cs">
+      <DependentUpon>AD_User.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Change_Password.aspx.cs">
       <DependentUpon>Change_Password.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -178,6 +195,13 @@
     </Compile>
     <Compile Include="Admin\Edit_Profile.aspx.designer.cs">
       <DependentUpon>Edit_Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Manage_City.aspx.cs">
+      <DependentUpon>Manage_City.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Manage_City.aspx.designer.cs">
+      <DependentUpon>Manage_City.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Manage_User.aspx.cs">
       <DependentUpon>Manage_User.aspx</DependentUpon>

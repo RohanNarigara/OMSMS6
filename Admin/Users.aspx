@@ -36,10 +36,10 @@
                                     <td class="px-6 py-4"><%# Eval("email") %></td>
                                     <td class="px-6 py-4"><%# Eval("contact") %></td>
                                     <%--<td class="px-6 py-4"><%# Eval("City") %></td>--%>
-                                    <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" %>
+                                    <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='AD_User.aspx?daid="+Eval("id")+"' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='AD_User.aspx?aid="+Eval("id")+"' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> DE-ACTIVE </a> </td>" %>
                                     <td class="px-6 py-4 space-x-5">
                                         <a href="Manage_User.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="Delete_User.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                        <%--<a href="Delete_User.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>--%>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -74,10 +74,10 @@
                                     <td class="px-6 py-4"><%# Eval("email") %></td>
                                     <td class="px-6 py-4"><%# Eval("contact") %></td>
                                     <%--<td class="px-6 py-4"><%# Eval("City") %></td>--%>
-                                    <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" %>
+                                    <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='AD_User.aspx?daid="+Eval("id")+"' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='AD_User.aspx?aid="+Eval("id")+"' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> DE-ACTIVE </a> </td>" %>
                                     <td class="px-6 py-4 space-x-5">
                                         <a href="Manage_User.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="Delete_User.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                        <%--<a href="Delete_User.aspx?did=<%# Eval("Id") %>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>--%>
                                     </td>
                                 </tr>
                             </ItemTemplate>
