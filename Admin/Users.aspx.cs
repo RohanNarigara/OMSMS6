@@ -24,7 +24,8 @@ namespace OMSMS6.Admin
         {
             conn.Close();
             conn.Open();
-            SqlCommand selectAdmins = new SqlCommand("SELECT * FROM tblUsers WHERE role = 0", conn);
+            //SqlCommand selectAdmins = new SqlCommand("SELECT * FROM tblUsers WHERE role = 0", conn);
+            SqlCommand selectAdmins = new SqlCommand("SELECT u.*, c.name AS cname from tblUsers u INNER JOIN tblCity c ON u.cityid = c.id WHERE role = 0", conn);
             SqlDataReader dr = selectAdmins.ExecuteReader();
             if (dr.HasRows)
             {
@@ -39,7 +40,8 @@ namespace OMSMS6.Admin
         {
             conn.Close();
             conn.Open();
-            SqlCommand selectCustomers = new SqlCommand("SELECT * FROM tblUsers WHERE role = 1", conn);
+            //SqlCommand selectCustomers = new SqlCommand("SELECT * FROM tblUsers WHERE role = 1", conn);
+            SqlCommand selectCustomers = new SqlCommand("SELECT u.*, c.name AS cname FROM tblUsers u INNER JOIN tblCity c ON u.cityid = c.id WHERE role = 1", conn);
             SqlDataReader dr = selectCustomers.ExecuteReader();
             if (dr.HasRows)
             {

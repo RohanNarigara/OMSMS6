@@ -110,6 +110,8 @@ namespace OMSMS6.Admin
                 Response.Write("<script>alert('City Already Exists!');</script>");
                 dr.Close();
             }
+
+            conn.Close();
         }
 
         protected void Delete_City()
@@ -127,19 +129,20 @@ namespace OMSMS6.Admin
                 int isDeleted = deleteCity.ExecuteNonQuery();
                 if (isDeleted > 0)
                 {
-                    Response.Write("<script>alert('City Deleted Successfully!'); window.location='../Admin/Other.aspx'</script>");
+                    Response.Write("<script>alert('City Deleted Successfully!'); window.location='../Admin/Other.aspx';</script>");
                 }
                 else
                 {
                     dr.Close();
-                    Response.Write("<script>alert('Error in City Deletion!');</script>");
+                    Response.Write("<script>alert('Error in City Deletion!'); window.location='../Admin/Other.aspx';</script>");
                 }
             }
             else
             {
-                Response.Write("<script>alert('City is in use!');</script>");
                 dr.Close();
+                Response.Write("<script>alert('City can not be delete as it is associated with User!'); window.location='../Admin/Other.aspx';</script>");
             }
+            conn.Close();
         }
     }
 }

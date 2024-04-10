@@ -27,16 +27,25 @@ namespace OMSMS6.Admin
         {
             conn.Close();
             conn.Open();
-            SqlCommand selectUser = new SqlCommand("DELETE FROM tblUsers WHERE id = @id", conn);
-            selectUser.Parameters.AddWithValue("@id", Convert.ToInt32(Request.QueryString["did"]));
-            int isDeleted = selectUser.ExecuteNonQuery();
-            if(isDeleted > 0)
+            SqlCommand checkUser = new SqlCommand("SELECT * FROM tblOrders WHERE uid = @id", conn);
+            checkUser.Parameters.AddWithValue("@id", Convert.ToInt32(Request.QueryString["did"]));
+            SqlDataReader dr = checkUser.ExecuteReader();
+            if (!dr.Read())
             {
-                Response.Write("<script>alert('User Deleted Successfully!'); window.location='../Admin/Users.aspx'</script>");
-            }
-            else
+                SqlCommand selectUser = new SqlCommand("DELETE FROM tblUsers WHERE id = @id", conn);
+                selectUser.Parameters.AddWithValue("@id", Convert.ToInt32(Request.QueryString["did"]));
+                int isDeleted = selectUser.ExecuteNonQuery();
+                if (isDeleted > 0)
+                {
+                    Response.Write("<script>alert('User Deleted Successfully!'); window.location='../Admin/Users.aspx'</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Error in User Deletion!'); window.location='../Admin/Users.aspx'</script>");
+                }
+            } else
             {
-                Response.Write("<script>alert('Error in User Deletion!'); window.location='../Admin/Users.aspx'</script>");
+                Response.Write("<script>alert('User cannot be deleted as he/she has orders!'); window.location='../Admin/Users.aspx'</script>");
             }
         }
     }

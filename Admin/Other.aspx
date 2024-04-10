@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Other.aspx.cs" Inherits="OMSMS6.Admin.Other" %>
+﻿<%@ Page Title="OMSMS | Other Details" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Other.aspx.cs" Inherits="OMSMS6.Admin.Other" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <%-- Tailwind CSS CDN --%>

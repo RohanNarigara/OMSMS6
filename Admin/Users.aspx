@@ -22,7 +22,7 @@
                             <th scope="col" class="px-6 py-3">Name</th>
                             <th scope="col" class="px-6 py-3">Email</th>
                             <th scope="col" class="px-6 py-3">Contact</th>
-                            <%--<th scope="col" class="px-6 py-3">City</th>--%>
+                            <th scope="col" class="px-6 py-3">City</th>
                             <th scope="col" class="px-6 py-3">Status</th>
                             <th scope="col" class="px-6 py-3">Actions</th>
                         </tr>
@@ -35,7 +35,7 @@
                                     <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("name") %></td>
                                     <td class="px-6 py-4"><%# Eval("email") %></td>
                                     <td class="px-6 py-4"><%# Eval("contact") %></td>
-                                    <%--<td class="px-6 py-4"><%# Eval("City") %></td>--%>
+                                    <td class="px-6 py-4"><%# Eval("cname") %></td>
                                     <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='AD_User.aspx?daid="+Eval("id")+"' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='AD_User.aspx?aid="+Eval("id")+"' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> DE-ACTIVE </a> </td>" %>
                                     <td class="px-6 py-4 space-x-5">
                                         <a href="Manage_User.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
@@ -60,7 +60,7 @@
                             <th scope="col" class="px-6 py-3">Name</th>
                             <th scope="col" class="px-6 py-3">Email</th>
                             <th scope="col" class="px-6 py-3">Contact</th>
-                            <%--<th scope="col" class="px-6 py-3">City</th>--%>
+                            <th scope="col" class="px-6 py-3">City</th>
                             <th scope="col" class="px-6 py-3">Status</th>
                             <th scope="col" class="px-6 py-3">Actions</th>
                         </tr>
@@ -73,7 +73,7 @@
                                     <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-black"><%# Eval("name") %></td>
                                     <td class="px-6 py-4"><%# Eval("email") %></td>
                                     <td class="px-6 py-4"><%# Eval("contact") %></td>
-                                    <%--<td class="px-6 py-4"><%# Eval("City") %></td>--%>
+                                    <td class="px-6 py-4"><%# Eval("cname") %></td>
                                     <%# (int)Eval("status") == 1 ? "<td class='px-6 py-4'> <a href='AD_User.aspx?daid="+Eval("id")+"' class='bg-green-400 rounded-md p-1 text-gray-800 font-medium text-xs'> ACTIVE </a> </td>" :  "<td class='px-6 py-4'> <a href='AD_User.aspx?aid="+Eval("id")+"' class='bg-red-400 rounded-md p-1 text-gray-800 font-medium text-xs'> DE-ACTIVE </a> </td>" %>
                                     <td class="px-6 py-4 space-x-5">
                                         <a href="Manage_User.aspx?eid=<%# Eval("Id") %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
@@ -108,8 +108,8 @@
             responsive: true,
             "autoWidth": false,
             "lengthMenu": [
-                [5, 25, 50, -1],
-                [5, 25, 50, "All"]
+                [5, 10],
+                [5, 10]
             ],
         });
 
