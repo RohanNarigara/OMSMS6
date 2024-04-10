@@ -11,52 +11,34 @@ namespace OMSMS6.Admin
 {
 
 
-    public partial class Other
+    public partial class Add_Storage
     {
 
         /// <summary>
-        /// rptState control.
+        /// addStorageForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptState;
+        protected global::System.Web.UI.HtmlControls.HtmlForm addStorageForm;
 
         /// <summary>
-        /// rptCity control.
+        /// txtStorage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptCity;
+        protected global::System.Web.UI.WebControls.TextBox txtStorage;
 
         /// <summary>
-        /// rptBrand control.
+        /// btnAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptBrand;
-
-        /// <summary>
-        /// rptColor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptColor;
-
-        /// <summary>
-        /// rptStorage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptStorage;
+        protected global::System.Web.UI.WebControls.Button btnAdd;
     }
 }

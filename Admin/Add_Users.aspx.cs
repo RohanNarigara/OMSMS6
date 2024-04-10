@@ -20,13 +20,13 @@ namespace OMSMS6.Admin
         {
             if (!IsPostBack)
             {
-                bindState();
+                bindCityState();
                 ClientScript.RegisterStartupScript(this.GetType(), "ToastrScript", "", true);
             }
         }
 
-        // binding City in DropDownList
-        protected void bindState()
+        // binding City and state in DropDownList
+        protected void bindCityState()
         {
             conn.Close();
             conn.Open();

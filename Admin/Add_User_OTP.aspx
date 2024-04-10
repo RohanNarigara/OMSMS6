@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Add_User_OTP.aspx.cs" Inherits="OMSMS6.Admin.Add_User_OTP" %>
+﻿<%@ Page Title="OMSMS | Add User OTP" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Add_User_OTP.aspx.cs" Inherits="OMSMS6.Admin.Add_User_OTP" %>
 
 <%@ Register Src="~/Links.ascx" TagName="Links" TagPrefix="omsms" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

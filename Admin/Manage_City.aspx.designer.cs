@@ -11,52 +11,61 @@ namespace OMSMS6.Admin
 {
 
 
-    public partial class Other
+    public partial class Manage_City
     {
 
         /// <summary>
-        /// rptState control.
+        /// updateCityForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptState;
+        protected global::System.Web.UI.HtmlControls.HtmlForm updateCityForm;
 
         /// <summary>
-        /// rptCity control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptCity;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// rptBrand control.
+        /// statePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptBrand;
+        protected global::System.Web.UI.UpdatePanel statePanel;
 
         /// <summary>
-        /// rptColor control.
+        /// ddlState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptColor;
+        protected global::System.Web.UI.WebControls.DropDownList ddlState;
 
         /// <summary>
-        /// rptStorage control.
+        /// txtCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptStorage;
+        protected global::System.Web.UI.WebControls.TextBox txtCity;
+
+        /// <summary>
+        /// btnUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
     }
 }
