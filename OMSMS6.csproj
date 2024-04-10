@@ -76,6 +76,7 @@
     <Content Include="Admin\Users.aspx" />
     <Content Include="Admin\Res\Css\Admin_Css.css" />
     <Content Include="Admin\Res\Js\main.js" />
+    <Content Include="Customer\About_Us.aspx" />
     <Content Include="Customer\Cart.aspx" />
     <Content Include="Customer\Customer_Checkout.aspx" />
     <Content Include="Customer\Cust_Order_Bill.aspx" />
@@ -91,8 +92,22 @@
     <Content Include="Res\Edit_Profile.aspx" />
     <Content Include="Res\Forgot_Password.aspx" />
     <Content Include="Res\Forgot_Password_OTP.aspx" />
+    <Content Include="Res\Images\12-Pro-Max.png" />
+    <Content Include="Res\Images\12-Pro.png" />
+    <Content Include="Res\Images\Apple-iPhone-13-Pro-Max.jpg" />
+    <Content Include="Res\Images\Apple-iPhone-14-Pro-Max.jpg" />
+    <Content Include="Res\Images\iphone-11.png" />
+    <Content Include="Res\Images\iphone-13-pro.jpg" />
+    <Content Include="Res\Images\iphone-13-pro.png" />
+    <Content Include="Res\Images\iphone-xs-gold-back.jpg" />
+    <Content Include="Res\Images\iPhone_14_Pro.jpg" />
+    <Content Include="Res\Images\iphone_15_pro.jpg" />
+    <Content Include="Res\Images\iphone_15_pro_max.jpg" />
     <Content Include="Res\Images\logo.png" />
+    <Content Include="Res\Images\oneplus-7.jpg" />
+    <Content Include="Res\Images\Rohan.jpg" />
     <Content Include="Res\Images\shop-image.jpg" />
+    <Content Include="Res\Images\vishvas.jpg" />
     <Content Include="Res\Login.aspx" />
     <Content Include="Res\SignOut.aspx" />
     <Content Include="Web.config" />
@@ -167,6 +182,13 @@
     </Compile>
     <Compile Include="Admin\Users.aspx.designer.cs">
       <DependentUpon>Users.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\About_Us.aspx.cs">
+      <DependentUpon>About_Us.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\About_Us.aspx.designer.cs">
+      <DependentUpon>About_Us.aspx</DependentUpon>
     </Compile>
     <Compile Include="Customer\Cart.aspx.cs">
       <DependentUpon>Cart.aspx</DependentUpon>

@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind="Cust_View_Product_Details.aspx.cs" Inherits="OMSMS6.Customer.CUst_View_All_Product" %>
+﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind="Cust_View_Product_Details.aspx.cs" Inherits="OMSMS6.Customer.CUst_View_All_Product" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
 
     <title>OMSMS</title>
 
@@ -33,93 +33,100 @@
     <link rel="stylesheet" href="../Res/CSS/Style.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <form runat="server">
 
         <main class=" bg-gray-900 pt-4 h-screen ">
-        <div class="container mx-auto px-6">
-            <div class="md:flex md:items-center">
-                <div class="w-full h-full  md:w-1/2 lg:h-96">
-                    <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
-                </div>
-                <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                    <h3 class="text-white uppercase text-lg">Nike Air</h3>
-                    <span class="text-white mt-3">Free</span>
-                    <hr class="my-3">
-                    <div class="mt-2">
-                        <label class="text-white text-sm" for="count">Count : </label>
-                        <div class="flex items-center mt-1">
-                            <asp:Button ID="btnDecrease" runat="server" Class="text-white focus:outline-none focus:text-gray-600" Text="-"></asp:Button>
-                            <asp:Label ID="lblCount" runat="server" Class="text-white text-lg mx-2" Text="1"></asp:Label>
-                            <asp:Button ID="btnIncrease" runat="server" Class="text-white focus:outline-none focus:text-gray-600" Text="+"></asp:Button>
-                        </div>
+            <div class="container mx-auto px-6">
+                <div class="md:flex md:items-center">
+                    <div class="w-full h-full  md:w-1/2 lg:h-96">
+                        <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
                     </div>
+                    <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
+                        <asp:Label ID="productName" runat="server" class="text-white uppercase text-lg" >Product Name </asp:Label>
+                        <br />
+                        <asp:Label ID="prdPrice" runat="server" class="text-white uppercase text-lg" >$200</asp:Label>
+                       
+                        <hr class="my-3">
 
-                    <div class="mt-3">
-                        <label class="text-white text-sm" for="count">Color:</label>
-                        <div class="flex items-center mt-1">
-                            <button id="btnColorBlue" class="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none" onclick="selectColor('Blue')"></button>
-                            <button id="btnColorTeal" class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none" onclick="selectColor('Teal')"></button>
-                            <button id="btnColorPink" class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none" onclick="selectColor('Pink')"></button>
+                        <div class="mt-2">
+                            <label class="text-white text-sm" for="count">Count : </label>
+                            <div class="flex items-center mt-1">
+                                <button id="btnDecrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="-">-</button>
+                                <asp:Label ID="lblCount" runat="server" Class="text-white text-lg mx-2" Text="1"></asp:Label>
+                                <button id="btnIncrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="+">+</button>
+                            </div>
                         </div>
-                    </div>
 
-                    <script>
+                        <div class="mt-3">
+                            <label class="text-white text-sm" for="count">Color:</label>
+                            <div class="flex items-center mt-1">
+                                <button id="btnColorBlue" class="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none" onclick="selectColor('Blue')"></button>
+                                <button id="btnColorTeal" class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none" onclick="selectColor('Teal')"></button>
+                                <button id="btnColorPink" class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none" onclick="selectColor('Pink')"></button>
+                            </div>
+                        </div>
 
-                        function selectColor(colorName) {
-                            // Send selected color name to backend
-                            fetch('/ColorSelectionHandler.ashx?color=' + colorName)
-                                .then(response => {
-                                    if (response.ok) {
-                                        return response.text();
-                                    } else {
-                                        throw new Error('Failed to send color selection to server');
-                                    }
-                                })
-                                .then(data => {
-                                    // Display alert with the selected color name
-                                    alert("Selected color: " + colorName);
-                                    // Add border around the selected color
-                                    document.getElementById('btnColor' + colorName).style.border = "2px solid black";
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                });
-                        }
+                        <script>
+
+                            function selectColor(colorName) {
+                                // Send selected color name to backend
+                                fetch('/ColorSelectionHandler.ashx?color=' + colorName)
+                                    .then(response => {
+                                        if (response.ok) {
+                                            return response.text();
+                                        } else {
+                                            throw new Error('Failed to send color selection to server');
+                                        }
+                                    })
+                                    .then(data => {
+                                        // Display alert with the selected color name
+                                        alert("Selected color: " + colorName);
+                                        // Add border around the selected color
+                                        document.getElementById('btnColor' + colorName).style.border = "2px solid black";
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
+                            }
 </script>
 
 
-                    <div class="mt-3 ">
-                        <label class="text-white text-sm" for="count">Size : </label>
-                        <asp:Button ID="btnSuccess1" runat="server" Text="Success" Class="btn btn-outline btn-success mx-2" />
-                        <asp:Button ID="btnSuccess2" runat="server" Text="Success" Class="btn btn-outline btn-success" />
-                        <asp:Button ID="btnSuccess3" runat="server" Text="Success" Class="btn btn-outline btn-success mx-2" />
+                        <div class="mt-3 ">
+                            <label class="text-white text-sm" for="count">Size : </label>
+                            <asp:Button ID="btnSuccess1" runat="server" Text="Success" Class="btn btn-outline btn-success mx-2" />
+                            <asp:Button ID="btnSuccess2" runat="server" Text="Success" Class="btn btn-outline btn-success" />
+                            <asp:Button ID="btnSuccess3" runat="server" Text="Success" Class="btn btn-outline btn-success mx-2" />
 
-                    </div>
-                    <div class="flex items-center mt-6">
-                        <asp:Button ID="btnOrderNow" runat="server" Text="Order Now" Class="px-8 py-2 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500" />
-                        <asp:Button ID="btnCancel" runat="server" Class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none"></asp:Button>
+                        </div>
+                        <div class="flex items-center mt-6">
+                            <asp:Button ID="btnOrderNow" runat="server" Text="Order Now" Class="px-8 py-2 text-white border-1 bg-indigo-500 border-2 border-indigo-500 text-sm font-medium rounded hover:bg-white hover:text-indigo-800 " OnClick="btnOrderNow_Click"></asp:Button >
+                            <asp:Button ID="btnCancel" runat="server" Text="Add to Cart" Class="px-8 py-2 text-white border-1 bg-indigo-500 border-2 border-indigo-500 text-sm font-medium rounded hover:bg-white hover:text-indigo-800 ml-4" OnClick="btnAdd_To_Cart_Click" ></asp:Button>
 
+                        </div>
                     </div>
                 </div>
+
             </div>
+        </main>
 
-        </div>
-    </main>
+        <script>
+            document.getElementById('<%= btnDecrease.ClientID %>').addEventListener('click', function (e) {
+                e.preventDefault();
+                var count = parseInt(document.getElementById('<%= lblCount.ClientID %>').innerHTML);
+               if (count > 1) {
+                   document.getElementById('<%= lblCount.ClientID %>').innerHTML = count - 1;
+               }
+           });
 
-    <script>
-        document.getElementById('btnDecrease').addEventListener('click', function () {
-            var count = parseInt(document.getElementById('lblCount').innerText);
-            if (count > 0) {
-                document.getElementById('lblCount').innerText = count - 1;
-            }
-        });
-
-        document.getElementById('btnIncrease').addEventListener('click', function () {
-            var count = parseInt(document.getElementById('lblCount').innerText);
-            document.getElementById('lblCount').innerText = count + 1;
-        });
-        </script>
-
-
+            document.getElementById('<%= btnIncrease.ClientID %>').addEventListener('click', function (e) {
+                e.preventDefault();
+                var count = parseInt(document.getElementById('<%= lblCount.ClientID %>').innerHTML);
+               document.getElementById('<%= lblCount.ClientID %>').innerHTML = count + 1;
+           });
+</script>
 
 
+
+
+    </form>
 </asp:Content>
