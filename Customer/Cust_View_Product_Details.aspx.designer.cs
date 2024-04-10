@@ -15,13 +15,31 @@ namespace OMSMS6.Customer
     {
 
         /// <summary>
+        /// productName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label productName;
+
+        /// <summary>
+        /// prdPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label prdPrice;
+
+        /// <summary>
         /// btnDecrease control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDecrease;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDecrease;
 
         /// <summary>
         /// lblCount control.
@@ -39,7 +57,7 @@ namespace OMSMS6.Customer
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnIncrease;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnIncrease;
 
         /// <summary>
         /// btnSuccess1 control.

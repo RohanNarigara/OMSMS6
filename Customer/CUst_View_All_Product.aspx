@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true"
-    CodeBehind="Cust_View_All_Product.aspx.cs" Inherits="OMSMS6.Customer.Cust_View_All_Product" %>
+    CodeBehind="    .aspx.cs" Inherits="OMSMS6.Customer.Cust_View_All_Product" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>OMSMS</title>
@@ -68,10 +68,11 @@
         <!-- ✅ Grid Section - Starts Here 👇 -->
         <section id="Projects"
             class="w-fit mx-auto grid xs:grid-cols-1 lg:grid-cols-4 lg:gap-x-5 md:grid-cols-3 md:gap-x-5 sm:grid-cols-2 sm:gap-x-5 justify-items-center justify-center gap-y-20 gap-x-5 mt-10 mb-5">
+            <asp:PlaceHolder ID="ProductContainer" runat="server"></asp:PlaceHolder>
 
             <!--   ✅ Product card 1 - Starts Here 👇 -->
-            <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                <a href="#">
+           <%-- <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+                <a href="Cust_View_Product_Details.aspx?id=1">
                     <img src="https://images.unsplash.com/photo-1646753522408-077ef9839300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
                         alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
                     <div class="px-4 py-3 w-72">
@@ -208,7 +209,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </div>--%>
 
         </section>
 
