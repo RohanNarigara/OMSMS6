@@ -125,6 +125,7 @@
     <Content Include="Customer\Default.aspx" />
     <Content Include="Customer\Registration.aspx" />
     <Content Include="Customer\Registration_OTP.aspx" />
+    <Content Include="Customer\Success_Order.aspx" />
     <Content Include="Customer\View_Product_Details.aspx" />
     <Content Include="Links.ascx" />
     <Content Include="Res\Change_Password.aspx" />
@@ -397,6 +398,13 @@
     </Compile>
     <Compile Include="Customer\Registration_OTP.aspx.designer.cs">
       <DependentUpon>Registration_OTP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\Success_Order.aspx.cs">
+      <DependentUpon>Success_Order.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\Success_Order.aspx.designer.cs">
+      <DependentUpon>Success_Order.aspx</DependentUpon>
     </Compile>
     <Compile Include="Customer\View_Product_Details.aspx.cs">
       <DependentUpon>View_Product_Details.aspx</DependentUpon>
