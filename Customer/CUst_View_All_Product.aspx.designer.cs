@@ -11,11 +11,11 @@ namespace OMSMS6.Customer
 {
 
 
-    public partial class Cust_View_All_Product
+    public partial class Customer_Checkout
     {
 
         /// <summary>
-        /// ProductContainer control.
+        /// viewcartlist control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

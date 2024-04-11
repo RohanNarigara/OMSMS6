@@ -87,6 +87,15 @@ namespace OMSMS6.Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlStorage;
 
         /// <summary>
+        /// psdPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel psdPanel;
+
+        /// <summary>
         /// txtPrice control.
         /// </summary>
         /// <remarks>

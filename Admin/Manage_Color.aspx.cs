@@ -58,6 +58,7 @@ namespace OMSMS6.Admin
             if (!dr.Read())
             {
                 dr.Close();
+                int eid = Convert.ToInt32(Request.QueryString["eid"]);
                 SqlCommand updateColor = new SqlCommand("UPDATE tblColor SET name = @name WHERE id = @id", conn);
                 updateColor.Parameters.AddWithValue("@name", txtColor.Text);
                 updateColor.Parameters.AddWithValue("@id", eid);

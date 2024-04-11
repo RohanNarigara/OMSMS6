@@ -21,7 +21,7 @@ namespace OMSMS6.Customer
         private const string _secret = "UpV5ntauZ58ccScdVF5XXN4s";
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadCart();
+            //LoadCart();
             /*  bindCityState();*/
 
 
@@ -32,32 +32,32 @@ namespace OMSMS6.Customer
         {
            SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
 
-            con.Open();
-            string uid = "1"; // Assuming the user ID is always "1"
-            SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.Price, CP.Quantity FROM tblCartProduct CP JOIN tblProduct P ON CP.Pid = P.Id JOIN tblProductDetail PD ON CP.Pid = PD.Pid WHERE CP.Custid = 1", con);
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.HasRows)
-            {
-                DataTable dt = new DataTable();
-                dt.Load(reader);
-                viewcartlist.DataSource = dt;
-                viewcartlist.DataBind();
-                decimal totalAmount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Price"]) * row.Field<int>("Quantity"));
-                lbltotal.Text = string.Format("&#8377;{0}.00", totalAmount);
-                Session["orderamount"] = string.Format("{0}", totalAmount);
+        //    con.Open();
+        //    string uid = "1"; // Assuming the user ID is always "1"
+        //    SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.Price, CP.Quantity FROM tblCartProduct CP JOIN tblProduct P ON CP.Pid = P.Id JOIN tblProductDetail PD ON CP.Pid = PD.Pid WHERE CP.Custid = 1", con);
+        //    SqlDataReader reader = cmd.ExecuteReader();
+        //    if (reader.HasRows)
+        //    {
+        //        DataTable dt = new DataTable();
+        //        dt.Load(reader);
+        //        viewcartlist.DataSource = dt;
+        //        viewcartlist.DataBind();
+        //        decimal totalAmount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Price"]) * row.Field<int>("Quantity"));
+        //        lbltotal.Text = string.Format("&#8377;{0}.00", totalAmount);
+        //        Session["orderamount"] = string.Format("{0}", totalAmount);
 
 
-            }
-            else
-            {
-                // If cart is empty, show message or handle accordingly
-                ScriptManager.RegisterStartupScript(this, GetType(), "showToastdanget", "showToastdanget('Empty Cart !!!');", true);
-                /*lbltotal.Visible = false; // Hide total amount label
-                viewcartlist.Visible = false; // Hide repeater*/
+        //    }
+        //    else
+        //    {
+        //        // If cart is empty, show message or handle accordingly
+        //        ScriptManager.RegisterStartupScript(this, GetType(), "showToastdanget", "showToastdanget('Empty Cart !!!');", true);
+        //        /*lbltotal.Visible = false; // Hide total amount label
+        //        viewcartlist.Visible = false; // Hide repeater*/
 
-            }
-            con.Close();
-        }
+        //    }
+        //    con.Close();
+        //}
 
         protected void Cancel_order(object sender, EventArgs e)
         {
@@ -152,18 +152,8 @@ namespace OMSMS6.Customer
                     Console.WriteLine("Invalid input. Please enter a valid decimal number.");
                 }
 
-
-
-
-
-
             }
-
-
-
         }
-
-
 
         private string CreateOrder(decimal amountInSubunits, string currency, Dictionary<string, string> notes)
         {

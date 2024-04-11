@@ -2,7 +2,20 @@
 
 <%@ Register Src="~/Links.ascx" TagName="Links" TagPrefix="omsms" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <omsms:Links runat="server" />
+    <%-- Tailwind CSS CDN --%>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../Admin/Res/Css/Admin_Css.css">
+
+    <%-- JQuery CDNs --%>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+    <%-- Error Color --%>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
     <%-- Validating Input --%>
     <script>
         $(document).ready(function () {
@@ -111,29 +124,33 @@
                                 <asp:DropDownList runat="server" ID="ddlStorage" AutoPostBack="true" DataTextField="storage" DataValueField="id" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" OnSelectedIndexChanged="ddlStorage_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </ContentTemplate>
-                            <%--<Triggers>
+                            <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="ddlStorage" />
-                            </Triggers>--%>
+                            </Triggers>
                         </asp:UpdatePanel>
                     </div>
 
-                    <%-- Price --%>
-                    <div class="mt-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Product Price</label>
-                        <asp:TextBox runat="server" ID="txtPrice" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
-                    </div>
+                    <asp:UpdatePanel runat="server" ID="psdPanel">
+                        <ContentTemplate>
+                            <%-- Price --%>
+                            <div class="mt-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Product Price</label>
+                                <asp:TextBox runat="server" ID="txtPrice" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                            </div>
 
-                    <%-- Stock --%>
-                    <div class="mt-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Product Stock</label>
-                        <asp:TextBox runat="server" ID="txtStock" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
-                    </div>
+                            <%-- Stock --%>
+                            <div class="mt-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Product Stock</label>
+                                <asp:TextBox runat="server" ID="txtStock" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                            </div>
 
-                    <%-- Description --%>
-                    <div class="mt-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Product Description</label>
-                        <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
-                    </div>
+                            <%-- Description --%>
+                            <div class="mt-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Product Description</label>
+                                <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
                     <%-- Update Button --%>
                     <div class="mt-4">
