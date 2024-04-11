@@ -15,102 +15,111 @@ namespace OMSMS6.Customer
     {
 
         /// <summary>
-        /// productName control.
+        /// AddProductCartForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label productName;
+        protected global::System.Web.UI.HtmlControls.HtmlForm AddProductCartForm;
 
         /// <summary>
-        /// prdPrice control.
+        /// imgProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label prdPrice;
+        protected global::System.Web.UI.WebControls.Image imgProduct;
 
         /// <summary>
-        /// btnDecrease control.
+        /// lblProductName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnDecrease;
+        protected global::System.Web.UI.WebControls.Label lblProductName;
 
         /// <summary>
-        /// hdnCount control.
+        /// updatepanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnCount;
+        protected global::System.Web.UI.UpdatePanel updatepanel1;
 
         /// <summary>
-        /// lblCount control.
+        /// colorPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCount;
+        protected global::System.Web.UI.UpdatePanel colorPanel;
 
         /// <summary>
-        /// btnIncrease control.
+        /// ddlColor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnIncrease;
+        protected global::System.Web.UI.WebControls.DropDownList ddlColor;
 
         /// <summary>
-        /// btnSuccess1 control.
+        /// storagePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSuccess1;
+        protected global::System.Web.UI.UpdatePanel storagePanel;
 
         /// <summary>
-        /// btnSuccess2 control.
+        /// ddlStorage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSuccess2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStorage;
 
         /// <summary>
-        /// btnSuccess3 control.
+        /// lblProductPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSuccess3;
+        protected global::System.Web.UI.WebControls.Label lblProductPrice;
 
         /// <summary>
-        /// btnOrderNow control.
+        /// lblProductDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrderNow;
+        protected global::System.Web.UI.WebControls.Label lblProductDescription;
 
         /// <summary>
-        /// btnCancel control.
+        /// txtCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.TextBox txtCount;
+
+        /// <summary>
+        /// btnAddToCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddToCart;
     }
 }

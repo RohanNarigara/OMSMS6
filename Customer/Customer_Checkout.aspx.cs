@@ -28,9 +28,9 @@ namespace OMSMS6.Customer
         }
 
 
-        protected void LoadCart()
-        {
-            SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+        //protected void LoadCart()
+        //{
+        //    SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
 
             con.Open();
             string uid = "1"; // Assuming the user ID is always "1"

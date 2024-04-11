@@ -108,6 +108,7 @@
     <Content Include="Admin\Manage_City.aspx" />
     <Content Include="Admin\Manage_Color.aspx" />
     <Content Include="Admin\Manage_Product.aspx" />
+    <Content Include="Admin\Manage_Product_Details.aspx" />
     <Content Include="Admin\Manage_State.aspx" />
     <Content Include="Admin\Manage_Storage.aspx" />
     <Content Include="Admin\Manage_User.aspx" />
@@ -294,6 +295,13 @@
     </Compile>
     <Compile Include="Admin\Manage_Product.aspx.designer.cs">
       <DependentUpon>Manage_Product.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Manage_Product_Details.aspx.cs">
+      <DependentUpon>Manage_Product_Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Manage_Product_Details.aspx.designer.cs">
+      <DependentUpon>Manage_Product_Details.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Manage_State.aspx.cs">
       <DependentUpon>Manage_State.aspx</DependentUpon>

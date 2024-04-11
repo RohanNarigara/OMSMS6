@@ -18,11 +18,20 @@ namespace OMSMS6.Customer
     {
 
         SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+        //SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                if (Session["uid"] == null)
+                {
+                    Response.Write("<script>alert('Please Login First'); window.location='../Customer/Default.aspx'</script>");
+                }
+                else
+                {
+                    LoadCart();
+                }
                 if (!string.IsNullOrEmpty(Request.QueryString["cartid"]))
                 {
                     int cartId;
@@ -49,7 +58,6 @@ namespace OMSMS6.Customer
                         UpdatecartPItem(cartpId);
                     }
                 }
-                LoadCart();
             }
         }
 
@@ -57,10 +65,9 @@ namespace OMSMS6.Customer
         {
             con.Open();
 
-           
-            /*
-                        String u_id = Session["u_id"].ToString();*/
-            String uid = 1.ToString();
+
+            String uid = Session["uid"].ToString();
+            //String uid = 1.ToString();
 
             SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.Price, CP.Quantity FROM tblCartProduct CP JOIN tblProduct P ON CP.Pid = P.Id JOIN tblProductDetail PD ON CP.Pid = PD.Pid WHERE CP.Custid =" + uid + ";", con);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -87,53 +94,53 @@ namespace OMSMS6.Customer
             con.Close();
         }
 
-         private void UpdatecartMItem(int cartmId)
-         {
-             con.Open();
-             using (SqlCommand cmdSelect = new SqlCommand("SELECT Quantity FROM tblCartProduct WHERE Id ="+ cartmId+";", con))
-             {
-                 cmdSelect.Parameters.AddWithValue("@cartmid", cartmId);
-                 int currentQuantity = Convert.ToInt32(cmdSelect.ExecuteScalar());
+        private void UpdatecartMItem(int cartmId)
+        {
+            con.Open();
+            using (SqlCommand cmdSelect = new SqlCommand("SELECT Quantity FROM tblCartProduct WHERE Id =" + cartmId + ";", con))
+            {
+                cmdSelect.Parameters.AddWithValue("@cartmid", cartmId);
+                int currentQuantity = Convert.ToInt32(cmdSelect.ExecuteScalar());
 
-                 // Check if current quantity is greater than 1 before decrementing
-                 if (currentQuantity > 1)
-                 {
-                     using (SqlCommand cmdUpdate = new SqlCommand("UPDATE tbl_cart SET Quantity = Quantity - 1 WHERE Id = @cartmid", con))
-                     {
-                         cmdUpdate.Parameters.AddWithValue("@cartmid", cartmId);
-                         cmdUpdate.ExecuteNonQuery();
-                     }
-                 }
-                 else
-                 {
-                     using (SqlCommand cmdDelete = new SqlCommand("delete from tblCartProduct WHERE Id = @cartmid", con))
-                     {
-                         cmdDelete.Parameters.AddWithValue("@cartmid", cartmId);
-                         cmdDelete.ExecuteNonQuery();
-                     }
-                 }
-             }
+                // Check if current quantity is greater than 1 before decrementing
+                if (currentQuantity > 1)
+                {
+                    using (SqlCommand cmdUpdate = new SqlCommand("UPDATE tbl_cart SET Quantity = Quantity - 1 WHERE Id = @cartmid", con))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@cartmid", cartmId);
+                        cmdUpdate.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    using (SqlCommand cmdDelete = new SqlCommand("delete from tblCartProduct WHERE Id = @cartmid", con))
+                    {
+                        cmdDelete.Parameters.AddWithValue("@cartmid", cartmId);
+                        cmdDelete.ExecuteNonQuery();
+                    }
+                }
+            }
 
-             con.Close();
+            con.Close();
 
-             // Redirect back to the cart page
-             Response.Redirect("cart.aspx");
-         }
+            // Redirect back to the cart page
+            Response.Redirect("cart.aspx");
+        }
 
-         private void UpdatecartPItem(int cartpId)
-         {
+        private void UpdatecartPItem(int cartpId)
+        {
 
-             con.Open();
-             using (SqlCommand cmd = new SqlCommand("update tblCartProduct set Quantity=Quantity+1 WHERE Id = @cartpid", con))
-             {
-                 cmd.Parameters.AddWithValue("@cartpid", cartpId);
-                 cmd.ExecuteNonQuery();
-             }
+            con.Open();
+            using (SqlCommand cmd = new SqlCommand("update tblCartProduct set Quantity=Quantity+1 WHERE Id = @cartpid", con))
+            {
+                cmd.Parameters.AddWithValue("@cartpid", cartpId);
+                cmd.ExecuteNonQuery();
+            }
 
 
-             // Redirect back to the product page after deletings
-             Response.Redirect("cart.aspx");
-         }
+            // Redirect back to the product page after deletings
+            Response.Redirect("cart.aspx");
+        }
 
         private void DeletecartItem(int cartId)
         {
@@ -156,9 +163,9 @@ namespace OMSMS6.Customer
         protected void emtycart_Click(object sender, EventArgs e)
         {
             con.Open();
-/*            String u_id = Session["u_id"].ToString();*/
+            /*            String u_id = Session["u_id"].ToString();*/
             String u_id = 1.ToString();
-            using (SqlCommand cmd = new SqlCommand("DELETE FROM tblCartProduct WHERE CustId ="+ u_id, con))
+            using (SqlCommand cmd = new SqlCommand("DELETE FROM tblCartProduct WHERE CustId =" + u_id, con))
             {
                 cmd.ExecuteNonQuery();
             }
