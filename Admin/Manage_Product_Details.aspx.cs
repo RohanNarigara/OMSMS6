@@ -22,6 +22,7 @@ namespace OMSMS6.Admin
                     fetchInfo();
                     bindColor();
                     bindStorage(0);
+                    bindPSD(0, 0);
                 }
                 else
                 {
@@ -110,6 +111,7 @@ namespace OMSMS6.Admin
             {
                 cid = Convert.ToInt32(ddlColor.SelectedValue);
                 bindStorage(cid);
+                bindPSD(0, 0);
             }
             else
             {
@@ -159,17 +161,16 @@ namespace OMSMS6.Admin
             }
         }
 
-        protected void ddlStorage_SelectedIndexChanged(object sender, EventArgs e)
+        protected void bindPSD(int cid, int sid)
         {
-            int sid;
-            if (!string.IsNullOrEmpty(ddlStorage.SelectedValue) && int.TryParse(ddlStorage.SelectedValue, out sid) && sid > 0)
+            if (cid > 0 && sid > 0)
             {
                 conn.Close();
                 conn.Open();
                 int eid = Convert.ToInt32(Request.QueryString["eid"]);
                 SqlCommand selectProductDetail = new SqlCommand("SELECT * FROM tblProductDetail WHERE pid=@pid AND cid=@cid AND sid=@sid", conn);
                 selectProductDetail.Parameters.AddWithValue("@pid", eid);
-                selectProductDetail.Parameters.AddWithValue("@cid", Convert.ToInt32(ddlColor.SelectedValue));
+                selectProductDetail.Parameters.AddWithValue("@cid", cid);
                 selectProductDetail.Parameters.AddWithValue("@sid", sid);
                 SqlDataReader drProductDetail = selectProductDetail.ExecuteReader();
                 if (drProductDetail.Read())
@@ -186,6 +187,22 @@ namespace OMSMS6.Admin
                 }
                 drProductDetail.Close();
                 conn.Close();
+            }
+            else
+            {
+                txtPrice.Text = "No data found!";
+                txtDescription.Text = "No data found!";
+                txtStock.Text = "No data found!";
+            }
+        }
+        protected void ddlStorage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int sid, cid;
+            if (!string.IsNullOrEmpty(ddlStorage.SelectedValue) && int.TryParse(ddlStorage.SelectedValue, out sid) && sid > 0)
+            {
+                sid = Convert.ToInt32(ddlStorage.SelectedValue);
+                cid = Convert.ToInt32(ddlColor.SelectedValue);
+                bindPSD(cid, sid);
             }
             else
             {

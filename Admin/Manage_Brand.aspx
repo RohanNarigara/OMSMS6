@@ -2,7 +2,20 @@
 
 <%@ Register Src="~/Links.ascx" TagName="Links" TagPrefix="omsms" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <omsms:Links runat="server" />
+    <%-- Tailwind CSS CDN --%>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../Admin/Res/Css/Admin_Css.css">
+
+    <%-- JQuery CDNs --%>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+    <%-- Error Color --%>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 
     <%-- Validating Input --%>
     <script>
@@ -34,9 +47,9 @@
                     <ion-icon onclick="onClickClose()" name="close" class="text-2xl cursor-pointer"></ion-icon>
                 </div>
                 <h2 class="text-2xl font-semibold text-gray-700 text-center">OMSMS</h2>
-                <p class="text-xl text-gray-600 text-center">Add Brand</p>
+                <p class="text-xl text-gray-600 text-center">Update Brand</p>
 
-                <%-- Add Brand Form --%>
+                <%-- Update Brand Form --%>
                 <form id="updateBrandForm" class="relative" runat="server">
 
                     <%-- Name --%>

@@ -35,7 +35,34 @@ namespace OMSMS6.Admin
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-
+            conn.Close();
+            conn.Open();
+            SqlCommand checkStorage = new SqlCommand("SELECT * FROM tblStorage WHERE storage = @storage", conn);
+            checkStorage.Parameters.AddWithValue("@storage", txtStorage.Text);
+            SqlDataReader dr = checkStorage.ExecuteReader();
+            if (!dr.Read())
+            {
+                dr.Close();
+                int eid = Convert.ToInt32(Request.QueryString["eid"]);
+                SqlCommand updateStorage = new SqlCommand("UPDATE tblStorage SET storage = @storage WHERE id = @id", conn);
+                updateStorage.Parameters.AddWithValue("@storage", txtStorage.Text);
+                updateStorage.Parameters.AddWithValue("@id", eid);
+                int isUpdated = updateStorage.ExecuteNonQuery();
+                if (isUpdated > 0)
+                {
+                    Response.Write("<script>alert('Storage Updated Successfully!'); window.location='../Admin/Other.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Error in Storage Updation!');</script>");
+                }
+            }
+            else
+            {
+                dr.Close();
+                Response.Write("<script>alert('Storage already exists!'); window.location='../Admin/Other.aspx';</script>");
+            }
+            conn.Close();
         }
 
         protected void fetchInfo()

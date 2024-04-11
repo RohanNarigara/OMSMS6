@@ -58,6 +58,7 @@ namespace OMSMS6.Admin
             if (!dr.Read())
             {
                 dr.Close();
+                int eid = Convert.ToInt32(Request.QueryString["eid"]);
                 SqlCommand updateState = new SqlCommand("UPDATE tblState SET name = @name WHERE id = @id", conn);
                 updateState.Parameters.AddWithValue("@name", txtState.Text);
                 updateState.Parameters.AddWithValue("@id", eid);
@@ -69,7 +70,7 @@ namespace OMSMS6.Admin
                 else
                 {
                     dr.Close();
-                    Response.Write("<script>alert('Error in State Updation!');</script>");
+                    Response.Write("<script>alert('Error in State Updation!"+eid+','+txtState.Text+"');</script>");
                 }
             }
             else

@@ -1,8 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Add_Users.aspx.cs" Inherits="OMSMS6.Admin.Add_Users" %>
+﻿<%@ Page Title="OMSMS | Users" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Add_Users.aspx.cs" Inherits="OMSMS6.Admin.Add_Users" %>
 
 <%@ Register Src="~/Links.ascx" TagName="Links" TagPrefix="omsms" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <omsms:Links runat="server" />
+    <%-- Tailwind CSS CDN --%>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../Admin/Res/Css/Admin_Css.css">
+
+    <%-- JQuery CDNs --%>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+    <%-- Error Color --%>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 
     <!-- toastr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -138,7 +151,7 @@
 
                     <%-- User's Role in DropDownList --%>
                     <div class="mt-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Role</label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Select Role</label>
                         <asp:DropDownList runat="server" ID="ddlRole" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none">
                             <asp:ListItem Value="0">Admin</asp:ListItem>
                             <asp:ListItem Value="1">Customer</asp:ListItem>
