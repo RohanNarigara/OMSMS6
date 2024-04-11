@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -41,54 +42,60 @@ namespace OMSMS6.Admin
 
             if (imgProduct.HasFile)
             {
-                string extention = Path.GetExtension(imgProduct.FileName).ToLower();
-                if (extention == ".png" || extention == ".jpg" || extention == ".jpeg")
+                try
                 {
-                    if (imgProduct.PostedFile.ContentLength <= 2097152)
+                    string extention = Path.GetExtension(imgProduct.FileName).ToLower();
+                    if (extention == ".png" || extention == ".jpg" || extention == ".jpeg")
                     {
-                        string fileName = Path.GetFileName(imgProduct.FileName);
-                        string path = Server.MapPath("../Res/Uploads/") + fileName;
-                        imgProduct.SaveAs(path);
-
-                        conn.Close();
-                        conn.Open();
-                        int eid = Convert.ToInt32(Request.QueryString["eid"]);
-                        SqlCommand checkProduct = new SqlCommand("SELECT * FROM tblProduct WHERE name=@name AND id!=@id", conn);
-                        checkProduct.Parameters.AddWithValue("@name", name);
-                        checkProduct.Parameters.AddWithValue("@id", eid);
-                        SqlDataReader drProduct = checkProduct.ExecuteReader();
-                        if (!drProduct.Read())
+                        if (imgProduct.PostedFile.ContentLength <= 2097152)
                         {
-                            drProduct.Close();
-                            SqlCommand updateProduct = new SqlCommand("UPDATE tblProduct SET name=@name, bid=@bid, imageName=@imageName WHERE id=@id", conn);
-                            updateProduct.Parameters.AddWithValue("@name", name);
-                            updateProduct.Parameters.AddWithValue("@bid", brand);
-                            updateProduct.Parameters.AddWithValue("@imageName", imgProduct.FileName);
-                            updateProduct.Parameters.AddWithValue("@id", eid);
-                            int isUpdated = updateProduct.ExecuteNonQuery();
-                            if (isUpdated > 0)
+                            string fileName = Path.GetFileName(imgProduct.FileName);
+                            imgProduct.SaveAs(Server.MapPath("../Res/Uploads/") + fileName);
+
+                            conn.Close();
+                            conn.Open();
+                            int eid = Convert.ToInt32(Request.QueryString["eid"]);
+                            SqlCommand checkProduct = new SqlCommand("SELECT * FROM tblProduct WHERE name=@name AND id!=@id", conn);
+                            checkProduct.Parameters.AddWithValue("@name", name);
+                            checkProduct.Parameters.AddWithValue("@id", eid);
+                            SqlDataReader drProduct = checkProduct.ExecuteReader();
+                            if (!drProduct.Read())
                             {
-                                Response.Write("<script>alert('Product updated successfully!'); window.location='../Admin/Products.aspx';</script>");
+                                drProduct.Close();
+                                SqlCommand updateProduct = new SqlCommand("UPDATE tblProduct SET name=@name, bid=@bid, imageName=@imageName WHERE id=@id", conn);
+                                updateProduct.Parameters.AddWithValue("@name", name);
+                                updateProduct.Parameters.AddWithValue("@bid", brand);
+                                updateProduct.Parameters.AddWithValue("@imageName", imgProduct.FileName);
+                                updateProduct.Parameters.AddWithValue("@id", eid);
+                                int isUpdated = updateProduct.ExecuteNonQuery();
+                                if (isUpdated > 0)
+                                {
+                                    Response.Write("<script>alert('Product updated successfully!'); window.location='../Admin/Products.aspx';</script>");
+                                }
+                                else
+                                {
+                                    Response.Write("<script>alert('Product not updated!')</script>");
+                                }
                             }
                             else
                             {
-                                Response.Write("<script>alert('Product not updated!')</script>");
+                                Response.Write("<script>alert('Product is already exist!')</script>");
                             }
+                            conn.Close();
                         }
                         else
                         {
-                            Response.Write("<script>alert('Product is already exist!')</script>");
+                            Response.Write("<script>alert('Image size should be less than 2MB!')</script>");
                         }
-                        conn.Close();
                     }
                     else
                     {
-                        Response.Write("<script>alert('Image size should be less than 2MB!')</script>");
+                        Response.Write("<script>alert('Image should be in png, jpg or jpeg format!')</script>");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Response.Write("<script>alert('Image should be in png, jpg or jpeg format!')</script>");
+                    Response.Write("<script>alert('Error in Image Upload!')</script>");
                 }
             }
             else

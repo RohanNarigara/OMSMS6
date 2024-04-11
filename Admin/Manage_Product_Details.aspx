@@ -1,4 +1,4 @@
-﻿<%@ Page Title="OMSMS | Products" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Add_Product_Details.aspx.cs" Inherits="OMSMS6.Admin.Add_Product_Details" %>
+﻿<%@ Page Title="OMSMS | Products" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Manage_Product_Details.aspx.cs" Inherits="OMSMS6.Admin.Manage_Product_Details" %>
 
 <%@ Register Src="~/Links.ascx" TagName="Links" TagPrefix="omsms" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -6,55 +6,55 @@
     <%-- Validating Input --%>
     <script>
         $(document).ready(function () {
-            $("#AddProductDetailsForm").validate({
+            $("#UpdateProductDetailsForm").validate({
                 rules: {
-                    "<%=ddlBrand.UniqueID%>": {
+                 "<%=txtBrand.UniqueID%>": {
                         required: true
                     },
-                    "<%=ddlName.UniqueID%>": {
+                 "<%=txtName.UniqueID%>": {
                         required: true
                     },
-                    "<%=ddlColor.UniqueID%>": {
+                 "<%=ddlColor.UniqueID%>": {
                         required: true
                     },
-                    "<%=ddlStorage.UniqueID%>": {
+                 "<%=ddlStorage.UniqueID%>": {
                         required: true
                     },
-                    "<%=txtDescription.UniqueID%>": {
+                 "<%=txtDescription.UniqueID%>": {
                         required: true
                     },
-                    "<%=txtPrice.UniqueID%>": {
+                 "<%=txtPrice.UniqueID%>": {
                         required: true,
                         number: true,
                     },
-                    "<%=txtStock.UniqueID%>": {
+                 "<%=txtStock.UniqueID%>": {
                         required: true,
                         number: true,
                     }
                 },
                 messages: {
-                   "<%=ddlBrand.UniqueID%>": {
+                "<%=txtBrand.UniqueID%>": {
                         required: "Please select a Brand"
                     },
-                    "<%=ddlName.UniqueID%>": {
+                 "<%=txtName.UniqueID%>": {
                         required: "Please select a Product"
                     },
-                    "<%=ddlColor.UniqueID%>": {
+                 "<%=ddlColor.UniqueID%>": {
                         required: "Please select a Color"
                     },
-                    "<%=ddlStorage.UniqueID%>": {
+                 "<%=ddlStorage.UniqueID%>": {
                         required: "Please select a Storage"
                     },
-                    "<%=txtDescription.UniqueID%>": {
+                 "<%=txtDescription.UniqueID%>": {
                         required: "Please enter a Description"
                     },
-                    "<%=txtPrice.UniqueID%>": {
+                 "<%=txtPrice.UniqueID%>": {
                         required: "Please enter a Price",
-                        number: "Please enter a valid Price"
+                        number: "Please enter a valid Price",
                     },
-                    "<%=txtStock.UniqueID%>": {
+                 "<%=txtStock.UniqueID%>": {
                         required: "Please enter a Stock",
-                        number: "Please enter a valid Stock"
+                        number: "Please enter a valid Stock",
                     }
                 },
             });
@@ -70,46 +70,31 @@
                     <ion-icon onclick="onClickClose()" name="close" class="text-2xl cursor-pointer"></ion-icon>
                 </div>
                 <h2 class="text-2xl font-semibold text-gray-700 text-center">OMSMS</h2>
-                <p class="text-xl text-gray-600 text-center">Add Product Details</p>
+                <p class="text-xl text-gray-600 text-center">Update Product Details</p>
 
-                <%-- Add Product Form --%>
-                <form id="AddProductDetailsForm" class="relative" runat="server" enctype="multipart/form-data">
+                <%-- Update Product Form --%>
+                <form id="UpdateProductDetailsForm" class="relative" runat="server" enctype="multipart/form-data">
 
-                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+                    <%-- Brand --%>
                     <div class="mt-4">
-                        <%-- Brand --%>
-                        <asp:UpdatePanel runat="server" ID="brandPanel">
-                            <ContentTemplate>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Brand</label>
-                                <asp:DropDownList runat="server" ID="ddlBrand" AutoPostBack="true" DataTextField="name" DataValueField="id" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" OnSelectedIndexChanged="ddlBrand_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </ContentTemplate>
-                            <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID="ddlBrand" />
-                            </Triggers>
-                        </asp:UpdatePanel>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Brand</label>
+                        <asp:TextBox runat="server" ID="txtBrand" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" ReadOnly="true" />
                     </div>
 
                     <%-- Name --%>
                     <div class="mt-4">
-                        <asp:UpdatePanel runat="server" ID="namePanel">
-                            <ContentTemplate>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Product Name</label>
-                                <asp:DropDownList runat="server" ID="ddlName" AutoPostBack="true" DataTextField="name" DataValueField="id" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" OnSelectedIndexChanged="ddlName_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </ContentTemplate>
-                            <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID="ddlName" />
-                            </Triggers>
-                        </asp:UpdatePanel>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Product Name</label>
+                        <asp:TextBox runat="server" ID="txtName" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" ReadOnly="true" />
                     </div>
 
+                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                     <%-- color --%>
                     <div class="mt-4">
                         <asp:UpdatePanel runat="server" ID="colorPanel">
                             <ContentTemplate>
                                 <label class="block text-gray-700 text-sm font-bold mb-2">Product Color</label>
-                                <asp:DropDownList runat="server" ID="ddlColor" AutoPostBack="true" DataTextField="name" DataValueField="id" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none">
+                                <asp:DropDownList runat="server" ID="ddlColor" AutoPostBack="true" DataTextField="name" DataValueField="id" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" OnSelectedIndexChanged="ddlColor_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </ContentTemplate>
                             <Triggers>
@@ -123,25 +108,25 @@
                         <asp:UpdatePanel runat="server" ID="storagePanel">
                             <ContentTemplate>
                                 <label class="block text-gray-700 text-sm font-bold mb-2">Product Storage</label>
-                                <asp:DropDownList runat="server" ID="ddlStorage" AutoPostBack="true" DataTextField="storage" DataValueField="id" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none">
+                                <asp:DropDownList runat="server" ID="ddlStorage" AutoPostBack="true" DataTextField="storage" DataValueField="id" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" OnSelectedIndexChanged="ddlStorage_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </ContentTemplate>
-                            <Triggers>
+                            <%--<Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="ddlStorage" />
-                            </Triggers>
+                            </Triggers>--%>
                         </asp:UpdatePanel>
                     </div>
 
                     <%-- Price --%>
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Product Price</label>
-                        <asp:TextBox runat="server" ID="txtPrice" TextMode="Number" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                        <asp:TextBox runat="server" ID="txtPrice" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                     </div>
 
                     <%-- Stock --%>
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Product Stock</label>
-                        <asp:TextBox runat="server" ID="txtStock" TextMode="Number" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                        <asp:TextBox runat="server" ID="txtStock" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                     </div>
 
                     <%-- Description --%>
@@ -150,9 +135,9 @@
                         <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                     </div>
 
-                    <%-- Add Button --%>
+                    <%-- Update Button --%>
                     <div class="mt-4">
-                        <asp:Button runat="server" ID="btnAdd" OnClick="btnAdd_Click" class="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600" Text="Add"></asp:Button>
+                        <asp:Button runat="server" ID="btnUpdate" OnClick="btnUpdate_Click" class="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600" Text="Update"></asp:Button>
                     </div>
                 </form>
             </div>

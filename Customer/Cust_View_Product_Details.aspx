@@ -1,7 +1,39 @@
-﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind="Cust_View_Product_Details.aspx.cs" Inherits="OMSMS6.Customer.CUst_View_All_Product" %>
+﻿<%@ Page Title="OMSMS | Product" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind="Cust_View_Product_Details.aspx.cs" Inherits="OMSMS6.Customer.CUst_View_All_Product" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <%-- JQuery CDNs --%>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
+    <%-- Error Color --%>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <%-- Validating Input --%>
+    <script>
+        $(document).ready(function () {
+            $("#AddProductCartForm").validate({
+                rules: {
+                "<%=ddlColor.UniqueID%>": {
+                        required: true
+                    },
+                "<%=ddlStorage.UniqueID%>": {
+                        required: true
+                    },
+                },
+                messages: {
+                "<%=ddlColor.UniqueID%>": {
+                        required: "Please select a Color"
+                    },
+                "<%=ddlStorage.UniqueID%>": {
+                        required: "Please select a Storage"
+                    },
+                },
+            });
+        });
+    </script>
     <title>OMSMS</title>
 
     <meta charset="UTF-8">
@@ -34,65 +66,105 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form runat="server">
+    <form runat="server" id="AddProductCartForm">
 
-        <main class=" bg-gray-900 pt-4 h-screen ">
+
+        <main class=" pt-4 h-screen ">
             <div class="container mx-auto px-6">
                 <div class="md:flex md:items-center">
-                    <div class="w-full h-full  md:w-1/2 lg:h-96">
-                        <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
+                    <div class="w-full h-full  md:w-1/2 lg:h-full">
+                        <%--<img id="" class="h-full w-full rounded-md object-cover max-w-lg mx-auto" alt="">--%>
+                        <asp:Image ID="imgProduct" runat="server" class="h-full w-full rounded-md object-cover max-w-lg mx-auto" />
                     </div>
                     <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                        <asp:Label ID="productName" runat="server" class="text-white uppercase text-lg" >Product Name </asp:Label>
-                        <br />
-                        <asp:Label ID="prdPrice" runat="server" class="text-white uppercase text-lg" >$200</asp:Label>
-                       
+                        <asp:Label ID="lblProductName" runat="server" class="text-white uppercase text-lg"></asp:Label>
+
                         <hr class="my-3">
 
-                      <div class="mt-2">
-                            <label class="text-white text-sm" for="count">Count :</label>
-                            <div class="flex items-center mt-1">
-                                <button id="btnDecrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="-">-</button>
-                                <asp:HiddenField ID="hdnCount" runat="server" Value="1" />
-                                <asp:Label ID="lblCount" runat="server" CssClass="text-white text-lg mx-2"><%# hdnCount.Value %></asp:Label>
-                                <button id="btnIncrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="+">+</button>
+                        <asp:ScriptManager runat="server" />
+                        <asp:UpdatePanel runat="server" ID="updatepanel1">
+                            <ContentTemplate>
+                                <div class="mt-2">
+                                    <div class="mt-3">
+                                        <%-- <asp:DropDownList ID="ddlColor" runat="server" DataTextField="name" DataValueField="id" class="ml-5 bg-white divide-y divide-gray-100 rounded-lg text-black shadow w-44" OnSelectedIndexChanged="ddlColor_SelectedIndexChanged">
+                                        </asp:DropDownList>--%>
+                                        <div class="mt-4">
+                                            <%-- Color --%>
+                                            <asp:UpdatePanel runat="server" ID="colorPanel">
+                                                <ContentTemplate>
+                                                    <label class="text-white text-sm">Color: </label>
+                                                    <asp:DropDownList runat="server" ID="ddlColor" AutoPostBack="true" DataTextField="name" DataValueField="id" class="ml-5 bg-white divide-y divide-gray-100 rounded-lg text-black shadow w-44" OnSelectedIndexChanged="ddlColor_SelectedIndexChanged">
+                                                    </asp:DropDownList>
+                                                    <label id="ContentPlaceHolder1_ddlColor-error" class="error ml-2" for="ContentPlaceHolder1_ddlColor"></label>
+                                                </ContentTemplate>
+                                                <Triggers>
+                                                    <asp:AsyncPostBackTrigger ControlID="ddlColor" />
+                                                </Triggers>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <%--<asp:DropDownList ID="ddlStorage" runat="server" DataTextField="storage" DataValueField="id" class="ml-5 bg-white divide-y divide-gray-100 rounded-lg text-black shadow w-44" OnSelectedIndexChanged="ddlStorage_SelectedIndexChanged">
+                                        </asp:DropDownList>--%>
+
+                                        <asp:UpdatePanel runat="server" ID="storagePanel">
+                                            <ContentTemplate>
+                                                <label class="text-white text-sm">Storage: </label>
+                                                <asp:DropDownList runat="server" ID="ddlStorage" AutoPostBack="true" DataTextField="storage" DataValueField="id" class="ml-5 bg-white divide-y divide-gray-100 rounded-lg text-black shadow w-44" OnSelectedIndexChanged="ddlStorage_SelectedIndexChanged">
+                                                </asp:DropDownList>
+                                                <label id="ContentPlaceHolder1_ddlStorage-error" class="error ml-2" for="ContentPlaceHolder1_ddlStorage"></label>
+                                            </ContentTemplate>
+                                            <Triggers>
+                                                <asp:AsyncPostBackTrigger ControlID="ddlStorage" />
+                                            </Triggers>
+                                        </asp:UpdatePanel>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label class="text-white text-sm mt-3 mr-5">Price: </label>
+                                    <asp:Label ID="lblProductPrice" runat="server" class="text-white text-md"></asp:Label>
+                                </div>
+                                <div class="mt-3">
+                                    <label class="text-white text-sm mt-3 mr-5">Description: </label>
+                                    <asp:Label ID="lblProductDescription" runat="server" class="text-white text-md"></asp:Label>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <div class="mt-3 flex space-x-4">
+                            <label class="text-white text-sm mt-1" for="count">Quantity: </label>
+                            <%--<div class="flex items-center mt-1">
+    <button id="btnDecrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="-">-</button>
+    <asp:HiddenField ID="hdnCount" runat="server" Value="1" />
+    <asp:Label ID="lblCount" runat="server" CssClass="text-white text-lg mx-2"><%# hdnCount.Value %></asp:Label>
+    <button id="btnIncrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="+">+</button>
+</div>--%>
+                            <div class="flex items-center">
+                                <button id="btnDecrease" class="text-white text-lg focus:outline-none focus:text-gray-600 mr-2" value="-" onclick="decreaseCount()">-</button>
+                                <asp:TextBox runat="server" ID="txtCount" class="text-center w-10 bg-white text-black focus:outline-none" value="1"></asp:TextBox>
+                                <button id="btnIncrease" class="text-white text-lg focus:outline-none focus:text-gray-600 ml-2" value="+" onclick="increaseCount()">+</button>
                             </div>
-                        </div>
-
-                        <div class="mt-3">
-                            <label class="text-white text-sm" for="count">Color:</label>
-                            <div class="flex items-center mt-1">
-                                <button id="btnColorBlue" class="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none" onclick="selectColor('Blue')"></button>
-                                <button id="btnColorTeal" class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none" onclick="selectColor('Teal')"></button>
-                                <button id="btnColorPink" class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none" onclick="selectColor('Pink')"></button>
-                            </div>
-                        </div>
-
-                        <div class="mt-3 ">
-                            <label class="text-white text-sm" for="count">Size : </label>
-                            <asp:Button ID="btnSuccess1" runat="server" Text="Success" Class="btn btn-outline btn-success mx-2" />
-                            <asp:Button ID="btnSuccess2" runat="server" Text="Success" Class="btn btn-outline btn-success" />
-                            <asp:Button ID="btnSuccess3" runat="server" Text="Success" Class="btn btn-outline btn-success mx-2" />
-
                         </div>
                         <div class="flex items-center mt-6">
-                            <asp:Button ID="btnOrderNow" runat="server" Text="Order Now" Class="px-8 py-2 text-white border-1 bg-indigo-500 border-2 border-indigo-500 text-sm font-medium rounded hover:bg-white hover:text-indigo-800 " OnClick="btnOrderNow_Click"></asp:Button >
-                            <asp:Button ID="btnCancel" runat="server" Text="Add to Cart" Class="px-8 py-2 text-white border-1 bg-indigo-500 border-2 border-indigo-500 text-sm font-medium rounded hover:bg-white hover:text-indigo-800 ml-4" OnClick="btnAdd_To_Cart_Click" ></asp:Button>
-
+                            <%--<asp:Button ID="btnOrderNow" runat="server" Text="Order Now" Class="px-8 py-2 text-white border-1 bg-indigo-500 border-2 border-indigo-500 text-sm font-medium rounded hover:bg-white hover:text-indigo-800 " OnClick="btnOrderNow_Click"></asp:Button>--%>
+                            <%--<asp:Button ID="btnAdd_To_Cart" runat="server" Text="Add to Cart" Class="px-6 py-2 text-white border border-1 text-sm font-bold font-medium rounded hover:bg-white hover:text-indigo-800 ml-4" OnClick="btnAdd_To_Cart_Click"></asp:Button>--%>
+                            <asp:Button runat="server" ID="btnAddToCart" Text="Add to Cart" Class="px-6 py-2 text-white border border-1 text-sm font-bold font-medium rounded hover:bg-white hover:text-indigo-800 ml-4" OnClick="btnAddToCart_Click" />
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
 
-         <script>
-             document.getElementById('<%= btnDecrease.ClientID %>').addEventListener('click', function (e) {
-                 e.preventDefault();
-                 var count = parseInt(document.getElementById('<%= hdnCount.ClientID %>').value);
+
+
+        <%--<script>
+            document.getElementById('<%= btnDecrease.ClientID %>').addEventListener('click', function (e) {
+                e.preventDefault();
+                var count = parseInt(document.getElementById('<%= hdnCount.ClientID %>').value);
                 if (count > 1) {
                     document.getElementById('<%= hdnCount.ClientID %>').value = count - 1;
-                    document.getElementById('<%= lblCount.ClientID %>').innerText = count - 1;
+                     document.getElementById('<%= lblCount.ClientID %>').innerText = count - 1;
                 }
             });
 
@@ -102,7 +174,24 @@
                 document.getElementById('<%= hdnCount.ClientID %>').value = count + 1;
                 document.getElementById('<%= lblCount.ClientID %>').innerText = count + 1;
             });
-         </script>
-
+        </script>--%>
     </form>
+
+    <script>
+        function increaseCount() {
+            var textBox = document.getElementById('<%= txtCount.ClientID %>');
+            var currentValue = parseInt(textBox.value);
+            if (currentValue < 10) {
+                textBox.value = currentValue + 1;
+            }
+        }
+
+        function decreaseCount() {
+            var textBox = document.getElementById('<%= txtCount.ClientID %>');
+            var currentValue = parseInt(textBox.value);
+            if (currentValue > 1) {
+                textBox.value = currentValue - 1;
+            }
+        }
+    </script>
 </asp:Content>

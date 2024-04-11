@@ -33,8 +33,7 @@ namespace OMSMS6.Admin
                     if (imgProduct.PostedFile.ContentLength <= 2097152)
                     {
                         string fileName = Path.GetFileName(imgProduct.FileName);
-                        string path = Server.MapPath("../Res/Uploads/") + fileName;
-                        imgProduct.SaveAs(path);
+                        imgProduct.SaveAs(Server.MapPath("../Res/Uploads/") + fileName);
 
                         conn.Close();
                         conn.Open();
