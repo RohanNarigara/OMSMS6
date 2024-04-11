@@ -32,6 +32,73 @@
 
     <%-- CSS files --%>
     <link rel="stylesheet" href="../Res/CSS/Style.css">
+
+    <%-- JQuery files --%>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $('#form1').validate({
+                rules: {
+                    ctl00$ContentPlaceHolder1$txtfname: {
+                        required: true
+
+                    },
+                    ctl00$ContentPlaceHolder1$txtlname: {
+                        required: true
+
+                    },
+                    ctl00$ContentPlaceHolder1$txtemail: {
+                        required: true,
+                        email: true
+
+                    },
+                    ctl00$ContentPlaceHolder1$txtcontact: {
+                        required: true,
+                        minlength: true
+
+                    },
+                    ctl00$ContentPlaceHolder1$payment: {
+                        required: true
+                    },
+                    ctl00$ContentPlaceHolder1$txtaddress: {
+                        required: true,
+                        minlength: 5
+                    }
+                },
+                messages: {
+                    ctl00$ContentPlaceHolder1$txtfname: {
+                        required: "Please Enter Your First Name"
+
+                    },
+                    ctl00$ContentPlaceHolder1$txtlname: {
+                        required: "Please Enter Your Last Name"
+
+                    },
+                    ctl00$ContentPlaceHolder1$txtemail: {
+                        required: "Please Enter Your Email",
+                        email: "Please enter a valid email address"
+                    },
+                    ctl00$ContentPlaceHolder1$txtcontact: {
+                        required: "Please Enter Your Contact Number",
+                        minlength: "Your Contact must be 10 Digits "
+
+                    },
+                    ctl00$ContentPlaceHolder1$payment: "Please select a Payment Method",
+                    ctl00$ContentPlaceHolder1$txtaddress: {
+                        required: "Please Provide a Delivery Address",
+                        minlength: "Your Address Should be Full Details!!"
+                    }
+                }
+            });
+        });
+    </script>
+
 </asp:Content>
 
 <%@ Import Namespace="System.Data" %>
@@ -61,7 +128,7 @@
                                                         <ul class="text-xs text-white space-y-3 mt-4">
                                                             <li class="flex flex-wrap gap-4">Size <span class="ml-auto">37</span></li>
                                                             <li class="flex flex-wrap gap-4">Quantity <span class="ml-auto"><%# Eval("Quantity") %></span></li>
-                                                            <li class="flex flex-wrap gap-4">Total Price <span class="ml-auto">$<%# Convert.ToDouble(Eval("Price")) * Convert.ToInt32(Eval("Quantity")) %>.00</span></li>
+                                                            <li class="flex flex-wrap gap-4">Total Price <span class="ml-auto"><%# Convert.ToDouble(Eval("Price")) * Convert.ToInt32(Eval("Quantity")) %>.00</span></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -97,8 +164,7 @@
                                         </svg>
                                     </div>
                                     <div class="relative flex items-center">
-                                        <input type="text" placeholder="Last Name"
-                                            class="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none" />
+                                        <asp:TextBox placeholder="Last Name" ID="txtlname" runat="server" class="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"></asp:TextBox>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4"
                                             viewBox="0 0 24 24">
                                             <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
@@ -109,8 +175,7 @@
                                         </svg>
                                     </div>
                                     <div class="relative flex items-center">
-                                        <input type="email" placeholder="Email"
-                                            class="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none" />
+                                        <asp:TextBox placeholder="Email" ID="txtemail" runat="server" class="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"></asp:TextBox>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4"
                                             viewBox="0 0 682.667 682.667">
                                             <defs>
@@ -131,8 +196,9 @@
                                         </svg>
                                     </div>
                                     <div class="relative flex items-center">
-                                        <input type="number" placeholder="Phone No."
-                                            class="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none" />
+                                        <asp:TextBox placeholder="Contact Number" ID="txtcono" runat="server" class="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"></asp:TextBox>
+                                        
+                                        
                                         <svg fill="#bbb" class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 64 64">
                                             <path
                                                 d="m52.148 42.678-6.479-4.527a5 5 0 0 0-6.963 1.238l-1.504 2.156c-2.52-1.69-5.333-4.05-8.014-6.732-2.68-2.68-5.04-5.493-6.73-8.013l2.154-1.504a4.96 4.96 0 0 0 2.064-3.225 4.98 4.98 0 0 0-.826-3.739l-4.525-6.478C20.378 10.5 18.85 9.69 17.24 9.69a4.69 4.69 0 0 0-1.628.291 8.97 8.97 0 0 0-1.685.828l-.895.63a6.782 6.782 0 0 0-.63.563c-1.092 1.09-1.866 2.472-2.303 4.104-1.865 6.99 2.754 17.561 11.495 26.301 7.34 7.34 16.157 11.9 23.011 11.9 1.175 0 2.281-.136 3.29-.406 1.633-.436 3.014-1.21 4.105-2.302.199-.199.388-.407.591-.67l.63-.899a9.007 9.007 0 0 0 .798-1.64c.763-2.06-.007-4.41-1.871-5.713z"
@@ -145,7 +211,7 @@
                             <div class="mt-6">
                                 <h3 class="text-lg font-bold text-[#333] mb-6">Shipping Address</h3>
                                 <div class="grid sm:grid-cols-2 gap-6">
-                                    <asp:TextBox ID="txtAddressLine" runat="server" CssClass="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none" placeholder="Address Line"></asp:TextBox>
+                                    <asp:TextBox ID="txtaddress" runat="server" CssClass="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none" placeholder="B-101, Abc Resi. near XYZ Heights"></asp:TextBox>
                                     <asp:TextBox ID="txtCity" runat="server" CssClass="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none" placeholder="City"></asp:TextBox>
                                     <asp:TextBox ID="txtState" runat="server" CssClass="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none" placeholder="State"></asp:TextBox>
                                     <asp:TextBox ID="txtZipCode" runat="server" CssClass="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none" placeholder="Zip Code"></asp:TextBox>
@@ -155,9 +221,9 @@
                                 <div class="mt-6">
                                     <h3 class="text-lg font-bold text-[#333] mb-6">Payment Method</h3>
                                     <div class="flex items-center gap-6">
-                                        <asp:RadioButton ID="COD" runat="server" GroupName="payment" CssClass="  rounded-full bg-white   text-green-400 " />COD
+                                        <asp:RadioButton ID="rdbCOD" runat="server" GroupName="payment" Checked="true" CssClass="rounded-full bg-white   text-green-400 " />COD
        
-                                    <asp:RadioButton ID="online" runat="server" GroupName="payment" CssClass=" rounded-full bg-white   text-green-400  " />Online
+                                    <asp:RadioButton ID="rdbonline" runat="server" GroupName="payment" CssClass=" rounded-full bg-white   text-green-400  " />Online
    
                                     </div>
                                 </div>
@@ -184,7 +250,43 @@
                 </div>
             </div>
         </section>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function OpenPaymentWindow(key, amountInSubunits, currency, name, descritpion, imageLogo, orderId, profileName, profileEmail, profileMobile, notes) {
+            notes = $.parseJSON(notes);
+            var options = {
+                "key": key, // Enter the Key ID generated from the Dashboard
+                "amount": amountInSubunits, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": currency,
+                "name": name,
+                "description": descritpion,
+                "image": imageLogo,
+                "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+                    window.location.href = "Success_Order.aspx?orderId=" + response.razorpay_order_id + "&paymentId=" + response.razorpay_payment_id;
+                    //alert(response.razorpay_payment_id);
+                    //alert(response.razorpay_order_id);
+                    //alert(response.razorpay_signature)
+                },
+                "prefill": {
+                    "name": profileName,
+                    "email": profileEmail,
+                    "contact": profileMobile
+                },
+                "notes": notes,
+                "theme": {
+                    "color": "#CD853F"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+            rzp1.on('payment.failed', function (response) {
+                console.log(response.error);
+                alert("Oops, something went wrong and payment failed. Please try again later", response, "    ", error);
+            });
+        }
 
+    </script>
 
     </form>
 
