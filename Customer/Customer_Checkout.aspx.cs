@@ -17,7 +17,7 @@ namespace OMSMS6.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadCart();
-          /*  bindCityState();*/
+            /*  bindCityState();*/
 
 
         }
@@ -46,15 +46,15 @@ namespace OMSMS6.Customer
                 ScriptManager.RegisterStartupScript(this, GetType(), "showToastdanget", "showToastdanget('Empty Cart !!!');", true);
                 /*lbltotal.Visible = false; // Hide total amount label
                 viewcartlist.Visible = false; // Hide repeater*/
-                
+
             }
             con.Close();
         }
 
         protected void Cancel_order(object sender, EventArgs e)
         {
-            
-          /*  Response.Write("<script>alert('Order has been cancelled!');  </script>");*/
+
+            /*  Response.Write("<script>alert('Order has been cancelled!');  </script>");*/
             Response.Redirect("Default.aspx");
         }
         protected void Confirm_order(object sender, EventArgs e)
@@ -63,56 +63,14 @@ namespace OMSMS6.Customer
             Response.Write("<script>alert('Order has been confirmed!');</script>");
             // String address = txt_cust_address.Text;
 
+
+
+
+
+
         }
 
-       /* protected void bindCityState()
-        {
-            con.Close();
-            con.Open();
-            SqlCommand selectState = new SqlCommand("SELECT * FROM tblState", con);
-            SqlDataAdapter daState = new SqlDataAdapter(selectState);
-            DataTable dtState = new DataTable();
-            daState.Fill(dtState);
-
-            if (dtState.Rows.Count > 0)
-            {
-                ddlState.DataSource = dtState;
-                ddlState.DataBind();
-            }
-            ddlState.SelectedValue = "8";
-
-            SqlCommand selectCity = new SqlCommand("SELECT * FROM tblCity WHERE sid=8", con);
-            SqlDataAdapter daCity = new SqlDataAdapter(selectCity);
-            DataTable dtCity = new DataTable();
-            daCity.Fill(dtCity);
-            if (dtCity.Rows.Count > 0)
-            {
-                ddlCity.DataSource = dtCity;
-                ddlCity.DataBind();
-            }
-            ddlCity.SelectedValue = "34";
-            con.Close();
-        }
-
-        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int sid = Convert.ToInt32(ddlState.SelectedValue);
-            if (sid > 0)
-            {
-                con.Close();
-                con.Open();
-                SqlCommand selectCity = new SqlCommand("SELECT * FROM tblCity WHERE sid =" + sid, con);
-                SqlDataAdapter da = new SqlDataAdapter(selectCity);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                if (dt.Rows.Count > 0)
-                {
-                    ddlCity.DataSource = dt;
-                    ddlCity.DataBind();
-                }
-                con.Close();
-            }
-        }*/
+      
 
     }
 }

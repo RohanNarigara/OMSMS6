@@ -49,7 +49,6 @@ namespace OMSMS6.Customer
                 </div>";
 
                         // Add the product HTML to the placeholder control or any other container
-                        ProductContainer.Controls.Add(new LiteralControl(productHtml));
                     }
                 }
                 rdr.Close();
