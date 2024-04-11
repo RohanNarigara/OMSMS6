@@ -29,11 +29,11 @@ namespace OMSMS6.Customer
 
         protected void btnAdd_To_Cart_Click(object sender, EventArgs e)
         {
-            int productId = 3; // Placeholder for product ID
+            int productId = int.Parse(Request.QueryString["id"]);
 
-            int quantity = Convert.ToInt32(lblCount.Text);
+            int quantity = int.Parse( lblCount.Text);
             int price = 1000; // Placeholder for product price
-            int customerId = 2; // Assuming the customer ID is 1
+            int customerId = 1; // Assuming the customer ID is 1
             int total = price * quantity;
 
             try
@@ -43,18 +43,13 @@ namespace OMSMS6.Customer
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     con.Open();
-                    string query = "INSERT INTO tblCartProduct (Pid, Quantity, Total, Custid) VALUES (@Pid, @Quantity, @Total, @Custid)";
+                    string query = "INSERT INTO tblCartProduct (Pid, Quantity, Total, Custid) VALUES (" + productId + "," + quantity + "," + total + ","+customerId+ ")";
                     SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@Pid", productId);
-                    cmd.Parameters.AddWithValue("@Quantity", quantity);
-                    cmd.Parameters.AddWithValue("@Total", total);
-                    cmd.Parameters.AddWithValue("@Custid", customerId);
-
                     int i = cmd.ExecuteNonQuery();
                     if (i > 0)
                     {
                         // Show success alert and redirect
-                        Response.Write("<script>alert('Product added to cart successfully!'); window.location = 'Cart.aspx';</script>");
+                        Response.Write("<script>alert('Product added to cart successfully!  '  "+ quantity+"); </script>");
                     }
                     else
                     {

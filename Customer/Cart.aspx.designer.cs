@@ -15,21 +15,39 @@ namespace OMSMS6.Customer
     {
 
         /// <summary>
-        /// HyperLink1 control.
+        /// viewcartlist control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.Repeater viewcartlist;
 
         /// <summary>
-        /// btnOrderNow control.
+        /// lbltotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrderNow;
+        protected global::System.Web.UI.WebControls.Label lbltotal;
+
+        /// <summary>
+        /// emtycart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button emtycart;
+
+        /// <summary>
+        /// checkout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button checkout;
     }
 }

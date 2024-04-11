@@ -32,6 +32,7 @@
     <%-- CSS files --%>
     <link rel="stylesheet" href="../Res/CSS/Style.css">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <form runat="server">
 
@@ -48,11 +49,12 @@
                        
                         <hr class="my-3">
 
-                        <div class="mt-2">
-                            <label class="text-white text-sm" for="count">Count : </label>
+                      <div class="mt-2">
+                            <label class="text-white text-sm" for="count">Count :</label>
                             <div class="flex items-center mt-1">
                                 <button id="btnDecrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="-">-</button>
-                                <asp:Label ID="lblCount" runat="server" Class="text-white text-lg mx-2" Text="1"></asp:Label>
+                                <asp:HiddenField ID="hdnCount" runat="server" Value="1" />
+                                <asp:Label ID="lblCount" runat="server" CssClass="text-white text-lg mx-2"><%# hdnCount.Value %></asp:Label>
                                 <button id="btnIncrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="+">+</button>
                             </div>
                         </div>
@@ -65,31 +67,6 @@
                                 <button id="btnColorPink" class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none" onclick="selectColor('Pink')"></button>
                             </div>
                         </div>
-
-                        <script>
-
-                            function selectColor(colorName) {
-                                // Send selected color name to backend
-                                fetch('/ColorSelectionHandler.ashx?color=' + colorName)
-                                    .then(response => {
-                                        if (response.ok) {
-                                            return response.text();
-                                        } else {
-                                            throw new Error('Failed to send color selection to server');
-                                        }
-                                    })
-                                    .then(data => {
-                                        // Display alert with the selected color name
-                                        alert("Selected color: " + colorName);
-                                        // Add border around the selected color
-                                        document.getElementById('btnColor' + colorName).style.border = "2px solid black";
-                                    })
-                                    .catch(error => {
-                                        console.error('Error:', error);
-                                    });
-                            }
-</script>
-
 
                         <div class="mt-3 ">
                             <label class="text-white text-sm" for="count">Size : </label>
@@ -109,24 +86,23 @@
             </div>
         </main>
 
-        <script>
-            document.getElementById('<%= btnDecrease.ClientID %>').addEventListener('click', function (e) {
-                e.preventDefault();
-                var count = parseInt(document.getElementById('<%= lblCount.ClientID %>').innerHTML);
-               if (count > 1) {
-                   document.getElementById('<%= lblCount.ClientID %>').innerHTML = count - 1;
-               }
-           });
+         <script>
+             document.getElementById('<%= btnDecrease.ClientID %>').addEventListener('click', function (e) {
+                 e.preventDefault();
+                 var count = parseInt(document.getElementById('<%= hdnCount.ClientID %>').value);
+                if (count > 1) {
+                    document.getElementById('<%= hdnCount.ClientID %>').value = count - 1;
+                    document.getElementById('<%= lblCount.ClientID %>').innerText = count - 1;
+                }
+            });
 
             document.getElementById('<%= btnIncrease.ClientID %>').addEventListener('click', function (e) {
                 e.preventDefault();
-                var count = parseInt(document.getElementById('<%= lblCount.ClientID %>').innerHTML);
-               document.getElementById('<%= lblCount.ClientID %>').innerHTML = count + 1;
-           });
-</script>
-
-
-
+                var count = parseInt(document.getElementById('<%= hdnCount.ClientID %>').value);
+                document.getElementById('<%= hdnCount.ClientID %>').value = count + 1;
+                document.getElementById('<%= lblCount.ClientID %>').innerText = count + 1;
+            });
+         </script>
 
     </form>
 </asp:Content>

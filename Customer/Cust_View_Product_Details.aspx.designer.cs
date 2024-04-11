@@ -42,6 +42,15 @@ namespace OMSMS6.Customer
         protected global::System.Web.UI.HtmlControls.HtmlButton btnDecrease;
 
         /// <summary>
+        /// hdnCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnCount;
+
+        /// <summary>
         /// lblCount control.
         /// </summary>
         /// <remarks>
