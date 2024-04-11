@@ -162,12 +162,12 @@
                                         </tfoot>
                                     </table>
 
-                                    <!-- Button to convert page to PDF-->
+                                    <!-- Button to convert page to PDF
                                     <div class="flex justify-end mt-12">
                                         <asp:Button CssClass="flex items-center px-6 py-3 text-sm font-semibold text-white bg-slate-700 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2" ID="btnpdf" runat="server" OnClick="btnpdf_Click1" Text="Download PDF  >" > 
                                             
                                         </asp:Button>
-                                        </div>
+                                        </div>-->
                                 </div>
                             </div>
 

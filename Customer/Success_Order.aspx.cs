@@ -11,6 +11,7 @@ using Razorpay.Api;
 using System.Web.Profile;
 using System.Security.Cryptography;
 using System.Xml.Linq;
+using System.EnterpriseServices;
 
 namespace OMSMS6.Customer
 {
@@ -99,7 +100,9 @@ namespace OMSMS6.Customer
                         con.Close();
                         String bill = "genrate";
                         Session["bill"] = bill;
-                        Response.Redirect("bill.aspx");
+                        String oid1 = (String)Session["oid"].ToString();
+
+                        Response.Redirect("Cust_Bill.aspx?orderId=" + oid1);
                     }
                 }
             }
@@ -176,7 +179,9 @@ namespace OMSMS6.Customer
                         con.Close();
                         String bill = "genrate";
                         Session["bill"] = bill;
-                        Response.Redirect("bill.aspx");
+                        String oid1 = (String)Session["oid"].ToString();
+
+                        Response.Redirect("Cust_Bill.aspx?orderId="+ oid1);
                     }
                 }
             }

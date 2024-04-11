@@ -26,7 +26,7 @@ namespace OMSMS6.Customer
         }
         protected void LoadBill()
         {
-            odrid = "21"; // Set the order ID
+            String odrid = Request.QueryString["orderId"].ToString();
 
             using (SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;"))
             {
@@ -68,7 +68,7 @@ namespace OMSMS6.Customer
         protected void btnpdf_Click1(object sender, EventArgs e)
         {
             // Create a MemoryStream to store the PDF content
-            using (MemoryStream ms = new MemoryStream())
+           /* using (MemoryStream ms = new MemoryStream())
             {
                 // Create a Document
                 using (Document document = new Document(PageSize.A4, 50, 50, 25, 25))
@@ -96,7 +96,7 @@ namespace OMSMS6.Customer
             }
 
             // End the response
-            HttpContext.Current.Response.End();
+            HttpContext.Current.Response.End();*/
         }
     }
 
