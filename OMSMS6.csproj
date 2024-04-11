@@ -43,9 +43,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -64,6 +61,9 @@
     </Reference>
     <Reference Include="RestSharp, Version=106.2.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>packages\RestSharp.106.2.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Select.Pdf, Version=23.2.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>packages\Select.Pdf.23.2.0\lib\net40\Select.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Configuration.ConfigurationManager.4.4.1\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
@@ -120,6 +120,7 @@
     <Content Include="Customer\About_Us.aspx" />
     <Content Include="Customer\Cart.aspx" />
     <Content Include="Customer\Customer_Checkout.aspx" />
+    <Content Include="Customer\Cust_Bill.aspx" />
     <Content Include="Customer\Cust_Order_Bill.aspx" />
     <Content Include="Customer\Cust_View_All_Product.aspx" />
     <Content Include="Customer\Cust_View_Product_Details.aspx" />
@@ -364,6 +365,13 @@
     </Compile>
     <Compile Include="Customer\Customer_Checkout.aspx.designer.cs">
       <DependentUpon>Customer_Checkout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\Cust_Bill.aspx.cs">
+      <DependentUpon>Cust_Bill.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\Cust_Bill.aspx.designer.cs">
+      <DependentUpon>Cust_Bill.aspx</DependentUpon>
     </Compile>
     <Compile Include="Customer\Cust_Order_Bill.aspx.cs">
       <DependentUpon>Cust_Order_Bill.aspx</DependentUpon>
