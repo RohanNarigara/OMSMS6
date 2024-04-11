@@ -3,7 +3,6 @@
 <%@ Register Src="~/Links.ascx" TagName="Links" TagPrefix="omsms" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <omsms:Links runat="server" />
-
     <%-- Validating Input --%>
     <script>
         $(document).ready(function () {
@@ -12,11 +11,11 @@
                     ctl00$ContentPlaceHolder1$txtName: {
                         required: true,
                     },
-                    ctl00$ContentPlaceHolder1$imgProduct: {
-                        required: true,
-                        extension: "png|jpg|jpeg",
-                        filesize: 2097152
-                    },
+                    //ctl00$ContentPlaceHolder1$imgProduct: {
+                    //    required: true,
+                    //    extension: "png|jpg|jpeg",
+                    //    filesize: 2097152
+                    //},
                     ctl00$ContentPlaceHolder1$ddlBrand: {
                         required: true,
                     },
@@ -26,16 +25,18 @@
                     ctl00$ContentPlaceHolder1$txtName: {
                         required: "Please Enter Product Name!",
                     },
-                    ctl00$ContentPlaceHolder1$imgProduct: {
-                        required: "Please Select Product Image!",
-                        extension: "Please Upload a File with a valid extension (png, jpg, jpeg)",
-                        filesize: "Please Upload a File with a max Size of 2MB"
-                    },
+                    //ctl00$ContentPlaceHolder1$imgProduct: {
+                    //    required: "Please Select Product Image!",
+                    //    extension: "Please Upload a File with a valid extension (png, jpg, jpeg)",
+                    //    filesize: "Please Upload a File with a max Size of 2MB"
+                    //},
                     ctl00$ContentPlaceHolder1$ddlBrand: {
                         required: "Please Select Brand!",
                     },
                 },
             });
+
+
         });
     </script>
 </asp:Content>
@@ -78,11 +79,12 @@
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Image</label>
                         <asp:FileUpload runat="server" ID="imgProduct" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                        <label class="block text-gray-700 text-sm font-bold">* Choose Image if you want to update Image!</label>
                     </div>
 
                     <%-- Update Button --%>
                     <div class="mt-4">
-                        <asp:Button runat="server" ID="btnUpdate"  class="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600" Text="Update"></asp:Button>
+                        <asp:Button runat="server" ID="btnUpdate" OnClick="btnUpdate_Click" class="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600" Text="Update"></asp:Button>
                     </div>
                 </form>
             </div>
