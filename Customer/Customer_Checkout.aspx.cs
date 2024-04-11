@@ -89,6 +89,7 @@ namespace OMSMS6.Customer
                     String city = txtCity.Text;
                     String state = txtState.Text;
                     String pincode = txtZipCode.Text;
+                    String finaladdress = address + " " + city + " " + state + " " + pincode;
                     String orderdate = DateTime.Now.ToString("yyyy-MM-dd");
 
                     Session["oid"] = oid;
