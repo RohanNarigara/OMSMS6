@@ -1,9 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="OMSMS6.Customer.Checkout" %>
+﻿<%@ Page Title="OMSMS | Cart" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="OMSMS6.Customer.Checkout" %>
 
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="System.Web.UI.WebControls" %>
 <%@ Import Namespace="System.Linq" %>
- 
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/fontawesome.min.css" integrity="sha512-UuQ/zJlbMVAw/UU8vVBhnI4op+/tFOpQZVT+FormmIEhRSCnJWyHiBbEVgM4Uztsht41f3FzVWgLuwzUqOObKw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <br />
     <br />
@@ -36,12 +40,15 @@
                                 <td class="px-4 py-2"><%# Eval("ProductName") %></td>
 
                                 <td class="px-4 py-2">
-                                    <a href="<%# Eval("Id", "cart.aspx?cartmid={0}") %>">
+                                    <%--<a href="<%# Eval("Id", "cart.aspx?cartmid={0}") %>">
                                         <span class="glyphicon glyphicon-minus"></span>
+                                    </a>--%>
+                                    <a href="<%# Eval("Id", "cart.aspx?cartmid={0}") %>">
+                                        <span></span><i class="fa-solid fa-minus"></i></span>
                                     </a>
                                     <span><%# Eval("Quantity") %></span>
                                     <a href="<%# Eval("Id", "cart.aspx?cartpid={0}") %>">
-                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <span><i class="fa-solid fa-plus"></i></span>
                                     </a>
                                 </td>
                                 <td class="px-4 py-2">
@@ -50,7 +57,7 @@
 
                                 <td class="px-4 py-2">
                                     <a href="<%# Eval("Id", "cart.aspx?cartid={0}") %>" onclick="return confirm('Are you sure you want to Remove this Product?');">
-                                        <button class="text-red-500  "  >Remove</button>
+                                        <button class="text-red-500  ">Remove</button>
 
                                     </a>
                                 </td>
@@ -71,14 +78,14 @@
 
                         </td>
                         <td class="px-4 py-2">
-                            <asp:Button runat="server" ID="emtycart" OnClick="emtycart_Click" Text="Empty Cart" CssClass="btn btn-danger" />
+                            <asp:Button runat="server" ID="emtycart" OnClick="emtycart_Click" Text="Empty Cart" CssClass="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" />
                         </td>
                     </tr>
                 </tfoot>
             </table>
 
             <div class="flex justify-end mt-4">
-                <asp:Button runat="server" ID="checkout" OnClick="checkout_Click" CssClass="btn btn-success" Text="Proceed To Checkout" />
+                <asp:Button runat="server" ID="checkout" OnClick="checkout_Click" CssClass="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" Text="Proceed To Checkout" />
             </div>
         </div>
 

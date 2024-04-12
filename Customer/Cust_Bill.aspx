@@ -43,7 +43,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div id="DivToPrint" runat="server">
             <section class="py-20 bg-black">
                 <div class="max-w-5xl mx-auto py-16 bg-white">
                     <article class="overflow-hidden">

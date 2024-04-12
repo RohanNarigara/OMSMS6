@@ -59,12 +59,12 @@
             <div class="nav-links duration-500 lg:static absolute lg:min-h-fit min-h-[60vh] left-0 top-[-100%] lg:w-auto w-full flex items-center justify-center px-5">
                 <ul class="flex text-lg lg:flex-row flex-col lg:items-center lg:gap-[4vw] gap-8">
                     <li>
-                        <a id="pageDefault" class='hover:text-gray-500 text-white' href="Default.aspx">Home</a>
+                        <a id="pageDefault" class='hover:text-gray-500 text-white' href="../Customer/Default.aspx">Home</a>
                     </li>
                     <li>
                         <a id="pageProducts" class="text-white hover:text-gray-500" href="../Customer/Cust_View_All_Product.aspx">Products</a>
                     </li>
-                    <!-- Dropdown for Category -->
+                    <%--<!-- Dropdown for Category -->
                     <li class="relative">
                         <a href="#" class="text-white hover:text-gray-500">Category</a>
                         <ul class="absolute bg-gray-700 text-white mt-2 py-1 rounded-lg shadow-lg hidden">
@@ -74,9 +74,9 @@
                             <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Oppo">Oppo</a></li>
                             <li><a href="../Customer/Cust_View_All_Product.aspx?brand=OnePlus">One plus</a></li>
                         </ul>
-                    </li>
+                    </li>--%>
                     <li>
-                        <a class="text-white hover:text-gray-500" href="#">Orders</a>
+                        <a class="text-white hover:text-gray-500" href="../Customer/Cust_viiew_prev_Orders.aspx">Orders</a>
                     </li>
                     <li>
                         <a class="text-white hover:text-gray-500" href="../Customer/About_Us.aspx">About us</a>
@@ -88,7 +88,7 @@
             <div class="flex items-center gap-4">
                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="../Customer/Cart.aspx" CssClass="relative inline-block">
                     <ion-icon name="cart" class="text-3xl text-white pt-2 hover:text-gray-500 cursor-pointer"></ion-icon>
-                    <asp:Label ID="lblCartCount" runat="server" class="absolute top-[-5px] right-[-10px] bg-red-500 text-white rounded-full px-2 py-1 text-xs" Text="1"></asp:Label>
+                    <asp:Label ID="lblCartCount" runat="server" class="absolute top-[-3px] right-[-10px] bg-red-500 text-white rounded-full px-2 py-1 text-xs" Text="0"></asp:Label>
                 </asp:HyperLink>
 
 

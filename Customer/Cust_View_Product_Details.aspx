@@ -132,20 +132,25 @@
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
-                        <div class="mt-3 flex space-x-4">
-                            <label class="text-white text-sm mt-1" for="count">Quantity: </label>
-                            <%--<div class="flex items-center mt-1">
+
+                        <asp:UpdatePanel runat="server" ID="updatepanel2">
+                            <ContentTemplate>
+                                <div class="mt-3 flex space-x-4">
+                                    <label class="text-white text-sm mt-1" for="count">Quantity: </label>
+                                    <%--<div class="flex items-center mt-1">
     <button id="btnDecrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="-">-</button>
     <asp:HiddenField ID="hdnCount" runat="server" Value="1" />
     <asp:Label ID="lblCount" runat="server" CssClass="text-white text-lg mx-2"><%# hdnCount.Value %></asp:Label>
     <button id="btnIncrease" runat="server" class="text-white text-lg focus:outline-none focus:text-gray-600" value="+">+</button>
 </div>--%>
-                            <div class="flex items-center">
-                                <button id="btnDecrease" class="text-white text-lg focus:outline-none focus:text-gray-600 mr-2" value="-" onclick="decreaseCount()">-</button>
-                                <asp:TextBox runat="server" ID="txtCount" class="text-center w-10 bg-white text-black focus:outline-none" value="1"></asp:TextBox>
-                                <button id="btnIncrease" class="text-white text-lg focus:outline-none focus:text-gray-600 ml-2" value="+" onclick="increaseCount()">+</button>
-                            </div>
-                        </div>
+                                    <div class="flex items-center">
+                                        <button id="btnDecrease" class="text-white text-lg focus:outline-none focus:text-gray-600 mr-2" value="-" onclick="decreaseCount()">-</button>
+                                        <asp:TextBox runat="server" ID="txtCount" class="text-center w-10 bg-white text-black focus:outline-none" value="1"></asp:TextBox>
+                                        <button id="btnIncrease" class="text-white text-lg focus:outline-none focus:text-gray-600 ml-2" value="+" onclick="increaseCount()">+</button>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                         <div class="flex items-center mt-6">
                             <%--<asp:Button ID="btnOrderNow" runat="server" Text="Order Now" Class="px-8 py-2 text-white border-1 bg-indigo-500 border-2 border-indigo-500 text-sm font-medium rounded hover:bg-white hover:text-indigo-800 " OnClick="btnOrderNow_Click"></asp:Button>--%>
                             <%--<asp:Button ID="btnAdd_To_Cart" runat="server" Text="Add to Cart" Class="px-6 py-2 text-white border border-1 text-sm font-bold font-medium rounded hover:bg-white hover:text-indigo-800 ml-4" OnClick="btnAdd_To_Cart_Click"></asp:Button>--%>

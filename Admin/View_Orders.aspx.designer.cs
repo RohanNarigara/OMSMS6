@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OMSMS6.Customer
+namespace OMSMS6.Admin
 {
 
 
-    public partial class Cust_View_All_Product
+    public partial class View_Orders
     {
 
         /// <summary>
-        /// productContainer control.
+        /// AllorderTableRecord control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder productContainer;
+        protected global::System.Web.UI.WebControls.Repeater AllorderTableRecord;
     }
 }

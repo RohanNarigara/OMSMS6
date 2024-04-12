@@ -148,7 +148,7 @@ namespace OMSMS6.Customer
                 SqlDataReader dr = selectPrice.ExecuteReader();
                 if (dr.Read())
                 {
-                    lblProductPrice.Text = "₹" + dr["price"].ToString();
+                    lblProductPrice.Text = dr["price"].ToString();
                     lblProductDescription.Text = dr["description"].ToString();
                 }
                 else
@@ -175,7 +175,6 @@ namespace OMSMS6.Customer
             else
             {
                 int productId = int.Parse(Request.QueryString["id"]);
-
                 int quantity = int.Parse(txtCount.Text);
                 int price = int.Parse(lblProductPrice.Text); // Placeholder for product price
                 int customerId = (int)Session["uid"]; // Assuming the customer ID is 1
@@ -190,11 +189,10 @@ namespace OMSMS6.Customer
                         con.Open();
                         string query = "INSERT INTO tblCartProduct (Pid, Quantity, Total, Custid) VALUES (" + productId + "," + quantity + "," + total + "," + customerId + ")";
                         SqlCommand cmd = new SqlCommand(query, con);
-                        int i = cmd.ExecuteNonQuery();
-                        if (i > 0)
+                        if (cmd.ExecuteNonQuery() > 0)
                         {
                             // Show success alert and redirect
-                            Response.Write("<script>alert('Product added to cart successfully!  '  " + quantity + "); </script>");
+                            Response.Write("<script>alert('Product added to cart successfully!'); </script>");
                         }
                         else
                         {

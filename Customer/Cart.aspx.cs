@@ -17,8 +17,8 @@ namespace OMSMS6.Customer
     public partial class Checkout : System.Web.UI.Page
     {
 
-        SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
-        //SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+        //SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+        SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -84,11 +84,12 @@ namespace OMSMS6.Customer
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "showToastdanget", "showToastdanget('Empty Cart !!!');", true);
-                lbltotal.Visible = false; // Hide total amount label
-                viewcartlist.Visible = false; // Hide repeater
-                emtycart.Visible = false;
-                checkout.Visible = false;
+                Response.Write("<script>alert('Cart is Empty !!!'); window.location='../Customer/Default.aspx';</script>");
+                //ScriptManager.RegisterStartupScript(this, GetType(), "showToastdanget", "showToastdanget('Empty Cart !!!');", true);
+                //lbltotal.Visible = false; // Hide total amount label
+                //viewcartlist.Visible = false; // Hide repeater
+                //emtycart.Visible = false;
+                //checkout.Visible = false;
 
             }
             con.Close();
@@ -105,7 +106,7 @@ namespace OMSMS6.Customer
                 // Check if current quantity is greater than 1 before decrementing
                 if (currentQuantity > 1)
                 {
-                    using (SqlCommand cmdUpdate = new SqlCommand("UPDATE tbl_cart SET Quantity = Quantity - 1 WHERE Id = @cartmid", con))
+                    using (SqlCommand cmdUpdate = new SqlCommand("UPDATE tblCartProduct SET Quantity = Quantity - 1 WHERE Id = @cartmid", con))
                     {
                         cmdUpdate.Parameters.AddWithValue("@cartmid", cartmId);
                         cmdUpdate.ExecuteNonQuery();
@@ -144,7 +145,6 @@ namespace OMSMS6.Customer
 
         private void DeletecartItem(int cartId)
         {
-
             con.Open();
             using (SqlCommand cmd = new SqlCommand("DELETE FROM tblCartProduct WHERE Id = @cartid", con))
             {
@@ -164,7 +164,7 @@ namespace OMSMS6.Customer
         {
             con.Open();
             /*            String u_id = Session["u_id"].ToString();*/
-            String u_id = 1.ToString();
+            String u_id = Session["uid"].ToString();
             using (SqlCommand cmd = new SqlCommand("DELETE FROM tblCartProduct WHERE CustId =" + u_id, con))
             {
                 cmd.ExecuteNonQuery();

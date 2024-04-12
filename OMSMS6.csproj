@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\OneDrive\Desktop\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -117,6 +120,7 @@
     <Content Include="Admin\Users.aspx" />
     <Content Include="Admin\Res\Css\Admin_Css.css" />
     <Content Include="Admin\Res\Js\main.js" />
+    <Content Include="Admin\View_Orders.aspx" />
     <Content Include="Customer\About_Us.aspx" />
     <Content Include="Customer\Cart.aspx" />
     <Content Include="Customer\Customer_Checkout.aspx" />
@@ -345,6 +349,13 @@
     </Compile>
     <Compile Include="Admin\Users.aspx.designer.cs">
       <DependentUpon>Users.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View_Orders.aspx.cs">
+      <DependentUpon>View_Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\View_Orders.aspx.designer.cs">
+      <DependentUpon>View_Orders.aspx</DependentUpon>
     </Compile>
     <Compile Include="Customer\About_Us.aspx.cs">
       <DependentUpon>About_Us.aspx</DependentUpon>
