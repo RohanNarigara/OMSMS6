@@ -66,6 +66,7 @@
         <section id="Projects" class="w-fit mx-auto grid xs:grid-cols-1 lg:grid-cols-4 lg:gap-x-5 md:grid-cols-3 md:gap-x-5 sm:grid-cols-2 sm:gap-x-5 justify-items-center justify-center gap-y-20 gap-x-5 mt-10 mb-5">
             <asp:PlaceHolder ID="ProductContainer" runat="server"></asp:PlaceHolder>
 
+
             <!--   ✅ Product card 1 - Starts Here 👇 -->
             <%-- <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                 <a href="Cust_View_Product_Details.aspx?id=1">

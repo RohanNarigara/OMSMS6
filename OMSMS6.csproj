@@ -124,6 +124,7 @@
     <Content Include="Customer\Cust_Order_Bill.aspx" />
     <Content Include="Customer\Cust_View_All_Product.aspx" />
     <Content Include="Customer\Cust_View_Product_Details.aspx" />
+    <Content Include="Customer\Cust_viiew_prev_Orders.aspx" />
     <Content Include="Customer\Default.aspx" />
     <Content Include="Customer\Registration.aspx" />
     <Content Include="Customer\Registration_OTP.aspx" />
@@ -393,6 +394,13 @@
     </Compile>
     <Compile Include="Customer\Cust_View_Product_Details.aspx.designer.cs">
       <DependentUpon>Cust_View_Product_Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\Cust_viiew_prev_Orders.aspx.cs">
+      <DependentUpon>Cust_viiew_prev_Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\Cust_viiew_prev_Orders.aspx.designer.cs">
+      <DependentUpon>Cust_viiew_prev_Orders.aspx</DependentUpon>
     </Compile>
     <Compile Include="Customer\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

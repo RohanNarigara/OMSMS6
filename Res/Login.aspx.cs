@@ -12,7 +12,7 @@ namespace OMSMS6.Res
 {
     public partial class Login : System.Web.UI.Page
     {
-        SqlConnection conn = new SqlConnection("Data Source = LAPTOP-SHON9L4N\\SQLEXPRESS; Initial Catalog=omsms; Integrated Security=True;");
+        SqlConnection conn = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
