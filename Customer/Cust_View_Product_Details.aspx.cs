@@ -12,6 +12,8 @@ namespace OMSMS6.Customer
     {
         String connection = "Data Source = LAPTOP-SHON9L4N\\SQLEXPRESS; Initial Catalog=omsms; Integrated Security=True;";
         int pid = 0;
+       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -132,7 +134,7 @@ namespace OMSMS6.Customer
 
         protected void ddlStorage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int sid = 0; int cid = 0;
+             int sid = 0; int cid = 0;
             if (!string.IsNullOrEmpty(ddlStorage.SelectedValue) && int.TryParse(ddlStorage.SelectedValue, out sid) && sid > 0)
             {
                 sid = Convert.ToInt32(ddlStorage.SelectedValue);
@@ -178,9 +180,12 @@ namespace OMSMS6.Customer
                 con.Close();
                 con.Open();
                 int pid = int.Parse(Request.QueryString["id"]);
+                int quantity = txtCount.Text == "" ? 0 : Convert.ToInt32(txtCount.Text);
                 int cid = Convert.ToInt32(ddlColor.SelectedValue);
                 int sid = Convert.ToInt32(ddlStorage.SelectedValue);
-                int quantity = 0;
+
+
+
                 SqlCommand selectPid = new SqlCommand("SELECT * FROM tblProductDetail WHERE pid = @pid AND cid = @cid AND sid = @sid", con);
                 selectPid.Parameters.AddWithValue("@pid", pid);
                 selectPid.Parameters.AddWithValue("@cid", cid);
@@ -189,25 +194,27 @@ namespace OMSMS6.Customer
                 if (dr.Read())
                 {
                     int pdid = Convert.ToInt32(dr["id"]);
+                    //Response.Write("<script>alert('" + pdid + "');</script>");
+
                     dr.Close();
-                    if (int.TryParse(txtCount.Text, out quantity) && quantity > 0)
+                    if (quantity > 0)
                     {
                         SqlCommand checkCart = new SqlCommand("SELECT * FROM tblCartProduct WHERE Custid = @Custid AND Pid = @Pid", con);
-                        checkCart.Parameters.AddWithValue("@Custid", Session["uid"]);
                         checkCart.Parameters.AddWithValue("@Pid", pdid);
+                        checkCart.Parameters.AddWithValue("@Custid", Session["uid"]);
                         SqlDataReader drCart = checkCart.ExecuteReader();
                         if (drCart.Read())
                         {
                             drCart.Close();
                             SqlCommand updateCart = new SqlCommand("UPDATE tblCartProduct SET Quantity = Quantity + @Quantity, Total = @Total WHERE Custid = @Custid AND Pid = @Pid", con);
                             updateCart.Parameters.AddWithValue("@Custid", Session["uid"]);
-                            updateCart.Parameters.AddWithValue("@Pid", pid);
+                            updateCart.Parameters.AddWithValue("@Pid", pdid);
                             updateCart.Parameters.AddWithValue("@Quantity", quantity);
                             updateCart.Parameters.AddWithValue("@Total", quantity * Convert.ToInt32(lblProductPrice.Text));
                             int isupdated = updateCart.ExecuteNonQuery();
                             if (isupdated > 0)
                             {
-                                Response.Write("<script>alert('Product added to cart successfully!');</script>");
+                                Response.Write("<script>alert('Product update to cart successfully!');</script>");
                                 con.Close();
                             }
                             else
@@ -221,7 +228,7 @@ namespace OMSMS6.Customer
                             drCart.Close();
                             SqlCommand insertCart = new SqlCommand("INSERT INTO tblCartProduct (Custid, Pid, Quantity, Total) VALUES (@Custid, @Pid, @Quantity, @Total)", con);
                             insertCart.Parameters.AddWithValue("@Custid", Session["uid"]);
-                            insertCart.Parameters.AddWithValue("@Pid", pid);
+                            insertCart.Parameters.AddWithValue("@Pid", pdid);
                             insertCart.Parameters.AddWithValue("@Quantity", quantity);
                             insertCart.Parameters.AddWithValue("@Total", quantity * Convert.ToInt32(lblProductPrice.Text));
                             int isInserted = insertCart.ExecuteNonQuery();

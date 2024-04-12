@@ -124,7 +124,7 @@ namespace OMSMS6.Customer
                         // Add the product HTML to the placeholder control or any other container
                         LiteralControl productControl = new LiteralControl(productHtml);
                         //ProductContainer.Controls.Add(productControl);
-                        productContainer.Controls.Add(productControl);
+                        ProductContainer.Controls.Add(productControl);
 
 
                        

@@ -47,7 +47,8 @@ namespace OMSMS6.Customer
             con.Open();
             int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
             //string uid = "1"; // Assuming the user ID is always "1"
-            SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.Price, CP.Quantity FROM tblCartProduct CP JOIN tblProduct P ON CP.Pid = P.Id JOIN tblProductDetail PD ON CP.Pid = PD.Pid WHERE CP.Custid = " + uid, con);
+            SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.price, CP.Quantity , PD.id as prod_id FROM tblCartProduct CP  JOIN tblProductDetail PD ON CP.pid = PD.id JOIN tblProduct P ON PD.Pid = P.Id WHERE CP.Custid = @uid", con);
+            cmd.Parameters.AddWithValue("@uid", uid);
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -82,7 +83,7 @@ namespace OMSMS6.Customer
         {
             string pay_type = "";
 
-            String uid = (string)Session["uid"]; // Assuming the user ID is always "1"
+            int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
             //String uid = "1"; // Assuming the user ID is always "1"
             /*          String u_id = Session["u_id"].ToString();*/
 
