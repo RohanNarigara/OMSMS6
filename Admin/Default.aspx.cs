@@ -16,6 +16,9 @@ namespace OMSMS6.Admin
             if (!IsPostBack)
             {
                 countUser();
+                countProduct();
+                countOrder();
+                countBrand();
             }
         }
 
@@ -25,6 +28,37 @@ namespace OMSMS6.Admin
             conn.Open();
             SqlCommand countUser = new SqlCommand("SELECT COUNT(*) FROM tblUsers", conn);
             int count = (int)countUser.ExecuteScalar();
+            conn.Close();
+            return count;
+        }
+
+        protected int countProduct()
+        {
+            conn.Close();
+            conn.Open();
+            SqlCommand countProduct = new SqlCommand("SELECT COUNT(*) FROM tblProduct", conn);
+            int count = (int)countProduct.ExecuteScalar();
+            conn.Close();
+            return count;
+        }
+
+        protected int countOrder()
+        {
+            conn.Close();
+            conn.Open();
+            SqlCommand countOrder = new SqlCommand("SELECT COUNT(*) FROM tblOrder", conn);
+            int count = (int)countOrder.ExecuteScalar();
+            conn.Close();
+            return count;
+        }
+
+        protected int countBrand()
+        {
+            conn.Close();
+            conn.Open();
+            SqlCommand countCategory = new SqlCommand("SELECT COUNT(*) FROM tblBrand", conn);
+            int count = (int)countCategory.ExecuteScalar();
+            conn.Close();
             return count;
         }
     }

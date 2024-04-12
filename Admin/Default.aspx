@@ -29,9 +29,16 @@
                 </div>
             </div>
             <div class="flex-auto p-4 border-4 rounded-lg border-gray-700">
-                <div class="flex flex-wrap">
-                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                        <span class="font-semibold text-xl text-blueGray-700">PRODUCTS</span>
+                <div class="flex flex-wrap justify-between">
+                    <div class="flex flex-wrap">
+                        <div>
+                            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                <span class="font-semibold text-xl text-blueGray-700">PRODUCTS</span>
+                            </div>
+                            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                <label id="" class="font-semibold text-xl text-blueGray-700"><%= countProduct() %></label>
+                            </div>
+                        </div>
                     </div>
                     <div class="relative w-auto pl-4 flex-initial">
                         <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500"><i class="fa-solid fa-layer-group"></i></div>
@@ -39,9 +46,16 @@
                 </div>
             </div>
             <div class="flex-auto p-4 border-4 rounded-lg border-gray-700">
-                <div class="flex flex-wrap">
-                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                        <span class="font-semibold text-xl text-blueGray-700">ORDERS</span>
+                <div class="flex flex-wrap justify-between">
+                    <div class="flex flex-wrap">
+                        <div>
+                            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                <span class="font-semibold text-xl text-blueGray-700">ORDERS</span>
+                            </div>
+                            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                <label id="" class="font-semibold text-xl text-blueGray-700"><%= countOrder() %></label>
+                            </div>
+                        </div>
                     </div>
                     <div class="relative w-auto pl-4 flex-initial">
                         <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500"><i class="fa-solid fa-cart-shopping"></i></div>
@@ -49,9 +63,16 @@
                 </div>
             </div>
             <div class="flex-auto p-4 border-4 rounded-lg border-gray-700">
-                <div class="flex flex-wrap">
-                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                        <span class="font-semibold text-xl text-blueGray-700">BRANDS</span>
+                <div class="flex flex-wrap justify-between">
+                    <div class="flex flex-wrap">
+                        <div>
+                            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                <span class="font-semibold text-xl text-blueGray-700">BRANDS</span>
+                            </div>
+                            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                <label id="" class="font-semibold text-xl text-blueGray-700"><%= countBrand() %></label>
+                            </div>
+                        </div>
                     </div>
                     <div class="relative w-auto pl-4 flex-initial">
                         <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500"><i class="far fa-chart-bar"></i></div>
