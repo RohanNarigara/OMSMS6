@@ -10,6 +10,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <omsms:Links runat="server" />
+    <style>
+        /* Dropdown styles */
+        .nav-links ul li:hover ul {
+            display: block;
+        }
+
+        .nav-links ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 120px;
+            background-color: #4a5568;
+            border-radius: 0.25rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+            .nav-links ul ul li {
+                padding: 0.5rem 1rem;
+                white-space: nowrap;
+            }
+
+                .nav-links ul ul li a {
+                    color: #ffffff;
+                }
+
+                    .nav-links ul ul li a:hover {
+                        color: #cbd5e0;
+                    }
+    </style>
+
 
 
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -32,13 +64,26 @@
                     <li>
                         <a id="pageProducts" class="text-white hover:text-gray-500" href="../Customer/Cust_View_All_Product.aspx">Products</a>
                     </li>
+                    <!-- Dropdown for Category -->
+                    <li class="relative">
+                        <a href="#" class="text-white hover:text-gray-500">Category</a>
+                        <ul class="absolute bg-gray-700 text-white mt-2 py-1 rounded-lg shadow-lg hidden">
+                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Apple">Apple</a></li>
+                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Samsung">Samsung</a></li>
+                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Vivo">Vivo</a></li>
+                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Oppo">Oppo</a></li>
+                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=OnePlus">One plus</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <a class="text-white hover:text-gray-500" href="#">Orders</a>
                     </li>
                     <li>
                         <a class="text-white hover:text-gray-500" href="../Customer/About_Us.aspx">About us</a>
                     </li>
+
                 </ul>
+
             </div>
             <div class="flex items-center gap-4">
                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="../Customer/Cart.aspx" CssClass="relative inline-block">
