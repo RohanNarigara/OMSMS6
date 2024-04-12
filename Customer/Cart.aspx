@@ -9,12 +9,9 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <br />
-    <br />
-    <br />
     <form runat="server">
 
-        <h1 class="text-center font-semibold text-3xl">My Cart <span class="glyphicon glyphicon-shopping-cart"></span></h1>
+        <h1 class="mt-6 text-center font-semibold text-white text-3xl">My Cart <i class="fa-solid fa-cart-shopping"></i></h1>
         <br />
 
 
@@ -24,46 +21,39 @@
                     <tr>
                         <th class="px-4 py-2">Image</th>
                         <th class="px-4 py-2">Product Name</th>
+                        <th class="px-4 py-2">Product Color</th>
+                        <th class="px-4 py-2">Product Storage</th>
+                        <th class="px-4 py-2">Price</th>
                         <th class="px-4 py-2">Quantity</th>
                         <th class="px-4 py-2">SubTotal</th>
                         <th class="px-4 py-2">Remove</th>
                     </tr>
                 </thead>
                 <tbody>
-
                     <asp:Repeater ID="viewcartlist" runat="server">
                         <ItemTemplate>
                             <tr>
                                 <td class="px-4 py-2">
-                                    <img src="../Res/Images/<%# Eval("ImageName") %>" alt="" class="w-16 h-16 rounded-full" />
+                                    <img src="../Res/Uploads/<%# Eval("imageName") %>" alt="" class="w-16 h-16 rounded-full" />
                                 </td>
-                                <td class="px-4 py-2"><%# Eval("ProductName") %></td>
-
-                                <td class="px-4 py-2">
-                                    <%--<a href="<%# Eval("Id", "cart.aspx?cartmid={0}") %>">
-                                        <span class="glyphicon glyphicon-minus"></span>
-                                    </a>--%>
-                                    <a href="<%# Eval("Id", "cart.aspx?cartmid={0}") %>">
-                                        <span></span><i class="fa-solid fa-minus"></i></span>
-                                    </a>
-                                    <span><%# Eval("Quantity") %></span>
-                                    <a href="<%# Eval("Id", "cart.aspx?cartpid={0}") %>">
-                                        <span><i class="fa-solid fa-plus"></i></span>
-                                    </a>
+                                <td class="px-4 py-2 text-center"><%# Eval("pname") %></td>
+                                <td class="px-4 py-2 text-center"><%# Eval("cname") %></td>
+                                <td class="px-4 py-2 text-center"><%# Eval("storage") %></td>
+                                <td class="px-4 py-2 text-center"><%# Eval("price") %></td>
+                                <td class="px-4 py-2 text-center">
+                                    <%--<%# string.Format("&#8377;{0}.00", Convert.ToDouble(Eval("price")) * Convert.ToInt32(Eval("Quantity"))) %>--%>
+                                    <a href="<%# Eval("ID", "cart.aspx?cartmid={0}") %>"><i class="fa-solid fa-minus"></i></a>
+                                    &nbsp;&nbsp;<%# Eval("Quantity") %>&nbsp;&nbsp;
+                                            <a href="<%# Eval("ID", "cart.aspx?cartpid={0}") %>"><i class="fa-solid fa-plus"></i></a></td>
                                 </td>
-                                <td class="px-4 py-2">
-                                    <%# string.Format("&#8377;{0}.00", Convert.ToDouble(Eval("Price")) * Convert.ToInt32(Eval("Quantity"))) %>
-                                </td>
-
-                                <td class="px-4 py-2">
-                                    <a href="<%# Eval("Id", "cart.aspx?cartid={0}") %>" onclick="return confirm('Are you sure you want to Remove this Product?');">
-                                        <button class="text-red-500  ">Remove</button>
-
+                                        <td class="px-4 py-2 text-center"><%# string.Format("&#8377;{0}.00", Convert.ToDouble(Eval("price")) * Convert.ToInt32(Eval("Quantity"))) %> </td>
+                                <td class="px-4 py-2 text-center text-red-500">
+                                    <a href='<%# Eval("Id", "cart.aspx?cartid={0}") %>' onclick="return confirm('Are you sure you want to Remove this Product?');">
+                                        <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
                         </ItemTemplate>
-
                     </asp:Repeater>
                 </tbody>
                 <tfoot id="footer">

@@ -174,38 +174,77 @@ namespace OMSMS6.Customer
             }
             else
             {
-                int productId = int.Parse(Request.QueryString["id"]);
-                int quantity = int.Parse(txtCount.Text);
-                int price = int.Parse(lblProductPrice.Text); // Placeholder for product price
-                int customerId = (int)Session["uid"]; // Assuming the customer ID is 1
-                int total = price * quantity;
-
-                try
+                SqlConnection con = new SqlConnection(connection);
+                con.Close();
+                con.Open();
+                int pid = int.Parse(Request.QueryString["id"]);
+                int cid = Convert.ToInt32(ddlColor.SelectedValue);
+                int sid = Convert.ToInt32(ddlStorage.SelectedValue);
+                int quantity = 0;
+                SqlCommand selectPid = new SqlCommand("SELECT * FROM tblProductDetail WHERE pid = @pid AND cid = @cid AND sid = @sid", con);
+                selectPid.Parameters.AddWithValue("@pid", pid);
+                selectPid.Parameters.AddWithValue("@cid", cid);
+                selectPid.Parameters.AddWithValue("@sid", sid);
+                SqlDataReader dr = selectPid.ExecuteReader();
+                if (dr.Read())
                 {
-                    //String constr = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
-                    //using (SqlConnection con = new SqlConnection(constr))
-                    using (SqlConnection con = new SqlConnection(connection))
+                    int pdid = Convert.ToInt32(dr["id"]);
+                    dr.Close();
+                    if (int.TryParse(txtCount.Text, out quantity) && quantity > 0)
                     {
-                        con.Open();
-                        string query = "INSERT INTO tblCartProduct (Pid, Quantity, Total, Custid) VALUES (" + productId + "," + quantity + "," + total + "," + customerId + ")";
-                        SqlCommand cmd = new SqlCommand(query, con);
-                        if (cmd.ExecuteNonQuery() > 0)
+                        SqlCommand checkCart = new SqlCommand("SELECT * FROM tblCartProduct WHERE Custid = @Custid AND Pid = @Pid", con);
+                        checkCart.Parameters.AddWithValue("@Custid", Session["uid"]);
+                        checkCart.Parameters.AddWithValue("@Pid", pdid);
+                        SqlDataReader drCart = checkCart.ExecuteReader();
+                        if (drCart.Read())
                         {
-                            // Show success alert and redirect
-                            Response.Write("<script>alert('Product added to cart successfully!'); </script>");
+                            drCart.Close();
+                            SqlCommand updateCart = new SqlCommand("UPDATE tblCartProduct SET Quantity = Quantity + @Quantity, Total = @Total WHERE Custid = @Custid AND Pid = @Pid", con);
+                            updateCart.Parameters.AddWithValue("@Custid", Session["uid"]);
+                            updateCart.Parameters.AddWithValue("@Pid", pid);
+                            updateCart.Parameters.AddWithValue("@Quantity", quantity);
+                            updateCart.Parameters.AddWithValue("@Total", quantity * Convert.ToInt32(lblProductPrice.Text));
+                            int isupdated = updateCart.ExecuteNonQuery();
+                            if (isupdated > 0)
+                            {
+                                Response.Write("<script>alert('Product added to cart successfully!');</script>");
+                                con.Close();
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('Failed to add product to cart!');</script>");
+                            }
+                            con.Close();
                         }
                         else
                         {
-                            // Show error alert
-                            Response.Write("<script>alert('An error occurred while adding the product to cart');</script>");
+                            drCart.Close();
+                            SqlCommand insertCart = new SqlCommand("INSERT INTO tblCartProduct (Custid, Pid, Quantity, Total) VALUES (@Custid, @Pid, @Quantity, @Total)", con);
+                            insertCart.Parameters.AddWithValue("@Custid", Session["uid"]);
+                            insertCart.Parameters.AddWithValue("@Pid", pid);
+                            insertCart.Parameters.AddWithValue("@Quantity", quantity);
+                            insertCart.Parameters.AddWithValue("@Total", quantity * Convert.ToInt32(lblProductPrice.Text));
+                            int isInserted = insertCart.ExecuteNonQuery();
+                            if (isInserted > 0)
+                            {
+                                Response.Write("<script>alert('Product added to cart successfully!');</script>");
+                                con.Close();
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('Failed to add product to cart!');</script>");
+                            }
+                            con.Close();
                         }
-                        con.Close(); // Close connection after executing the command
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Quantity must be a positive integer.');</script>");
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Log the exception
-                    Response.Write("<script>alert('An error occurred while adding the product to cart: " + ex.Message + "');</script>");
+                    Response.Write("<script>alert('Quantity must be a positive integer.');</script>");
                 }
             }
         }

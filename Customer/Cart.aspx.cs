@@ -10,8 +10,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 
-
-
 namespace OMSMS6.Customer
 {
     public partial class Checkout : System.Web.UI.Page
@@ -55,7 +53,7 @@ namespace OMSMS6.Customer
                     int cartpId;
                     if (int.TryParse(Request.QueryString["cartpid"], out cartpId))
                     {
-                        UpdatecartPItem(cartpId);
+                        DeletecartItem(cartpId);
                     }
                 }
             }
@@ -64,23 +62,19 @@ namespace OMSMS6.Customer
         public void LoadCart()
         {
             con.Open();
-
-
             String uid = Session["uid"].ToString();
-            //String uid = 1.ToString();
-
-            SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.Price, CP.Quantity FROM tblCartProduct CP JOIN tblProduct P ON CP.Pid = P.Id JOIN tblProductDetail PD ON CP.Pid = PD.Pid WHERE CP.Custid =" + uid + ";", con);
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            if (reader.Read())
+            SqlCommand selectItem = new SqlCommand("SELECT p.name as pname, p.imageName, c.name as cname, s.storage as storage, pd.price, cp.Quantity, cp.Total, cp.Id FROM tblCartProduct cp INNER JOIN tblProductDetail pd ON cp.Pid = pd.id INNER JOIN tblProduct p ON pd.Pid = p.id INNER JOIN tblColor c ON pd.cid = c.id INNER JOIN tblStorage s ON pd.sid = s.id WHERE cp.CustId = @uid", con);
+            selectItem.Parameters.AddWithValue("@uid", uid);
+            SqlDataReader reader = selectItem.ExecuteReader();
+            if (reader.HasRows)
             {
                 DataTable dt = new DataTable();
                 dt.Load(reader);
                 viewcartlist.DataSource = dt;
                 viewcartlist.DataBind();
-                decimal totalAmount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Price"]) * row.Field<int>("Quantity"));
-                lbltotal.Text = string.Format("&#8377;{0}.00", totalAmount);
 
+                decimal totalAmount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["price"]) * row.Field<int>("Quantity"));
+                lbltotal.Text = string.Format("&#8377;{0}.00", totalAmount);
             }
             else
             {
@@ -98,30 +92,30 @@ namespace OMSMS6.Customer
         private void UpdatecartMItem(int cartmId)
         {
             con.Open();
-            using (SqlCommand cmdSelect = new SqlCommand("SELECT Quantity FROM tblCartProduct WHERE Id =" + cartmId + ";", con))
+            SqlCommand cmdSelect = new SqlCommand("SELECT pd.price, cp.Quantity FROM tblCartProduct cp INNER JOIN tblProductDetail pd ON cp.Pid = pd.id WHERE cp.Id = @cartmid", con);
+            cmdSelect.Parameters.AddWithValue("@cartmid", cartmId);
+            SqlDataReader dr = cmdSelect.ExecuteReader();
+            if (dr.Read())
             {
-                cmdSelect.Parameters.AddWithValue("@cartmid", cartmId);
-                int currentQuantity = Convert.ToInt32(cmdSelect.ExecuteScalar());
-
+                int currentQuantity = Convert.ToInt32(dr["Quantity"]);
+                decimal price = Convert.ToDecimal(dr["Price"]);
+                dr.Close();
                 // Check if current quantity is greater than 1 before decrementing
                 if (currentQuantity > 1)
                 {
-                    using (SqlCommand cmdUpdate = new SqlCommand("UPDATE tblCartProduct SET Quantity = Quantity - 1 WHERE Id = @cartmid", con))
-                    {
-                        cmdUpdate.Parameters.AddWithValue("@cartmid", cartmId);
-                        cmdUpdate.ExecuteNonQuery();
-                    }
+                    SqlCommand cmdUpdate = new SqlCommand("UPDATE tblCartProduct SET Quantity = Quantity - 1, Total = @Total WHERE Id = @cartmid", con);
+                    cmdUpdate.Parameters.AddWithValue("@cartmid", cartmId);
+                    cmdUpdate.Parameters.AddWithValue("@Total", (currentQuantity - 1) * price);
+                    cmdUpdate.ExecuteNonQuery();
                 }
                 else
                 {
-                    using (SqlCommand cmdDelete = new SqlCommand("delete from tblCartProduct WHERE Id = @cartmid", con))
-                    {
-                        cmdDelete.Parameters.AddWithValue("@cartmid", cartmId);
-                        cmdDelete.ExecuteNonQuery();
-                    }
+                    SqlCommand cmdDelete = new SqlCommand("delete from tblCartProduct WHERE Id = @cartmid", con);
+                    cmdDelete.Parameters.AddWithValue("@cartmid", cartmId);
+                    cmdDelete.ExecuteNonQuery();
                 }
             }
-
+            dr.Close();
             con.Close();
 
             // Redirect back to the cart page
@@ -132,12 +126,19 @@ namespace OMSMS6.Customer
         {
 
             con.Open();
-            using (SqlCommand cmd = new SqlCommand("update tblCartProduct set Quantity=Quantity+1 WHERE Id = @cartpid", con))
+            SqlCommand cmdSelect = new SqlCommand("SELECT pd.price, cp.Quantity FROM tblCartProduct cp INNER JOIN tblProductDetail pd ON cp.Pid = pd.id WHERE cp.Id = @cartpId", con);
+            cmdSelect.Parameters.AddWithValue("@cartpId", cartpId);
+            SqlDataReader dr = cmdSelect.ExecuteReader();
+            if (dr.Read())
             {
-                cmd.Parameters.AddWithValue("@cartpid", cartpId);
-                cmd.ExecuteNonQuery();
+                int currentQuantity = Convert.ToInt32(dr["Quantity"]);
+                decimal price = Convert.ToDecimal(dr["Price"]);
+                dr.Close();
+                SqlCommand cmdUpdate = new SqlCommand("UPDATE tblCartProduct SET Quantity = Quantity + 1, Total = @Total WHERE Id = @cartpId", con);
+                cmdUpdate.Parameters.AddWithValue("@cartpId", cartpId);
+                cmdUpdate.Parameters.AddWithValue("@Total", (currentQuantity + 1) * price);
+                cmdUpdate.ExecuteNonQuery();
             }
-
 
             // Redirect back to the product page after deletings
             Response.Redirect("cart.aspx");
@@ -146,31 +147,20 @@ namespace OMSMS6.Customer
         private void DeletecartItem(int cartId)
         {
             con.Open();
-            using (SqlCommand cmd = new SqlCommand("DELETE FROM tblCartProduct WHERE Id = @cartid", con))
-            {
-                cmd.Parameters.AddWithValue("@cartid", cartId);
-                cmd.ExecuteNonQuery();
-            }
-
-
+            SqlCommand cmd = new SqlCommand("DELETE FROM tblCartProduct WHERE Id = @cartid", con);
+            cmd.Parameters.AddWithValue("@cartid", cartId);
+            cmd.ExecuteNonQuery();
             // Redirect back to the product page after deletings
             Response.Redirect("cart.aspx");
         }
 
-
-
-
         protected void emtycart_Click(object sender, EventArgs e)
         {
             con.Open();
-            /*            String u_id = Session["u_id"].ToString();*/
-            String u_id = Session["uid"].ToString();
-            using (SqlCommand cmd = new SqlCommand("DELETE FROM tblCartProduct WHERE CustId =" + u_id, con))
-            {
-                cmd.ExecuteNonQuery();
-            }
-
-
+            String uid = Session["uid"].ToString();
+            SqlCommand cmd = new SqlCommand("DELETE FROM tblCartProduct WHERE CustId = @uid", con);
+            cmd.Parameters.AddWithValue("@uid", uid);
+            cmd.ExecuteNonQuery();
             // Redirect back to the product page after deletings
             Response.Redirect("cart.aspx");
         }

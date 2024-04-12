@@ -15,15 +15,6 @@ namespace OMSMS6.Customer
     {
 
         /// <summary>
-        /// checkoutForm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm checkoutForm;
-
-        /// <summary>
         /// viewcartlist control.
         /// </summary>
         /// <remarks>
@@ -130,15 +121,6 @@ namespace OMSMS6.Customer
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rdbonline;
-
-        /// <summary>
-        /// btnCancleOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCancleOrder;
 
         /// <summary>
         /// btn_confirm_order control.

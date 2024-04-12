@@ -22,7 +22,18 @@ namespace OMSMS6.Customer
         private const string _secret = "UpV5ntauZ58ccScdVF5XXN4s";
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadCart();
+            if (!IsPostBack)
+            {
+                if (Session["uid"] == null)
+                {
+                    //Response.Write("<script>alert('Please Login First'); window.location='../Customer/Default.aspx'</script>");
+                    Response.Redirect("Default.aspx");
+                }
+                else
+                {
+                    LoadCart();
+                }
+            }
             /*  bindCityState();*/
 
 
@@ -34,7 +45,7 @@ namespace OMSMS6.Customer
             SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
 
             con.Open();
-            string uid = (string)Session["uid"]; // Assuming the user ID is always "1"
+            int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
             //string uid = "1"; // Assuming the user ID is always "1"
             SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.Price, CP.Quantity FROM tblCartProduct CP JOIN tblProduct P ON CP.Pid = P.Id JOIN tblProductDetail PD ON CP.Pid = PD.Pid WHERE CP.Custid = " + uid, con);
             SqlDataReader reader = cmd.ExecuteReader();
