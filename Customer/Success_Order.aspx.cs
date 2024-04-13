@@ -33,7 +33,7 @@ namespace OMSMS6.Customer
                     binddata();
 
                     string pay_type = Session["pay_type"].ToString();
-                    Response.Write("<script>alert('Order   '," + pay_type + ");</script>");
+                    Response.Write("<script>alert('Order   " + pay_type + "');</script>");
 
                     if (pay_type == "COD")
                     {
