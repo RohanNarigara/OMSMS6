@@ -53,7 +53,7 @@ namespace OMSMS6.Customer
                     int cartpId;
                     if (int.TryParse(Request.QueryString["cartpid"], out cartpId))
                     {
-                        DeletecartItem(cartpId);
+                        UpdatecartPItem(cartpId);
                     }
                 }
             }

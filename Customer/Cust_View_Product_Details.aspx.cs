@@ -11,6 +11,7 @@ namespace OMSMS6.Customer
     public partial class CUst_View_All_Product : System.Web.UI.Page
     {
         String connection = "Data Source = LAPTOP-SHON9L4N\\SQLEXPRESS; Initial Catalog=omsms; Integrated Security=True;";
+        //String connection = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
         int pid = 0;
        
 

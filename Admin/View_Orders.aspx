@@ -20,7 +20,7 @@
     <form runat="server">
         <div class="flex items-center justify-center h-screen">
             <div class="bg-purple-200 border border-gray-200 rounded shadow p-6">
-                <h1 class="text-4xl text-center font-semibold mb-6">Auction Items</h1>
+                <h1 class="text-4xl text-center font-semibold mb-6">Ordered Items</h1>
                 <div class="bg-purple-200 border border-gray-200 rounded shadow p-6">
                     <div class="overflow-x-auto">
                         <table id="AuctionItemsDataTableR" class="min-w-full">
@@ -33,7 +33,7 @@
                                     <th class="py-2 px-4 border-b">Product</th>
                                     <th class="py-2 px-4 border-b">Amount</th>
                                     <th class="py-2 px-4 border-b">Status</th>
-                                    <th class="py-2 px-4 border-b">View</th>
+                                    <th class="py-2 px-4 border-b">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">

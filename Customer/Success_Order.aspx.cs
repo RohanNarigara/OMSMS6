@@ -32,23 +32,26 @@ namespace OMSMS6.Customer
                 {
                     binddata();
 
-                    String pay_type = Session["pay_type"].ToString();
+                    string pay_type = Session["pay_type"].ToString();
                     Response.Write("<script>alert('Order   '," + pay_type + ");</script>");
 
                     if (pay_type == "COD")
                     {
-                        String orderId = (String)Session["oid"].ToString();
-                        String total = (String)Session["total"].ToString();
+                        string orderId = (string)Session["oid"].ToString();
+                        string total = (string)Session["total"].ToString();
 
-                        String payer_name = (String)Session["payer_name"].ToString();
-                        String payer_email = (String)Session["payer_email"].ToString();
-                        String payer_phone = (String)Session["payer_phone"].ToString();
-                        String address = (String)Session["payer_address"].ToString();
+                        string payer_name = (string)Session["payer_name"].ToString();
+                        string payer_email = (string)Session["payer_email"].ToString();
+                        string payer_phone = (string)Session["payer_phone"].ToString();
+                        string address = (string)Session["payer_address"].ToString();
 
-                        String order_status = "Pendding";
+                        string order_status = "Pendding";
                         int payment_status = 0;
-                        String payment_type = "COD";
+                        string payment_type = "COD";
                         DateTime currentDate = DateTime.Now;
+
+                        
+
 
                         // Format the date as "yyyy-MM-dd"
                         string formattedDate = currentDate.ToString("yyyy-MM-dd");
@@ -67,7 +70,7 @@ namespace OMSMS6.Customer
 
                             int oid = Convert.ToInt32(orderId);
                             int userid = (int)Session["uid"];
-                            SqlCommand cmd = new SqlCommand("INSERT INTO tblOrder (OrderId, CustId, OrderDate, DeliveryAddress, Total, DeliveryStatus, PaymentType, PaymentStatus) VALUES (" + oid + ", " + userid + " ,'"+ formattedDate + "', '" + address + "', " + Convert.ToInt32(total) + ", '" + order_status + "', '" + payment_type + "', " + Convert.ToInt32(payment_status) + ")", con);
+                            SqlCommand cmd = new SqlCommand("INSERT INTO tblOrder (OrderId, CustId, OrderDate, DeliveryAddress, Total, DeliveryStatus, PaymentType, PaymentStatus) VALUES (" + oid + ", " + userid + " ,'"+ formattedDate + "', '" + address + "', " + Convert.ToInt32(total) + ", '" + order_status + "', '" + payment_type + "', " + payment_status + ")", con);
                             cmd.ExecuteNonQuery();
 
 
@@ -85,11 +88,11 @@ namespace OMSMS6.Customer
                                 Label lblStorage = (Label)item.FindControl("lblStorage");
 
                                 int pid = Convert.ToInt32(lblProductId.Text);
-                                String pname = lblProductName.Text;
+                                string pname = lblProductName.Text;
                                 int price = Convert.ToInt32(lblPrice.Text);
                                 int quantity = Convert.ToInt32(lblQuantity.Text);
-                                String color = lblColor.Text;
-                                String storage = lblStorage.Text;
+                                string color = lblColor.Text;
+                                string storage = lblStorage.Text;
 
                                 /*      SqlCommand cmd1 = new SqlCommand("INSERT INTO tblOrderProduct (OrderId, Pid, Pname, Price, Quantity, Color, Storage) VALUES (" + oid + ", " + pid + ", '" + pname + "', " + price + ", " + quantity + ", '" + color + "', '" + storage + "')", con);
                                       cmd1.ExecuteNonQuery();*/
@@ -107,9 +110,9 @@ namespace OMSMS6.Customer
                         finally
                         {
                             con.Close();
-                            String bill = "genrate";
+                            string bill = "genrate";
                             Session["bill"] = bill;
-                            String oid1 = (String)Session["oid"].ToString();
+                            string oid1 = (string)Session["oid"].ToString();
 
                             Response.Redirect("Cust_Bill.aspx?orderId=" + oid1);
                         }
@@ -119,19 +122,19 @@ namespace OMSMS6.Customer
             else
             {
                 // in case of payment is not COD
-                String pay_type = Session["pay_type"].ToString();
+                string pay_type = Session["pay_type"].ToString();
                 if (pay_type == "Online")
                 {
-                    String orderId = (String)Session["oid"].ToString();
-                    String total = (String)Session["total"].ToString();
-                    String payer_name = (String)Session["payer_name"].ToString();
-                    String payer_email = (String)Session["payer_email"].ToString();
-                    String payer_phone = (String)Session["payer_phone"].ToString();
-                    String address = (String)Session["address"].ToString();
+                    string orderId = (string)Session["oid"].ToString();
+                    string total = (string)Session["total"].ToString();
+                    string payer_name = (string)Session["payer_name"].ToString();
+                    string payer_email = (string)Session["payer_email"].ToString();
+                    string payer_phone = (string)Session["payer_phone"].ToString();
+                    string address = (string)Session["address"].ToString();
 
-                    String order_status = "Pendding";
+                    string order_status = "Pendding";
                     int payment_status = 1;
-                    String payment_type = "Online";
+                    string payment_type = "Online";
 
                     lbl1.Text = "Payment type :" + pay_type;
                     Label3.Text = "Order id :" + orderId;
@@ -168,11 +171,11 @@ namespace OMSMS6.Customer
                             Label lblStorage = (Label)item.FindControl("lblStorage");
 
                             int pid = Convert.ToInt32(lblProductId.Text);
-                            String pname = lblProductName.Text;
+                            string pname = lblProductName.Text;
                             int price = Convert.ToInt32(lblPrice.Text);
                             int quantity = Convert.ToInt32(lblQuantity.Text);
-                            String color = lblColor.Text;
-                            String storage = lblStorage.Text;
+                            string color = lblColor.Text;
+                            string storage = lblStorage.Text;
 
                             /*
                                                         int oid = Convert.ToInt32(orderId);
@@ -193,9 +196,9 @@ namespace OMSMS6.Customer
                     finally
                     {
                         con.Close();
-                        String bill = "genrate";
+                        string bill = "genrate";
                         Session["bill"] = bill;
-                        String oid1 = (String)Session["oid"].ToString();
+                        string oid1 = (string)Session["oid"].ToString();
 
                         Response.Redirect("Cust_Bill.aspx?orderId=" + oid1);
                     }

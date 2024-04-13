@@ -22,18 +22,12 @@ namespace OMSMS6.Admin
 
         private void BindOrderData()
         {
-            string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;";
-            //string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
+            string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integra//ted Security=True;";
+           // string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"SELECT o.Id AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.Email, 
-                    u.Contact AS Phone, p.Name AS Product, op.Quantity * pd.Price AS Amount, o.DeliveryStatus AS Status
-                    FROM tblOrder o
-                    INNER JOIN tblOrderProduct op ON o.Id = op.Oid
-                    INNER JOIN tblProduct p ON op.Pid = p.Id
-                    INNER JOIN tblProductDetail pd ON p.Id = pd.Pid
-                    INNER JOIN tblUser u ON o.CustId = u.Id";
+                string query = @"SELECT o.id AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.Email, u.Contact AS Phone, p.Name AS Product, op.Quantity * pd.Price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.id = op.Oid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.pid INNER JOIN tblUsers u ON o.CustId = u.id";
 
                 SqlCommand cmd = new SqlCommand(query, con);
 

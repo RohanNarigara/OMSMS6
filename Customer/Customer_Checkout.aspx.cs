@@ -42,7 +42,8 @@ namespace OMSMS6.Customer
 
         protected void LoadCart()
         {
-            SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+//            SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+            SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
 
             con.Open();
             int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
@@ -112,7 +113,8 @@ namespace OMSMS6.Customer
                     Session["pay_type"] = pay_type;
                     Session["payer_name"] = fname + " " + lname;
                     Session["payer_email"] = email;
-                    Session["payer_phone"] = phone;
+                    Session["payer_phone"] = phone; 
+                    Session["payer_address"] = finaladdress;
 
                     Response.Redirect("Success_Order.aspx");
                 }
@@ -139,13 +141,17 @@ namespace OMSMS6.Customer
                     string profileName = txtfname.Text + " " + txtlname.Text;
                     string profileMobile = txtcono.Text;
                     string profileEmail = txtemail.Text;
-
+                    String address = txtaddress.Text;
+                    String city = txtCity.Text;
+                    String state = txtState.Text;
+                    String pincode = txtZipCode.Text;
+                    String finaladdress = address + " " + city + " " + state + " " + pincode;
                     Session["total"] = total;
                     Session["pay_type"] = pay_type;
                     Session["payer_name"] = profileName;
                     Session["payer_email"] = profileEmail;
                     Session["payer_phone"] = profileMobile;
-                    Session["payer_address"] = txtaddress.Text;
+                    Session["payer_address"] = finaladdress;
 
                     Dictionary<string, string> notes = new Dictionary<string, string>()
                 {

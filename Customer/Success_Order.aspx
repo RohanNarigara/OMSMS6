@@ -7,34 +7,43 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <section class="py-24 relative">
+        <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+            <h2 class="font-manrope font-bold text-4xl leading-10 text-white text-center">Payment Successful
+            </h2>
+            <p class="mt-4 font-normal text-lg leading-8 text-gray-500 mb-11 text-center">
+                Thanks for making a purchase
+                
+            </p>
 
-    <form id="form1" runat="server">
-        
+        </div>
+
+        </div>
+    </section>
+    <form id="form1" runat="server" >
+         
+
         <div>
-            <h1>Order Placed Successfully</h1>
-            </div>
-
-
-        <div>
-            <table>
+            <table class="w-full">
                 <asp:Label runat="server" ID="lblsuccess" />
                 <asp:Repeater ID="viewcartlist" runat="server">
                     <ItemTemplate>
                         <tr>
                             <td>
+                                <!-- Empty cell -->
                             </td>
                             <td>
-                                <asp:Label runat="server" ID="sizeLabel" Text='<%# Eval("Storage") %>' />
+                                <asp:Label runat="server" ID="sizeLabel" Text='<%# Eval("Storage") %>' CssClass="text-gray-500 text-md" />
                             </td>
                             <td>
-                                <asp:Label runat="server" ID="colorLabel" Text='<%# Eval("Color") %>' />
+                                <asp:Label runat="server" ID="colorLabel" Text='<%# Eval("Color") %>' CssClass="text-gray-500 text-md" />
                             </td>
                             <td>
-                                <asp:Label runat="server" ID="quantityLabel" Text='<%# Eval("Quantity") %>' />
+                                <asp:Label runat="server" ID="quantityLabel" Text='<%# Eval("Quantity") %>' CssClass="text-gray-500 text-md" />
                             </td>
                             <td>
                                 <%# string.Format("&#8377;{0}.00", Convert.ToDouble(Eval("Price")) * Convert.ToInt32(Eval("Quantity"))) %>
-                            </td>
+                        </td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -42,12 +51,12 @@
         </div>
     </form>
 
-    <asp:Label runat="server" ID="lbl1" />
-    <asp:Label runat="server" ID="Label2" />
-    <asp:Label runat="server" ID="Label3" />
-    <asp:Label runat="server" ID="Label4" />
-    <asp:Label runat="server" ID="Label1" />
-    <asp:Label runat="server" ID="Label5" />
-    <asp:Label runat="server" ID="Label6" />
+    <asp:Label runat="server" ID="lbl1" CssClass="text-gray-500 text-md" />
+    <asp:Label runat="server" ID="Label2" CssClass="text-gray-500 text-md" />
+    <asp:Label runat="server" ID="Label3" CssClass="text-gray-500 text-md" />
+    <asp:Label runat="server" ID="Label4" CssClass="text-gray-500 text-md" />
+    <asp:Label runat="server" ID="Label1" CssClass="text-gray-500 text-md" />
+    <asp:Label runat="server" ID="Label5" CssClass="text-gray-500 text-md" />
+    <asp:Label runat="server" ID="Label6" CssClass="text-gray-500 text-md" />
 
 </asp:Content>

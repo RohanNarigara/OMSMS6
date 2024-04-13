@@ -77,7 +77,7 @@ namespace OMSMS6.Customer
 
         protected void FetchProductsFromDatabase()
         {
-            //string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
+           // string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
             string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;";
 
             using (SqlConnection con = new SqlConnection(connectionString))

@@ -12,6 +12,10 @@ namespace OMSMS6.Res
 {
     public partial class Change_Password : System.Web.UI.Page
     {
+        
+        //SqlConnection conn = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+
+
         SqlConnection conn = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
         protected void Page_Load(object sender, EventArgs e)
         {
