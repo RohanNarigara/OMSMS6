@@ -11,10 +11,15 @@ namespace OMSMS6.Admin
 {
     public partial class Default : System.Web.UI.Page
     {
+<<<<<<< HEAD
         //SqlConnection conn = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
         //SqlConnection conn = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
 
+=======
+        SqlConnection conn = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+        //SqlConnection conn = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+>>>>>>> 7f4d231fbecac4192cd2d3509a15b288c68c848f
 
         protected void Page_Load(object sender, EventArgs e)
         {

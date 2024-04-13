@@ -57,156 +57,30 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="text-center p-10">
-        <h1 class="font-bold text-white hover:text-[#00ffff] text-4xl neon-effect">Our Products</h1>
-    </div>
-
-    <!-- ✅ Grid Section - Starts Here 👇 -->
     <form runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div class="text-center p-10">
+            <h1 class="font-bold text-white hover:text-[#00ffff] text-4xl neon-effect">Our Products</h1>
+            <div class="flex align-center justify-center mt-3">
+                <div>
+                    <p class="text-white text-lg mr-5">Select Brand Vise Product:</p>
+                </div>
+                <div>
+                   <%-- <asp:UpdatePanel runat="server" ID="brandPanel">
+                        <ContentTemplate> --%>
+                            <asp:DropDownList runat="server" ID="ddlBrand" AutoPostBack="true" DataTextField="name" DataValueField="id" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded px-4 block w-full appearance-none" OnSelectedIndexChanged="ddlBrand_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        <%-- </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlBrand" />
+                        </Triggers>
+                    </asp:UpdatePanel> --%>
+                </div>
+            </div>
+        </div>
+
         <section id="Projects" class="w-fit mx-auto grid xs:grid-cols-1 lg:grid-cols-4 lg:gap-x-5 md:grid-cols-3 md:gap-x-5 sm:grid-cols-2 sm:gap-x-5 justify-items-center justify-center gap-y-20 gap-x-5 mt-10 mb-5">
             <asp:PlaceHolder ID="ProductContainer" runat="server"></asp:PlaceHolder>
-
-
-            <!--   ✅ Product card 1 - Starts Here 👇 -->
-            <%-- <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                <a href="Cust_View_Product_Details.aspx?id=1">
-                    <img src="https://images.unsplash.com/photo-1646753522408-077ef9839300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
-                    <div class="px-4 py-3 w-72">
-                        <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span>
-                        <p class="text-lg font-bold text-black truncate block capitalize">Product Name</p>
-                        <div class="flex items-center">
-                            <p class="text-lg font-semibold text-black cursor-auto my-3">$149</p>
-
-                            <div class="ml-auto">
-                                <asp:Button ID="Button1" runat="server" Text="Add to cart"
-                                    CssClass="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    OnClick="Add_to_Cart" />
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--   🛑 Product card 1 - Ends Here  -->
-
-            <!--   ✅ Product card 2 - Starts Here 👇 -->
-            <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                <a href="#">
-                    <img src="https://images.unsplash.com/photo-1651950519238-15835722f8bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mjh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
-                    <div class="px-4 py-3 w-72">
-                        <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span>
-                        <p class="text-lg font-bold text-black truncate block capitalize">Product Name</p>
-                        <div class="flex items-center">
-                            <p class="text-lg font-semibold text-black cursor-auto my-3">$149</p>
-
-                            <div class="ml-auto">
-                                <asp:Button ID="Button2" runat="server" Text="Add to cart"
-                                    CssClass="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    OnClick="Add_to_Cart" />
-
-
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--   🛑 Product card 2- Ends Here  -->
-
-            <!--   ✅ Product card 3 - Starts Here 👇 -->
-            <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                <a href="#">
-                    <img src="https://images.unsplash.com/photo-1651950537598-373e4358d320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
-                    <div class="px-4 py-3 w-72">
-                        <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span>
-                        <p class="text-lg font-bold text-black truncate block capitalize">Product Name</p>
-                        <div class="flex items-center">
-                            <p class="text-lg font-semibold text-black cursor-auto my-3">$149</p>
-
-                            <div class="ml-auto">
-                                <asp:Button ID="Button3" runat="server" Text="Add to cart"
-                                    CssClass="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    OnClick="Add_to_Cart" />
-
-
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--   🛑 Product card 3 - Ends Here  -->
-
-            <!--   ✅ Product card 4 - Starts Here 👇 -->
-            <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                <a href="#">
-                    <img src="https://images.unsplash.com/photo-1651950540805-b7c71869e689?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mjl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
-                    <div class="px-4 py-3 w-72">
-                        <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span>
-                        <p class="text-lg font-bold text-black truncate block capitalize">Product Name</p>
-                        <div class="flex items-center">
-                            <p class="text-lg font-semibold text-black cursor-auto my-3">$149</p>
-
-                            <div class="ml-auto">
-                                <asp:Button ID="Button4" runat="server" Text="Add to cart"
-                                    CssClass="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    OnClick="Add_to_Cart" />
-
-
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--   🛑 Product card 4 - Ends Here  -->
-
-            <!--   ✅ Product card 5 - Starts Here 👇 -->
-            <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                <a href="#">
-                    <img src="https://images.unsplash.com/photo-1649261191624-ca9f79ca3fc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
-                    <div class="px-4 py-3 w-72">
-                        <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span>
-                        <p class="text-lg font-bold text-black truncate block capitalize">Product Name</p>
-                        <div class="flex items-center">
-                            <p class="text-lg font-semibold text-black cursor-auto my-3">$149</p>
-
-                            <div class="ml-auto">
-                                <asp:Button ID="Button5" runat="server" Text="Add to cart"
-                                    CssClass="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    OnClick="Add_to_Cart" />
-
-
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--   🛑 Product card 5 - Ends Here  -->
-
-            <!--   ✅ Product card 6 - Starts Here 👇 -->
-            <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                <a href="#">
-                    <img src="https://images.unsplash.com/photo-1649261191606-cb2496e97eee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
-                    <div class="px-4 py-3 w-72">
-                        <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span>
-                        <p class="text-lg font-bold text-black truncate block capitalize">Product Name</p>
-                        <div class="flex items-center">
-                            <p class="text-lg font-semibold text-black cursor-auto my-3">$149</p>
-
-                            <div class="ml-auto">
-                                <asp:Button ID="Button6" runat="server" Text="Add to cart"
-                                    CssClass="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    OnClick="Add_to_Cart" />
-
-
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>--%>
         </section>
     </form>
 
