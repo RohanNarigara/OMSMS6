@@ -14,16 +14,8 @@ namespace OMSMS6.Customer
         {
             if (!IsPostBack)
             {
-                //string brand = Request.QueryString["brand"].ToString();
-                //if (brand != null)
-                //{
-                //    FetchProductsFromDatabase(brand);
-                //}
-                //else
-                //{
                 FetchProductsFromDatabase();
-                //}
-
+                bindBrand();
             }
 
         }
@@ -72,18 +64,40 @@ namespace OMSMS6.Customer
         //    }
         //}
 
-
-
-
-        protected void FetchProductsFromDatabase()
+        protected void bindBrand()
         {
-           // string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
+            SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+            con.Open();
+            SqlCommand selectBrand = new SqlCommand("select * from tblBrand", con);
+            SqlDataReader dr = selectBrand.ExecuteReader();
+            if (dr.HasRows)
+            {
+                ddlBrand.DataSource = dr;
+                ddlBrand.DataBind();
+            }
+            ddlBrand.Items.Insert(0, new ListItem("All Products", "0"));
+            dr.Close();
+            con.Close();
+        }
+
+
+        protected void FetchProductsFromDatabase(int? id = 0)
+        {
+            // string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
             string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 //SqlCommand cmd = new SqlCommand("SELECT p.Id, p.Name, p.ImageName, pd.Price FROM tblProduct p INNER JOIN tblProductDetail pd ON p.Id = pd.Pid", con);
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblProduct", con);
+
+                string query = "SELECT * FROM tblProduct";
+                SqlCommand cmd = new SqlCommand(query, con);
+                if (id > 0)
+                {
+                    query = "SELECT * FROM tblProduct WHERE bid = @bid";
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@bid", id);
+                }
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 if (rdr.HasRows)
@@ -126,12 +140,65 @@ namespace OMSMS6.Customer
                         //ProductContainer.Controls.Add(productControl);
                         ProductContainer.Controls.Add(productControl);
 
-
-                       
                     }
+                }
+                else
+                {
+                    // div for no product found
+                    string noProductHtml = $@"<div class='flex h-[50vh] w-[3500vw] flex-col items-center justify-center bg-red-100'>
+  <h1 class='text-2xl text-red-800 ml-[75vw]'>No product found!</h1>
+  <h2 class='texl-xl text-red-500 ml-[75vw]'>We are sorry!</h2>
+</div>
+
+";
+                    LiteralControl noProductControl = new LiteralControl(noProductHtml);
+                    ProductContainer.Controls.Add(noProductControl);
                 }
                 rdr.Close();
             }
+        }
+
+        protected void ddlBrand_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int bid = Convert.ToInt32(ddlBrand.SelectedItem.Value.ToString());
+            FetchProductsFromDatabase(bid);
+            //Response.Write("<script>alert('Brand ID: " + bid + "');</script>");
+            //if (bid > 0)
+            //{
+            //    SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+            //    con.Open();
+            //    SqlCommand selectProduct = new SqlCommand("SELECT * FROM tblProduct WHERE bid = @bid", con);
+            //    selectProduct.Parameters.AddWithValue("@bid", bid);
+            //    SqlDataReader dr = selectProduct.ExecuteReader();
+            //    if (dr.HasRows)
+            //    {
+            //        while (dr.Read())
+            //        {
+            //            int productId = int.Parse(dr["id"].ToString());
+            //            string productName = dr["name"].ToString();
+            //            string imageName = dr["imageName"].ToString();
+
+            //            string productHtml = $@"
+            //    <div class='w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl'>
+            //        <a href='Cust_View_Product_Details.aspx?id={productId}'>
+            //            <img src='../Res/Images/{imageName}' alt='Product' class='h-80 w-72 object-cover rounded-t-xl' />
+            //            <div class='px-4 py-3 w-72'>
+            //                <p class='text-lg font-bold text-black truncate block capitalize'>{productName}</p>
+            //            </div>
+            //        </a>
+            //    </div>";
+
+            //            LiteralControl productControl = new LiteralControl(productHtml);
+            //            ProductContainer.Controls.Add(productControl);
+            //        }
+            //    }
+            //    dr.Close();
+            //    con.Close();
+            //}
+            //else
+            //{
+            //    FetchProductsFromDatabase();
+            //}
         }
 
         protected void Add_to_Cart(object sender, EventArgs e)
