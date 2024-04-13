@@ -40,7 +40,7 @@ namespace OMSMS6.Admin
             SqlDataReader drProductDetails = selectProductDetails.ExecuteReader();
             if (drProductDetails.Read())
             {
-                SqlCommand fetchBrand = new SqlCommand("SELECT b.name AS bname, p.bid, p.name AS pname, pd.pid FROM tblBrand b INNER JOIN tblProduct p ON b.id=p.bid INNER JOIN tblProductDetail pd ON p.id=pd.pid WHERE pd.id=@id", conn);
+                SqlCommand fetchBrand = new SqlCommand("SELECT b.name AS bname, p.bid, p.name AS pname, pd.pid FROM tblBrand b INNER JOIN tblProduct p ON b.id=p.bid INNER JOIN tblProductDetail pd ON p.id=pd.pid WHERE p.id=@id", conn);
                 fetchBrand.Parameters.AddWithValue("@id", eid);
                 drProductDetails.Close();
                 SqlDataReader drBrand = fetchBrand.ExecuteReader();

@@ -36,7 +36,8 @@ namespace OMSMS6.Res
             if (rbMale.Checked)
             {
                 updateUser.Parameters.AddWithValue("@gender", "Male");
-            } else if (rbFemale.Checked)
+            }
+            else if (rbFemale.Checked)
             {
                 updateUser.Parameters.AddWithValue("@gender", "Female");
             }
@@ -62,7 +63,7 @@ namespace OMSMS6.Res
             conn.Open();
             SqlCommand selectState = new SqlCommand("SELECT s.id FROM tblState s INNER JOIN tblCity c ON s.id = c.sid INNER JOIN tblUsers u ON u.cityid = c.id", conn);
             SqlDataReader dr = selectState.ExecuteReader();
-            if(dr.Read())
+            if (dr.Read())
             {
                 sid = Convert.ToInt32(dr["id"]);
             }
@@ -74,7 +75,7 @@ namespace OMSMS6.Res
             DataTable dt = new DataTable();
             da.Fill(dt);
 
-            if(dt.Rows.Count > 0)
+            if (dt.Rows.Count > 0)
             {
                 ddlState.DataSource = dt;
                 ddlState.DataBind();
@@ -87,7 +88,7 @@ namespace OMSMS6.Res
             SqlDataAdapter daCity = new SqlDataAdapter(city);
             DataTable dtCity = new DataTable();
             daCity.Fill(dtCity);
-            if(dtCity.Rows.Count > 0)
+            if (dtCity.Rows.Count > 0)
             {
                 ddlCity.DataSource = dtCity;
                 ddlCity.DataBind();
@@ -139,10 +140,12 @@ namespace OMSMS6.Res
                 if (dr["gender"].Equals("Male"))
                 {
                     rbMale.Checked = true;
-                } else if (dr["gender"].Equals("Female"))
+                }
+                else if (dr["gender"].Equals("Female"))
                 {
                     rbFemale.Checked = true;
-                } else
+                }
+                else
                 {
                     rbOther.Checked = true;
                 }

@@ -205,7 +205,6 @@ namespace OMSMS6.Customer
         {
             // alert the user that the product has been added to the cart
             Response.Write("<script>alert('Product has been added to the cart!');</script>");
-
         }
     }
 }
