@@ -64,16 +64,9 @@
                     <li>
                         <a id="pageProducts" class="text-white hover:text-gray-500" href="../Customer/Cust_View_All_Product.aspx">Products</a>
                     </li>
-                    <%--<!-- Dropdown for Category -->
-                    <li class="relative">
-                        <a href="#" class="text-white hover:text-gray-500">Category</a>
-                        <ul class="absolute bg-gray-700 text-white mt-2 py-1 rounded-lg shadow-lg hidden">
-                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Apple">Apple</a></li>
-                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Samsung">Samsung</a></li>
-                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Vivo">Vivo</a></li>
-                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=Oppo">Oppo</a></li>
-                            <li><a href="../Customer/Cust_View_All_Product.aspx?brand=OnePlus">One plus</a></li>
-                        </ul>
+                    <%--<li>
+                        <select id="selectBrand" class="text-white hover:text-gray-500 bg-gray-700" runat="server" onchange="RedirectToPage()">
+                        </select>
                     </li>--%>
                     <li>
                         <a class="text-white hover:text-gray-500" href="../Customer/Cust_viiew_prev_Orders.aspx">Orders</a>
