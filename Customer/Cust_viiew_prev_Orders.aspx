@@ -40,7 +40,7 @@
     <form runat="server">
         <section>
             <div class="font-[sans-serif] bg-gray-50 h-full">
-                <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-4 h-full">
+                <div class="grid  h-full">
 
 
                     <div class="container mx-auto">

@@ -67,11 +67,11 @@ namespace OMSMS6.Customer
 
         protected void bindBrand()
         {
-<<<<<<< HEAD
-            //string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
-            ////string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;";
-=======
-            SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+
+            //SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+            ////SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
             con.Open();
             SqlCommand selectBrand = new SqlCommand("select * from tblBrand", con);
             SqlDataReader dr = selectBrand.ExecuteReader();
@@ -90,8 +90,7 @@ namespace OMSMS6.Customer
         {
             // string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
             string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;";
->>>>>>> 7f4d231fbecac4192cd2d3509a15b288c68c848f
-
+ 
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
 
             using (con)

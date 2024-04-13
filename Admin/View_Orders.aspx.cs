@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -22,15 +23,14 @@ namespace OMSMS6.Admin
 
         private void BindOrderData()
         {
-<<<<<<< HEAD
             //string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integra//ted Security=True;";
-            string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
-=======
-            string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=test;Integrated Security=True;Encrypt=True;";
-           // string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
->>>>>>> 7f4d231fbecac4192cd2d3509a15b288c68c848f
+            // string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
+            //SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+            ////SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+
+            using (con)
             {
                 string query = @"SELECT 
     o.Id AS OrderNumber,
@@ -71,12 +71,9 @@ INNER JOIN
                 }
                 catch (Exception ex)
                 {
-<<<<<<< HEAD
-                    Response.Write("<script>alert('Error while fetching. "+ex.Message+" ');</script>");
-=======
+                    Response.Write("<script>alert('Error while fetching. " + ex.Message + " ');</script>");
 
                     Response.Write("<script>alert('Error while fetching.');</script>");
->>>>>>> 7f4d231fbecac4192cd2d3509a15b288c68c848f
                 }
 
             }
