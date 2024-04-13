@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,8 +11,11 @@ namespace OMSMS6.Customer
 {
     public partial class CUst_View_All_Product : System.Web.UI.Page
     {
-        String connection = "Data Source = LAPTOP-SHON9L4N\\SQLEXPRESS; Initial Catalog=omsms; Integrated Security=True;";
+        //String connection = "Data Source = LAPTOP-SHON9L4N\\SQLEXPRESS; Initial Catalog=omsms; Integrated Security=True;";
         //String connection = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
+
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+
         int pid = 0;
        
 
@@ -35,7 +39,7 @@ namespace OMSMS6.Customer
 
         protected void FetchProductDetailsFromDatabase(int pid)
         {
-            SqlConnection con = new SqlConnection(connection);
+            //SqlConnection con = new SqlConnection(connection);
             con.Close();
             con.Open();
             SqlCommand selectProduct = new SqlCommand("SELECT * FROM tblProduct WHERE id = @id", con);
@@ -59,7 +63,7 @@ namespace OMSMS6.Customer
 
         protected void bindColor()
         {
-            SqlConnection con = new SqlConnection(connection);
+            //SqlConnection con = new SqlConnection(connection);
             con.Close();
             con.Open();
             SqlCommand selectColor = new SqlCommand("SELECT DISTINCT c.*, pd.cid FROM tblColor c LEFT JOIN tblProductDetail pd ON c.id = pd.cid WHERE pd.pid = @pid ORDER BY id ASC;", con);
@@ -77,7 +81,7 @@ namespace OMSMS6.Customer
 
         protected void bindStorage(int cid)
         {
-            SqlConnection con = new SqlConnection(connection);
+            //SqlConnection con = new SqlConnection(connection);
             con.Close();
             con.Open();
             if (cid > 0)
@@ -108,7 +112,7 @@ namespace OMSMS6.Customer
             if (!string.IsNullOrEmpty(ddlColor.SelectedValue) && int.TryParse(ddlColor.SelectedValue, out cid) && cid > 0)
             {
                 cid = Convert.ToInt32(ddlColor.SelectedValue);
-                SqlConnection con = new SqlConnection(connection);
+                //SqlConnection con = new SqlConnection(connection);
                 con.Close();
                 con.Open();
                 int pid = int.Parse(Request.QueryString["id"]);
@@ -140,7 +144,7 @@ namespace OMSMS6.Customer
             {
                 sid = Convert.ToInt32(ddlStorage.SelectedValue);
                 cid = Convert.ToInt32(ddlColor.SelectedValue);
-                SqlConnection con = new SqlConnection(connection);
+                //SqlConnection con = new SqlConnection(connection);
                 con.Close();
                 con.Open();
                 int pid = int.Parse(Request.QueryString["id"]);
@@ -177,7 +181,7 @@ namespace OMSMS6.Customer
             }
             else
             {
-                SqlConnection con = new SqlConnection(connection);
+                //SqlConnection con = new SqlConnection(connection);
                 con.Close();
                 con.Open();
                 int pid = int.Parse(Request.QueryString["id"]);

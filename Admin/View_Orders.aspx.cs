@@ -22,8 +22,8 @@ namespace OMSMS6.Admin
 
         private void BindOrderData()
         {
-            string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integra//ted Security=True;";
-           // string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
+            //string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integra//ted Security=True;";
+            string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -48,7 +48,7 @@ namespace OMSMS6.Admin
                 }
                 catch (Exception ex)
                 {
-                    Response.Write("<script>alert('Error while fetching.');</script>");
+                    Response.Write("<script>alert('Error while fetching. "+ex.Message+" ');</script>");
                 }
 
             }

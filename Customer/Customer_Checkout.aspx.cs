@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using OMSMS6.Admin;
 using Razorpay.Api;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -15,8 +17,12 @@ namespace OMSMS6.Customer
     public partial class Customer_Checkout : System.Web.UI.Page
     {
 
-        //SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
-        SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+        // SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+        //// SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+
+
         String total;
         private const string _key = "rzp_test_Qit3KulorLte0H";
         private const string _secret = "UpV5ntauZ58ccScdVF5XXN4s";
@@ -108,7 +114,12 @@ namespace OMSMS6.Customer
                     String finaladdress = address + " " + city + " " + state + " " + pincode;
                     String orderdate = DateTime.Now.ToString("yyyy-MM-dd");
 
-                    Session["oid"] = oid;
+                    con.Close();
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO tblOrder ( CustId, OrderDate, DeliveryAddress, Total, DeliveryStatus, PaymentType, PaymentStatus) VALUES ( " + uid + " ,'" + orderdate + "', '" + address + "', " + Convert.ToInt32(total) + ", ' Pending ', '" + pay_type + "', " + 0 + ")", con);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    /*Session["oid"] = oid;
                     Session["total"] = lbltotal.Text;
                     Session["pay_type"] = pay_type;
                     Session["payer_name"] = fname + " " + lname;
@@ -116,7 +127,7 @@ namespace OMSMS6.Customer
                     Session["payer_phone"] = phone; 
                     Session["payer_address"] = finaladdress;
 
-                    Response.Redirect("Success_Order.aspx");
+                    Response.Redirect("Success_Order.aspx");*/
                 }
                 else
                 {
@@ -146,6 +157,7 @@ namespace OMSMS6.Customer
                     String state = txtState.Text;
                     String pincode = txtZipCode.Text;
                     String finaladdress = address + " " + city + " " + state + " " + pincode;
+
                     Session["total"] = total;
                     Session["pay_type"] = pay_type;
                     Session["payer_name"] = profileName;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -77,10 +78,12 @@ namespace OMSMS6.Customer
 
         protected void FetchProductsFromDatabase()
         {
-           // string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
-            string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;";
+            //string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
+            ////string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;";
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+
+            using (con)
             {
                 //SqlCommand cmd = new SqlCommand("SELECT p.Id, p.Name, p.ImageName, pd.Price FROM tblProduct p INNER JOIN tblProductDetail pd ON p.Id = pd.Pid", con);
                 SqlCommand cmd = new SqlCommand("SELECT * FROM tblProduct", con);

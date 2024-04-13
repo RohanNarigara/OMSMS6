@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -18,7 +19,10 @@ namespace OMSMS6.Customer
     public partial class Cust_Bill : System.Web.UI.Page
     {
         //SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
-        SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+        ////SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+
         String odrid;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,9 +35,10 @@ namespace OMSMS6.Customer
         protected void LoadBill()
         {
             String odrid = Request.QueryString["orderId"].ToString();
-            using (SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;"))
-            //using (SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;"))
+            //using (SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;"))
+            using (SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;"))
             {
+                con.Close();
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SELECT o.Id AS OrderId, u.name AS CustomerName, p.name AS ProductName, o.DeliveryAddress, o.OrderDate, op.Id AS OrderProductId, op.Quantity, pd.price, (op.Quantity * pd.price) AS Total FROM tblOrder o INNER JOIN tblUsers u ON o.CustId = u.id INNER JOIN tblOrderProduct op ON o.Id = op.Oid INNER JOIN tblProduct p ON op.Pid = p.Id INNER JOIN tblProductDetail pd ON p.id = pd.pid WHERE o.Id = @odrid", con);
                 cmd.Parameters.AddWithValue("@odrid", odrid);
