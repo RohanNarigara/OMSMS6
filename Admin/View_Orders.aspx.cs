@@ -32,25 +32,7 @@ namespace OMSMS6.Admin
 
             using (con)
             {
-                string query = @"SELECT 
-    o.Id AS OrderNumber,
-    o.OrderDate AS Date,
-    o.CustId AS CustomerID,
-    u.email AS Email,
-    u.contact AS Phone,
-    p.name AS Product,
-    op.Quantity * pd.price AS Amount,
-    o.DeliveryStatus AS Status 
-FROM 
-    tblOrder o 
-INNER JOIN 
-    tblOrderProduct op ON o.id = op.Oid 
-INNER JOIN 
-    tblProduct p ON op.Pid = p.id 
-INNER JOIN 
-    tblProductDetail pd ON p.id = pd.pid 
-INNER JOIN 
-    tblUsers u ON o.CustId = u.id;";
+                string query = "SELECT o.Orderid AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.email AS Email, u.contact AS Phone, p.name AS Product, op.Quantity * pd.price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.Pid INNER JOIN tblUsers u ON o.CustId = u.id;";
 
                 SqlCommand cmd = new SqlCommand(query, con);
 
@@ -71,9 +53,9 @@ INNER JOIN
                 }
                 catch (Exception ex)
                 {
-                    Response.Write("<script>alert('Error while fetching. " + ex.Message + " ');</script>");
+                    Response.Write("<script> alert('Error : "+ ex.Message+"'); </script> ");
+                        Response.Write("<script>alert('No orders found.');</script>");
 
-                    Response.Write("<script>alert('Error while fetching.');</script>");
                 }
 
             }

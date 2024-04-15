@@ -56,7 +56,8 @@ namespace OMSMS6.Customer
 
 
                         int oid = Convert.ToInt32(orderId);
-                        int userid = Session['uid'];
+                        //int userid = Session['uid'];
+                        int userid = 7;
                         DateTime currentDate = DateTime.Now;
                         string formattedDate = currentDate.ToString("yyyy-MM-dd");
                         int total1 = Convert.ToInt32(total);

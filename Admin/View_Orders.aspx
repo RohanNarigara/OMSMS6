@@ -51,13 +51,13 @@
                                             <td class="py-2 px-4 border-b"><%# Eval("Product") %></td>
                                             <td class="py-2 px-4 border-b"><%# Eval("Amount") %></td>
                                             <td class="py-2 px-4 border-b">
-                                                <asp:Button runat="server" ID="StatusButton" CssClass='<%# Eval("Status").ToString() == "1" ? "btn bg-purple-800 text-white p-1 rounded hover:bg-purple-600" : "btn bg-green-800 text-white p-1 rounded hover:bg-green-600" %>'
-                                                    Text='<%# Eval("Status").ToString() == "1" ? "Processing" : "Delivered" %>' OnClientClick='<%# Eval("Status").ToString() == "1" ? "return showConfirmationModal(" + Eval("OrderNumber") + ");" : "" %>' />
+                                                <asp:Button runat="server" ID="StatusButton" CssClass="btn bg-yellow-300 text-gray-500 p-1 rounded "
+                                                    Text='<%# Eval("Status").ToString() %>' />
                                             </td>
 
 
                                             <td class="py-2 px-4 border-b">
-                                                <button class="btn bg-indigo-500 text-white hover:bg-indigo-600" data-bs-toggle="modal" data-bs-target="#orderDetailsModal_<%# Eval("OrderNumber") %>">
+                                                <button class="btn p-1 rounded bg-indigo-500 text-white hover:bg-indigo-600" data-bs-toggle="modal" data-bs-target="#orderDetailsModal_<%# Eval("OrderNumber") %>">
                                                     View
                                                    
                                                 </button>
