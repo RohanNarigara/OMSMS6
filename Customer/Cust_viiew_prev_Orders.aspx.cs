@@ -41,7 +41,7 @@ namespace OMSMS6.Customer
             //int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
 
             int uid = 1;
-            SqlCommand cmd = new SqlCommand("SELECT o.Id AS OrderId, u.name AS CustomerName, p.name AS ProductName, pd.price, op.Quantity FROM tblOrder o INNER JOIN tblUsers u ON o.CustId = u.id INNER JOIN tblOrderProduct op ON o.Id = op.Oid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.pid WHERE u.id = @uid;", con);
+            SqlCommand cmd = new SqlCommand("SELECT o.Orderid AS OrderId, u.name AS CustomerName, p.name AS ProductName, pd.price, op.Quantity FROM tblOrder o INNER JOIN tblUsers u ON o.CustId = u.id INNER JOIN tblOrderProduct op ON o.Id = op.Oid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.pid WHERE u.id = @uid;", con);
             cmd.Parameters.AddWithValue("@uid", uid);
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)

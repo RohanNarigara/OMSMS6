@@ -32,8 +32,10 @@ namespace OMSMS6.Customer
             {
                 if (Session["uid"] == null)
                 {
-                    //Response.Write("<script>alert('Please Login First'); window.location='../Customer/Default.aspx'</script>");
+                    Response.Write("<script>alert('Please Login First'); window.location='../Customer/Default.aspx'</script>");
                     Response.Redirect("Default.aspx");
+
+
                 }
                 else
                 {
@@ -48,12 +50,11 @@ namespace OMSMS6.Customer
 
         protected void LoadCart()
         {
-            SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
-            //SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
 
             con.Open();
-            int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
-            //string uid = "1"; // Assuming the user ID is always "1"
+            int uid = (int)Session["uid"];
+
+            //string uid = "7"; // Assuming the user ID is always "1"
             SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.price, CP.Quantity , PD.id as prod_id FROM tblCartProduct CP  JOIN tblProductDetail PD ON CP.pid = PD.id JOIN tblProduct P ON PD.Pid = P.Id WHERE CP.Custid = @uid", con);
             cmd.Parameters.AddWithValue("@uid", uid);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -64,7 +65,7 @@ namespace OMSMS6.Customer
                 viewcartlist.DataSource = dt;
                 viewcartlist.DataBind();
                 decimal totalAmount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Price"]) * row.Field<int>("Quantity"));
-                lbltotal.Text = string.Format("&#8377;{0}.00", totalAmount);
+                lbltotal.Text = totalAmount.ToString();
                 Session["orderamount"] = string.Format("{0}", totalAmount);
 
 
@@ -88,62 +89,84 @@ namespace OMSMS6.Customer
         //}
         protected void Confirm_order(object sender, EventArgs e)
         {
-            string pay_type = "";
 
+            Random random = new Random();
+            int oid = random.Next(1, 999999); // Generate a random Order id
+            Session["oid"] = oid;
+
+            string pay_type = "";
             int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
-            //String uid = "1"; // Assuming the user ID is always "1"
-            /*          String u_id = Session["u_id"].ToString();*/
 
             if (rdbCOD.Checked)
             {
-                string inputAmount = (String)Session["orderamount"];
-                decimal registrationAmount;
-                pay_type = "COD";
-                if (Decimal.TryParse(inputAmount, out registrationAmount))
+               
+                int grandtotal;
+                if (int.TryParse(lbltotal.Text, out grandtotal))
                 {
-                    Random random = new Random();
-                    int oid = random.Next(00001, 999999);
-                    String fname = txtfname.Text;
-                    String lname = txtlname.Text;
-                    String email = txtemail.Text;
-                    String phone = txtcono.Text;
-                    String address = txtaddress.Text;
-                    String city = txtCity.Text;
-                    String state = txtState.Text;
-                    String pincode = txtZipCode.Text;
-                    String finaladdress = address + " " + city + " " + state + " " + pincode;
-                    String orderdate = DateTime.Now.ToString("yyyy-MM-dd");
+                    pay_type = "COD";
 
-                    con.Close();
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO tblOrder ( CustId, OrderDate, DeliveryAddress, Total, DeliveryStatus, PaymentType, PaymentStatus) VALUES ( " + uid + " ,'" + orderdate + "', '" + address + "', " + Convert.ToInt32(total) + ", ' Pending ', '" + pay_type + "', " + 0 + ")", con);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    /*Session["oid"] = oid;
-                    Session["total"] = lbltotal.Text;
-                    Session["pay_type"] = pay_type;
-                    Session["payer_name"] = fname + " " + lname;
-                    Session["payer_email"] = email;
-                    Session["payer_phone"] = phone; 
-                    Session["payer_address"] = finaladdress;
+                    string fname = txtfname.Text;
+                    string lname = txtlname.Text;
+                    string email = txtemail.Text;
+                    string phone = txtcono.Text;
+                    string address = txtaddress.Text;
+                    string city = txtCity.Text;
+                    int totalamt = Convert.ToInt32(lbltotal.Text);
+                    string state = txtState.Text;
+                    string pincode = txtZipCode.Text;
+                    string finaladdress = address + " " + city + " " + state + " " + pincode;
+                    string orderdate = DateTime.Now.ToString("yyyy-MM-dd");
 
-                    Response.Redirect("Success_Order.aspx");*/
+                    try
+                    {
+                        using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+                        {
+                            con.Open();
+                            string insertOrderQuery = "INSERT INTO tblOrder (Orderid, CustId, OrderDate, DeliveryAddress, Total, DeliveryStatus, PaymentType, PaymentStatus) " +
+                                                        "VALUES (@oid, @uid, @orderdate, @address, @total, 'Pending', @pay_type, 0)";
+                            SqlCommand cmd = new SqlCommand(insertOrderQuery, con);
+                            cmd.Parameters.AddWithValue("@oid", oid);
+                            cmd.Parameters.AddWithValue("@uid", uid);
+                            cmd.Parameters.AddWithValue("@orderdate", orderdate);
+                            cmd.Parameters.AddWithValue("@address", finaladdress);
+                            cmd.Parameters.AddWithValue("@total", totalamt);
+                            cmd.Parameters.AddWithValue("@pay_type", pay_type);
+                            int i = cmd.ExecuteNonQuery();
+                            if (i > 0)
+                            {
+                                Response.Write("<script>alert('Order has been placed successfully!');</script>");
+
+                            }
+                            emptyInputbox();
+                        }
+                        //  Response.Redirect("Success_Order.aspx");
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid decimal number.");
+                    // lbltotal.Text is not a valid integer
+                    Response.Write("<script>alert('Total amount is not a valid number.');</script>");
                 }
+
             }
+
             else
             {
                 pay_type = rdbonline.Text.ToString();
-                string inputAmount = (String)Session["orderamount"];
+                string inputAmount = lbltotal.Text.ToString();
                 decimal registrationAmount;
 
 
-                if (Decimal.TryParse(inputAmount, out registrationAmount))
+                int grandtotal;
+                if (int.TryParse(inputAmount, out grandtotal))
                 {
-                    decimal amt = registrationAmount;
+                    decimal amt = grandtotal;
                     string currency = "INR";
                     string name = "OMSMS";
                     string description = "Mobile Order";
@@ -158,7 +181,7 @@ namespace OMSMS6.Customer
                     String pincode = txtZipCode.Text;
                     String finaladdress = address + " " + city + " " + state + " " + pincode;
 
-                    Session["total"] = total;
+                    Session["total"] = amt;
                     Session["pay_type"] = pay_type;
                     Session["payer_name"] = profileName;
                     Session["payer_email"] = profileEmail;
@@ -169,9 +192,6 @@ namespace OMSMS6.Customer
                 {
                     { "note 1", "this is a payment note" }, { "note 2", "here another note, you can add max 15 notes" }
                 };
-
-                    // alert the total
-                    Response.Write("<script>alert('Total Amount: " + total + "');</script>");
 
 
                     string orderId = CreateOrder(amt, currency, notes);
@@ -186,6 +206,18 @@ namespace OMSMS6.Customer
                 }
 
             }
+        }
+
+        private void emptyInputbox()
+        {
+            txtfname.Text = "";
+            txtlname.Text = "";
+            txtemail.Text = "";
+            txtcono.Text = "";
+            txtaddress.Text = "";
+            txtCity.Text = "";
+            txtState.Text = "";
+            txtZipCode.Text = "";
         }
 
         private string CreateOrder(decimal amountInSubunits, string currency, Dictionary<string, string> notes)

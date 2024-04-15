@@ -137,8 +137,13 @@
                                     </div>
                                 </div>
                                 <div class="absolute left-0 bottom-0 bg-gray-700 w-full p-4">
-                                    <h4 class="flex flex-wrap gap-4 text-base text-white">Total <span class="ml-auto">
-                                        <asp:Label runat="server" ID="lbltotal" /></span></h4>
+                                    <h4 class="flex flex-wrap gap-4 text-base text-white">Total
+                                        <span class="ml-auto">
+                                        <!-- icon for Rupee sign -->
+                                        <span> <i class="fas fa-rupee-sign"></i></span>
+                                        <asp:Label runat="server" ID="lbltotal" /><span class =" text-base text-white">.00</span> </span>
+
+                                    </h4>
                                 </div>
                             </div>
                         </div>
