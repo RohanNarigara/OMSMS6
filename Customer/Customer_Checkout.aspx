@@ -122,6 +122,7 @@
                                                 <div class="grid sm:grid-cols-2 items-start gap-6">
                                                     <div class="px-4 py-6 shrink-0 bg-gray-50 rounded-md">
                                                         <img src='<%# "../Res/Images/" + Eval("ImageName") %>' class="w-full object-contain" />
+                                                        
                                                     </div>
                                                     <div>
                                                         <h3 class="text-base text-white"><%# Eval("ProductName") %></h3>
@@ -129,7 +130,12 @@
                                                             <li class="flex flex-wrap gap-4">Size <span class="ml-auto">37</span></li>
                                                             <li class="flex flex-wrap gap-4">Quantity <span class="ml-auto"><%# Eval("Quantity") %></span></li>
                                                             <li class="flex flex-wrap gap-4">Total Price <span class="ml-auto"><%# Convert.ToDouble(Eval("Price")) * Convert.ToInt32(Eval("Quantity")) %>.00</span></li>
+                                                            <li class="flex flex-wrap gap-4">Product ID <span id="lblpid12" class="ml-auto"><%# Eval("ProductID").ToString()  %></span> </li> 
+                                                            <%-- Display Product id for each product --%>
+                                                            <asp:Label runat='server' ID="lblpid" Text='<%# Eval("ProductID").ToString()  %>' Visible="true" ></asp:Label>
+                                                            <label class="ml-auto text-2xl text-white" Visible="true" ID="lblpid1" Text='<%# Eval("ProductID").ToString()  %>' ></label>
                                                         </ul>
+                                                        <%--<label class="ml-auto" runat="server" Visible="true" ID="lblpid" Text="<%# Eval("ProductID").ToString()  %>" ></label>--%>
                                                     </div>
                                                 </div>
                                             </ItemTemplate>
@@ -153,7 +159,7 @@
 
                     <div class="xl:col-span-2 h-max rounded-md p-8 sticky top-0">
                         <h2 class="text-2xl font-bold text-[#333]">Complete your order</h2>
-                        <form class="mt-10">
+                        <div class="mt-10">
                             <div>
                                 <h3 class="text-lg font-bold text-[#333] mb-6">Personal Details</h3>
                                 <div class="grid sm:grid-cols-2 gap-6">
@@ -253,7 +259,7 @@
 
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -294,7 +300,7 @@
                 });
             }
 
-    </script>
+        </script>
 
     </form>
 

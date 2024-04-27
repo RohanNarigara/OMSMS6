@@ -24,6 +24,8 @@ namespace OMSMS6.Customer
 
 
         String total;
+        int prodid;
+        private int j;
         private const string _key = "rzp_test_Qit3KulorLte0H";
         private const string _secret = "UpV5ntauZ58ccScdVF5XXN4s";
         protected void Page_Load(object sender, EventArgs e)
@@ -55,9 +57,12 @@ namespace OMSMS6.Customer
             int uid = (int)Session["uid"];
 
             //string uid = "7"; // Assuming the user ID is always "1"
-            SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName, P.ImageName, PD.price, CP.Quantity , PD.id as prod_id FROM tblCartProduct CP  JOIN tblProductDetail PD ON CP.pid = PD.id JOIN tblProduct P ON PD.Pid = P.Id WHERE CP.Custid = @uid", con);
+            SqlCommand cmd = new SqlCommand("SELECT CP.Id, P.Name AS ProductName,P.id AS ProductID, P.ImageName, PD.price, CP.Quantity , PD.id as prod_id FROM tblCartProduct CP  JOIN tblProductDetail PD ON CP.pid = PD.id JOIN tblProduct P ON PD.Pid = P.Id WHERE CP.Custid = @uid", con);
+
             cmd.Parameters.AddWithValue("@uid", uid);
             SqlDataReader reader = cmd.ExecuteReader();
+            //prodid = reader.GetInt32(reader.GetOrdinal("ProductID"));
+
             if (reader.HasRows)
             {
                 DataTable dt = new DataTable();
@@ -80,13 +85,37 @@ namespace OMSMS6.Customer
             }
             con.Close();
         }
+        // Modify the method to fetch product IDs dynamically based on the user's cart items
+        protected List<int> GetProductIds(int userId)
+        {
+            List<int> productIds = new List<int>();
 
-        //protected void Cancel_order(object sender, EventArgs e)
-        //{
+            try
+            {
+                con.Open();
 
-        //    /*  Response.Write("<script>alert('Order has been cancelled!');  </script>");*/
-        //    Response.Redirect("Default.aspx");
-        //}
+                SqlCommand cmd = new SqlCommand("SELECT PD.id AS ProductID FROM tblCartProduct CP JOIN tblProductDetail PD ON CP.pid = PD.id WHERE CP.Custid = @uid", con);
+                cmd.Parameters.AddWithValue("@uid", userId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int productId = reader.GetInt32(reader.GetOrdinal("ProductID"));
+                    productIds.Add(productId);
+                }
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Console.WriteLine("Error fetching product IDs: " + ex.Message);
+            }
+
+            return productIds;
+        }
+
         protected void Confirm_order(object sender, EventArgs e)
         {
 
@@ -99,7 +128,7 @@ namespace OMSMS6.Customer
 
             if (rdbCOD.Checked)
             {
-               
+
                 int grandtotal;
                 if (int.TryParse(lbltotal.Text, out grandtotal))
                 {
@@ -119,11 +148,13 @@ namespace OMSMS6.Customer
 
                     try
                     {
+
+                        List<int> productIds = GetProductIds(uid);
                         using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
                         {
                             con.Open();
                             string insertOrderQuery = "INSERT INTO tblOrder (Orderid, CustId, OrderDate, DeliveryAddress, Total, DeliveryStatus, PaymentType, PaymentStatus) " +
-                                                        "VALUES (@oid, @uid, @orderdate, @address, @total, 'Pending', @pay_type, 0)";
+                            "VALUES (@oid, @uid, @orderdate, @address, @total, 'Pending', @pay_type, 0)";
                             SqlCommand cmd = new SqlCommand(insertOrderQuery, con);
                             cmd.Parameters.AddWithValue("@oid", oid);
                             cmd.Parameters.AddWithValue("@uid", uid);
@@ -132,10 +163,87 @@ namespace OMSMS6.Customer
                             cmd.Parameters.AddWithValue("@total", totalamt);
                             cmd.Parameters.AddWithValue("@pay_type", pay_type);
                             int i = cmd.ExecuteNonQuery();
-                            if (i > 0)
-                            {
-                                Response.Write("<script>alert('Order has been placed successfully!');</script>");
 
+
+
+                            // Fetch product details from the cart
+                            string selectProductDetails = "SELECT CP.pid AS ProductID, CP.Quantity FROM tblCartProduct CP WHERE CP.Custid = @uid";
+                            SqlCommand cmdSelect = new SqlCommand(selectProductDetails, con);
+                            cmdSelect.Parameters.AddWithValue("@uid", uid);
+                            SqlDataReader reader = cmdSelect.ExecuteReader();
+
+                            // Insert order product details
+                            string insertProductDetails = "INSERT INTO tblOrderProduct (OrderID, ProductID, Quantity) VALUES (@oid, @prdid, @qty)";
+                            SqlCommand cmd1 = new SqlCommand(insertProductDetails, con);
+
+                            try
+                            {
+                                // count the number of rows in reader
+                                int count = 0;
+                              
+                                while (reader.Read())
+                                {
+
+                                    int prdid = reader.GetInt32(reader.GetOrdinal("ProductID"));
+                                    string p  = reader["ProductID"].ToString();
+                                    p = "Product ID : ";
+                                    int qty = reader.GetInt32(reader.GetOrdinal("Quantity"));
+
+                                    Response.Write("<script>alert('Product ID :  ' "+qty+");</script>");
+
+                                   
+                                    // Set parameters for the insert command
+                                    cmd1.Parameters.Clear();
+                                    cmd1.Parameters.AddWithValue("@oid", oid);
+                                    cmd1.Parameters.AddWithValue("@prdid", prdid);
+                                    cmd1.Parameters.AddWithValue("@qty", qty);
+
+                                    // Execute the insert command
+                                    int rowsAffected = cmd1.ExecuteNonQuery();
+                                    count++;
+
+                                    if (rowsAffected <= 0)
+                                    {
+                                         // alert user if the order product details were not inserted successfully
+                                         Response.Write("<script>alert('Error inserting order product details');</script>");
+                                    }
+                                    else
+                                    {
+                                        Response.Write("<script>alert('Success product details');</script>");
+
+
+                                        // Delete the product from the cart
+                                        //string deleteProduct = "DELETE FROM tblCartProduct WHERE Custid = @uid AND pid = @prdid";
+                                        //SqlCommand cmdDelete = new SqlCommand(deleteProduct, con);
+                                        //cmdDelete.Parameters.AddWithValue("@uid", uid);
+                                        //cmdDelete.Parameters.AddWithValue("@prdid", prdid);
+                                        //int rowsDeleted = cmdDelete.ExecuteNonQuery();
+                                        //if (rowsDeleted <= 0)
+                                        //{
+                                        //    // alert user if the product was not deleted from the cart
+                                        //    Response.Write("<script>alert('Error deleting product from cart');</script>");
+                                        //}
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                // Handle exceptions
+                                Console.WriteLine("Error inserting order product details: " + ex.Message);
+                            }
+                            finally
+                            {
+                                // Close the SqlDataReader
+                                reader.Close();
+                            }
+
+
+
+                            // Check if order insertion was successful
+                            if (i > 0 && j > 0)
+                            {
+                                // Order placed successfully
+                                Response.Write("<script>alert('Order has been placed successfully!');</script>");
                             }
                             emptyInputbox();
                         }

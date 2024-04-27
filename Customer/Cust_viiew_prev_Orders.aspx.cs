@@ -40,16 +40,16 @@ namespace OMSMS6.Customer
             //string uid = "1"; // Assuming the user ID is always "1"           
             //int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
 
-            int uid = 1;
-            SqlCommand cmd = new SqlCommand("SELECT o.Orderid AS OrderId, u.name AS CustomerName, p.name AS ProductName, pd.price, op.Quantity FROM tblOrder o INNER JOIN tblUsers u ON o.CustId = u.id INNER JOIN tblOrderProduct op ON o.Id = op.Oid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.pid WHERE u.id = @uid;", con);
+            int uid = 7;
+            SqlCommand cmd = new SqlCommand("SELECT o.Orderid AS OrderId, u.Name AS CustomerName,p.imageName AS Imagename, p.Name AS ProductName, pd.Price, op.Quantity FROM tblOrder o INNER JOIN tblUsers u ON o.CustId = u.Id INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.Id INNER JOIN tblProductDetail pd ON p.Id = pd.Pid WHERE u.Id = @uid;", con);
             cmd.Parameters.AddWithValue("@uid", uid);
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
                 DataTable dt = new DataTable();
                 dt.Load(reader);
-                viewcartlist.DataSource = dt;
-                viewcartlist.DataBind();
+                viewprevOrders.DataSource = dt;
+                viewprevOrders.DataBind();
             }
             else
             {

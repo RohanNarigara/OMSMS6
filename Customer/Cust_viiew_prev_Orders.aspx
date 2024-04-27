@@ -44,16 +44,17 @@
 
 
                     <div class="container mx-auto">
-                        <div class="bg-gray-700 lg:h-screen lg:sticky lg:top-0">
+                        <div class="bg-gray-600 lg:h-screen lg:sticky lg:top-0">
                             <div class="relative h-full">
                                 <div class="p-8 lg:overflow-auto lg:h-[calc(100vh-60px)]">
                                     <h2 class="text-2xl font-bold text-white">Order Summary</h2>
                                     <div class="space-y-6 mt-10">
-                                        <asp:Repeater ID="viewcartlist" runat="server">
+
+                                        <asp:Repeater ID="viewprevOrders" runat="server">
                                             <ItemTemplate>
                                                 <div class="grid sm:grid-cols-2 items-start gap-6">
                                                     <div class="px-4 py-6 shrink-0 bg-gray-50 rounded-md">
-                                                        <img src='<%# "../Res/Images/" + Eval("ImageName") %>' class="w-full object-contain" />
+                                                        <img src='<%# "../Res/Images/" + Eval("Imagename") %>' alt=" <%# Eval("ProductName") %> " class="w-[25%] " />
                                                     </div>
                                                     <div>
                                                         <h3 class="text-base text-white"><%# Eval("ProductName") %></h3>
@@ -69,6 +70,7 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
+
                                     </div>
                                 </div>
 

@@ -73,7 +73,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="Add_Payment.aspx">
                     <span class="icon">
                         <ion-icon name="card-outline"></ion-icon>
                     </span>
@@ -152,7 +152,6 @@
                 <%--</form>--%>
             </div>
         </div>
-    </div>
 
 
 
