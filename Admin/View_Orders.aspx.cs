@@ -5,8 +5,6 @@ using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
-using FusionCharts;
-using FusionCharts;
 using System.Configuration;
 
 namespace OMSMS6.Admin
@@ -62,24 +60,29 @@ namespace OMSMS6.Admin
             }
         }
 
-    //    protected void loadChart()
-    //    {
-    //        string dataPoints = GetDataPointsJson();
+        protected void ddlOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-    //        string chartJson = @"{
-    //    'chart': {
-    //        'caption': 'Monthly Orders',
-    //        'xAxisName': 'Month',
-    //        'yAxisName': 'Number of Orders',
-    //        'theme': 'fusion',
-    //        'numberPrefix': '',
-    //        'formatNumberscale': '0'
-    //    },
-    //    'data': " + dataPoints + @"
-    //}";
+        }
 
-    //        chart.Text = FusionCharts.Render("column2d", "chartId", "600", "400", "json", chartJson);
-    //    }
+        //    protected void loadChart()
+        //    {
+        //        string dataPoints = GetDataPointsJson();
+
+        //        string chartJson = @"{
+        //    'chart': {
+        //        'caption': 'Monthly Orders',
+        //        'xAxisName': 'Month',
+        //        'yAxisName': 'Number of Orders',
+        //        'theme': 'fusion',
+        //        'numberPrefix': '',
+        //        'formatNumberscale': '0'
+        //    },
+        //    'data': " + dataPoints + @"
+        //}";
+
+        //        chart.Text = FusionCharts.Render("column2d", "chartId", "600", "400", "json", chartJson);
+        //    }
 
         //public static string GetDataPointsJson()
         //{

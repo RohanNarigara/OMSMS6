@@ -7,7 +7,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class=" pl-[16%] pt-20 space-y-10">
+    <%--<div class=" pl-[16%] pt-20 space-y-10">--%>
+    <div class="p-4 space-y-10 mr-3">
 
         <%-- State --%>
         <div class="relative w-fit">
