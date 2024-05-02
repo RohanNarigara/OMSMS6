@@ -27,7 +27,7 @@
             color: red;
         }
     </style>
-    <script>
+   <%-- <script>
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
@@ -51,16 +51,16 @@
 
             chart.render();
         }
-</script>
+</script>--%>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="p-4 space-y-10 mr-3">
-        <div class="main-panel">
+       <%-- <div class="main-panel">
             <div class="content-wrapper">
                 <div id="chartContainer" style="height: 370px; width: 100%; background-color: cadetblue"></div>
             </div>
-        </div>
+        </div>--%>
 
         <form runat="server">
 

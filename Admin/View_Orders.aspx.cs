@@ -17,7 +17,7 @@ namespace OMSMS6.Admin
         {
             if (!IsPostBack)
             {
-                // BindOrderData();
+                BindOrderData();
                 //loadChart();
             }
 
@@ -28,9 +28,7 @@ namespace OMSMS6.Admin
         {
             //string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integra//ted Security=True;";
             // string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
-            //SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
-            ////SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
-
+            
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
 
             using (con)
@@ -83,38 +81,38 @@ namespace OMSMS6.Admin
     //        chart.Text = FusionCharts.Render("column2d", "chartId", "600", "400", "json", chartJson);
     //    }
 
-        public static string GetDataPointsJson()
-        {
-            var dataPoints = new List<Dictionary<string, object>>();
-            var allMonths = new List<string> { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        //public static string GetDataPointsJson()
+        //{
+        //    var dataPoints = new List<Dictionary<string, object>>();
+        //    var allMonths = new List<string> { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
-            // Initialize data points for all months
-            foreach (var month in allMonths)
-            {
-                dataPoints.Add(new Dictionary<string, object> { { "y", 0 }, { "label", month } });
-            }
+        //    // Initialize data points for all months
+        //    foreach (var month in allMonths)
+        //    {
+        //        dataPoints.Add(new Dictionary<string, object> { { "y", 0 }, { "label", month } });
+        //    }
 
-            // Fetch data for the chart
-            var chartOrders = "SELECT DATENAME(MONTH, o.OrderDate) AS month_name, COALESCE(COUNT(o.Orderid), 0) AS total_orders FROM tblOrder o LEFT JOIN tblOrderProduct op ON o.Orderid = op.Orderid WHERE o.DeliveryStatus = 'Pending' AND (o.Orderid IS NOT NULL OR op.Orderid IS NOT NULL) GROUP BY MONTH(o.OrderDate), DATENAME(MONTH, o.OrderDate";
+        //    // Fetch data for the chart
+        //    var chartOrders = "SELECT DATENAME(MONTH, o.OrderDate) AS month_name, COALESCE(COUNT(o.Orderid), 0) AS total_orders FROM tblOrder o LEFT JOIN tblOrderProduct op ON o.Orderid = op.Orderid WHERE o.DeliveryStatus = 'Pending' AND (o.Orderid IS NOT NULL OR op.Orderid IS NOT NULL) GROUP BY MONTH(o.OrderDate), DATENAME(MONTH, o.OrderDate";
 
-            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            using (var cmd = new SqlCommand(chartOrders, conn))
-            {
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var index = allMonths.IndexOf(reader["month_name"].ToString());
-                        if (index != -1)
-                        {
-                            dataPoints[index]["y"] = reader["total_orders"];
-                        }
-                    }
-                }
-            }
+        //    using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+        //    using (var cmd = new SqlCommand(chartOrders, conn))
+        //    {
+        //        conn.Open();
+        //        using (var reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                var index = allMonths.IndexOf(reader["month_name"].ToString());
+        //                if (index != -1)
+        //                {
+        //                    dataPoints[index]["y"] = reader["total_orders"];
+        //                }
+        //            }
+        //        }
+        //    }
 
-            return JsonConvert.SerializeObject(dataPoints);
-        }
+        //    return JsonConvert.SerializeObject(dataPoints);
+        //}
     }
 }
