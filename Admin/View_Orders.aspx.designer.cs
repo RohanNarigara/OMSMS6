@@ -15,13 +15,13 @@ namespace OMSMS6.Admin
     {
 
         /// <summary>
-        /// chart control.
+        /// ddlOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal chart;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrder;
 
         /// <summary>
         /// AllorderTableRecord control.

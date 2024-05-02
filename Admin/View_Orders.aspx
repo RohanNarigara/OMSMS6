@@ -1,8 +1,5 @@
-﻿<%@ Import Namespace="OMSMS6.Admin" %>
+﻿<%@ Page Title="OMSMS | Orders" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="~/Admin/View_Orders.aspx.cs" Inherits="OMSMS6.Admin.View_Orders" %>
 
-<%@ Page Title="OMSMS | Orders" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="~/Admin/View_Orders.aspx.cs" Inherits="OMSMS6.Admin.View_Orders" %>
-
-<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 
 <%@ Import Namespace="OMSMS6.Admin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -16,9 +13,9 @@
     <%-- JQuery CDNs --%>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<!-- Fusion Charts -->
-<script src="Res/fusioncharts-suite-xt/js/fusioncharts.js"></script>
-<script src="Res/fusioncharts-suite-xt/js/fusioncharts.charts.js"></script>
+    <!-- Fusion Charts -->
+    <script src="Res/fusioncharts-suite-xt/js/fusioncharts.js"></script>
+    <script src="Res/fusioncharts-suite-xt/js/fusioncharts.charts.js"></script>
 
 
     <%-- Error Color --%>
@@ -27,7 +24,7 @@
             color: red;
         }
     </style>
-    <script>
+    <%-- <script>
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
@@ -51,20 +48,18 @@
 
             chart.render();
         }
-</script>
-
+</script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="p-4 space-y-10 mr-3">
-        <div class="main-panel">
+    <%-- <div class="main-panel">
             <div class="content-wrapper">
                 <div id="chartContainer" style="height: 370px; width: 100%; background-color: cadetblue"></div>
             </div>
-        </div>
+        </div>--%>
 
-        <form runat="server">
+    <form runat="server">
 
-            <%--<div>
+        <%--<div>
                 <asp:Chart ID="Chart1" runat="server" Width="488px">
                     <series>
                         <asp:Series Name="Series1" XValueMember="0" YValueMembers="2">
@@ -77,63 +72,67 @@
                 </asp:Chart>
             </div>--%>
 
-            <div id="chartContainer" style="height: 370px; width: 100%;">
+        <%-- <div id="chartContainer" style="height: 370px; width: 100%;">
                 <asp:Literal ID="chart" runat="server"></asp:Literal>
+            </div>--%>
+        <div class="p-4 space-y-10 mr-3">
+            <div class="relative w-fit">
+                <asp:DropDownList runat="server" ID="ddlOrder" AutoPostBack="true" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded px-4 block w-full appearance-none" OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged">
+                    <asp:ListItem Text="All Orders" Value="All Orders"></asp:ListItem>
+                    <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
+                    <asp:ListItem Text="Processing" Value="Processing"></asp:ListItem>
+                    <asp:ListItem Text="Completed" Value="Completed"></asp:ListItem>
+                    <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
+                </asp:DropDownList>
             </div>
 
-            <div class="flex items-center justify-center h-screen">
-                <div class="bg-purple-200 border border-gray-200 rounded shadow p-6">
-                    <h1 class="text-4xl text-center font-semibold mb-6">Ordered Items</h1>
-                    <div class="bg-purple-200 border border-gray-200 rounded shadow p-6">
-                        <div class="overflow-x-auto">
-                            <table id="AuctionItemsDataTableR" class="min-w-full">
-                                <thead class="bg-purple-700 text-white">
-                                    <tr>
-                                        <th class="py-2 px-4 border-b">Order Number</th>
-                                        <th class="py-2 px-4 border-b">Date	</th>
-                                        <th class="py-2 px-4 border-b">Customer ID</th>
-                                        <th class="py-2 px-4 border-b">Email / Phone</th>
-                                        <th class="py-2 px-4 border-b">Product</th>
-                                        <th class="py-2 px-4 border-b">Amount</th>
-                                        <th class="py-2 px-4 border-b">Status</th>
-                                        <th class="py-2 px-4 border-b">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                    <asp:Repeater ID="AllorderTableRecord" runat="server">
-                                        <ItemTemplate>
-                                            <tr class="hover:bg-purple-100 transition-all">
-                                                <td class="py-2 px-4 border-b"><%# Eval("OrderNumber")%></td>
-                                                <td class="py-2 px-4 border-b"><%# Eval("Date") %></td>
-                                                <td class="py-2 px-4 border-b"><%# Eval("CustomerID") %></td>
-                                                <td data-label="Email / Phone">
-                                                    <a href="mailto:<%# Eval("Email") %>"><%# Eval("Email") %></a>
-                                                    <br />
-                                                    <a href="tel:<%# Eval("Phone") %>" class="phone"><%# Eval("Phone") %></a>
-                                                </td>
-                                                <td class="py-2 px-4 border-b"><%# Eval("Product") %></td>
-                                                <td class="py-2 px-4 border-b"><%# Eval("Amount") %></td>
-                                                <td class="py-2 px-4 border-b">
-                                                    <asp:Button runat="server" ID="StatusButton" CssClass="btn bg-yellow-300 text-gray-500 p-1 rounded "
-                                                        Text='<%# Eval("Status").ToString() %>' />
-                                                </td>
+            <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">Orders</h4>
+            <div class="overflow-x-auto shadow-md sm:rounded-lg mr-2">
+                <table id="tblOrder" class="w-[100%] text-sm text-center rtl:text-right text-black">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Order Number</th>
+                            <th scope="col" class="px-6 py-3">Date	</th>
+                            <th scope="col" class="px-6 py-3">Customer ID</th>
+                            <th scope="col" class="px-6 py-3">Email / Phone</th>
+                            <th scope="col" class="px-6 py-3">Product</th>
+                            <th scope="col" class="px-6 py-3">Amount</th>
+                            <th scope="col" class="px-6 py-3">Status</th>
+                            <th scope="col" class="px-6 py-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <asp:Repeater ID="AllorderTableRecord" runat="server">
+                            <ItemTemplate>
+                                <tr class="hover:bg-purple-100 transition-all">
+                                    <td class="px-6 py-4"><%# Eval("OrderNumber")%></td>
+                                    <td class="px-6 py-4"><%# Eval("Date") %></td>
+                                    <td class="px-6 py-4"><%# Eval("CustomerID") %></td>
+                                    <td data-label="Email / Phone">
+                                        <a href="mailto:<%# Eval("Email") %>"><%# Eval("Email") %></a>
+                                        <br />
+                                        <a href="tel:<%# Eval("Phone") %>" class="phone"><%# Eval("Phone") %></a>
+                                    </td>
+                                    <td class="px-6 py-4"><%# Eval("Product") %></td>
+                                    <td class="px-6 py-4"><%# Eval("Amount") %></td>
+                                    <td class="px-6 py-4">
+                                        <asp:Button runat="server" ID="StatusButton" CssClass="btn bg-yellow-300 text-gray-500 p-1 rounded "
+                                            Text='<%# Eval("Status").ToString() %>' />
+                                    </td>
 
 
-                                                <td class="py-2 px-4 border-b">
-                                                    <%--  <a href="View_Orders_Details.aspx?oid=<%# Eval("OrderNumber") %>" class="btn p-1 rounded bg-indigo-500 text-white hover:bg-indigo-600">
+                                    <td class="px-6 py-4">
+                                        <%--  <a href="View_Orders_Details.aspx?oid=<%# Eval("OrderNumber") %>" class="btn p-1 rounded bg-indigo-500 text-white hover:bg-indigo-600">
                                                     View Details </a>--%>
-                                                    <asp:HyperLink NavigateUrl='<%# "View_Order_Details.aspx?oid=" + Eval("OrderNumber") %>' runat="server" CssClass="btn p-1 rounded bg-indigo-500 text-white hover:bg-indigo-600">View Details</asp:HyperLink>
+                                        <asp:HyperLink NavigateUrl='<%# "View_Order_Details.aspx?oid=" + Eval("OrderNumber") %>' runat="server" CssClass="btn p-1 rounded bg-indigo-500 text-white hover:bg-indigo-600">View Details</asp:HyperLink>
 
-                                                </td>
-                                            </tr>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </tbody>
+                </table>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </asp:Content>

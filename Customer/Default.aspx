@@ -61,7 +61,7 @@
 
                                 <a
                                     class="bg-transparent text-white hover:bg-blue-100 text-white-300 hover:text-black rounded shadow hover:shadow-lg py-2 px-4 border border-blue-300 hover:border-transparent"
-                                    Text="Buy Now" href="CUst_View_All_Product.aspx" > Buy Now! </a>
+                                    text="Buy Now" href="CUst_View_All_Product.aspx">Buy Now! </a>
                             </div>
                             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
                                 <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
@@ -550,7 +550,7 @@
                             class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                             <ul x-ref="logos"
                                 class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-                               
+
                                 <li>
                                     <img src="./disney.svg" alt="Disney" />
                                 </li>
