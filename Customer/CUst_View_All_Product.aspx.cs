@@ -97,7 +97,7 @@ namespace OMSMS6.Customer
             {
                 //SqlCommand cmd = new SqlCommand("SELECT p.Id, p.Name, p.ImageName, pd.Price FROM tblProduct p INNER JOIN tblProductDetail pd ON p.Id = pd.Pid", con);
 
-                string query = "SELECT * FROM tblProduct";
+                string query = "SELECT * FROM tblProduct ORDER BY name";
                 SqlCommand cmd = new SqlCommand(query, con);
                 if (id > 0)
                 {

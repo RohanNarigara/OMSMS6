@@ -136,19 +136,19 @@
                     <%-- Name --%>
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
-                        <asp:TextBox runat="server" ID="txtName" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                        <asp:TextBox runat="server" ID="txtName" onkeypress="return validateName(event)" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                     </div>
 
                     <%-- Email --%>
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-                        <asp:TextBox runat="server" ID="txtEmail" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" TextMode="Email" />
+                        <asp:TextBox runat="server" ID="txtEmail" onkeypress="return validatePhoneNumber(event)" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" TextMode="Email" />
                     </div>
 
                     <%-- Contact Number --%>
                     <div class="mt-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Contact Number</label>
-                        <asp:TextBox runat="server" ID="txtContact" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" TextMode="Phone" />
+                        <asp:TextBox runat="server" ID="txtContact" onkeypress="return validatePhoneNumber(event)"  class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" TextMode="Phone" />
                     </div>
 
                     <%-- Password --%>
@@ -240,8 +240,75 @@
         </div>
     </div>
     <script>
+        // Close
         function onClickClose() {
             window.location.href = "Default.aspx";
         }
+
+    // Name Validation
+    function validateName(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+
+        if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122) || charCode === 8 || charCode === 32) {
+            return true;
+        } else {
+            evt.preventDefault();
+        }
+    }
+
+
+    // Phone Number Validation
+        function validatePhoneNumber(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+
+        var currentValue = evt.target.value;
+
+        if (charCode >= 48 && charCode <= 57) {
+            if (currentValue.length < 10) {
+                if (currentValue.length === 0) {
+                    if (charCode >= 54 && charCode <= 57) {
+                        return true;
+                    } else {
+                        evt.preventDefault();
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                evt.preventDefault();
+                return false;
+            }
+        } else {
+            evt.preventDefault();
+            return false;
+        }
+    }
+
+    // Email Validation
+    function validateEmail(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+
+        var currentValue = evt.target.value;
+
+        if (
+            (charCode >= 65 && charCode <= 90) ||
+            (charCode >= 97 && charCode <= 122) ||
+            (charCode >= 48 && charCode <= 57) || 
+            charCode === 46 || charCode === 64 || charCode === 95 || 
+            charCode === 8 || charCode === 32 
+        ) {
+            if (currentValue.indexOf('@') === -1 || charCode !== 64) {
+                if ((currentValue.length === 0 && (charCode >= 65 && charCode <= 90 || charCode >= 97 && charCode <= 122)) || currentValue.length > 0) {
+                    return true;
+                }
+            }
+        }
+
+        evt.preventDefault();
+        return false;
+    }
+
+
     </script>
 </asp:Content>
