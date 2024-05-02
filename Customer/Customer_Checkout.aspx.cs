@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OMSMS6.Admin;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -11,20 +11,19 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
-<<<<<<< HEAD
 using System.Security.Cryptography;
 using System.Text;
 
 using System.Threading.Tasks;
 
-=======
 using System.Text;
 using System.Threading.Tasks;
->>>>>>> e37953d48efe51965a189fd5da8354cae38bf62e
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HttpMethod = System.Net.Http.HttpMethod;
+using System.Diagnostics.Eventing.Reader;
+using System.Net.NetworkInformation;
 
 namespace OMSMS6.Customer
 {
@@ -35,10 +34,7 @@ namespace OMSMS6.Customer
         //// SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-<<<<<<< HEAD
 
-=======
->>>>>>> e37953d48efe51965a189fd5da8354cae38bf62e
         String ship_token = "d7bf338ca22e659fc4e56d436b13226eacce0190";
 
         String total;
@@ -225,21 +221,13 @@ namespace OMSMS6.Customer
                                         Response.Write("<script>alert('Error inserting order product details');</script>");
                                     }
                                 }
-<<<<<<< HEAD
 
                                 // All product details inserted successfully
-=======
 
                             }
-                            catch (Exception ex)
+                            else
                             {
-                                // Handle exceptions
-                                Console.WriteLine("Error inserting order product details: " + ex.Message);
-                            }
-                            finally
-                            {
-                                // Close the SqlDataReader
-                                reader.Close();
+                                Response.Write("<script>alert('Error inserting order');</script>");
                             }
 
 
@@ -247,13 +235,12 @@ namespace OMSMS6.Customer
                             // Check if order insertion was successful
                             if (i > 0 && j > 0)
                             {
-                               String token = await GetAuthTokenAsync();
+                                String token = await GetAuthTokenAsync();
 
-                                 var response = await CreateOrderAsync(token);
+                                var response = await CreateOrderAsync(token);
 
 
                                 // Order placed successfully
->>>>>>> e37953d48efe51965a189fd5da8354cae38bf62e
                                 Response.Write("<script>alert('Order has been placed successfully!');</script>");
                             }
                             else
@@ -263,9 +250,11 @@ namespace OMSMS6.Customer
 
                             emptyInputbox();
                         }
-
-
                     }
+
+
+
+
                     catch (Exception ex)
                     {
 
@@ -569,188 +558,7 @@ namespace OMSMS6.Customer
         }
 
 
-        static async Task<String> CreateOrderAsync(string token)
-        {
-            DateTime currentDateTime = DateTime.Now;
 
-            using (var client = new HttpClient())
-            {
-                // Construct the order data
-                var orderData = new
-                {
-                    order_id = "1111",
-                    order_date = currentDateTime.ToString("yyyy-MM-dd HH:mm"),
-                    pickup_location = "PRIYANK",
-                    channel_id = "",
-                    comment = "Brand new Mobile Phone",
-                    billing_customer_name = "Naruto",
-                    billing_last_name = "Uzumaki",
-                    billing_address = "House 221B, Leaf Village",
-                    billing_address_2 = "Near Hokage House",
-                    billing_city = "New Delhi",
-                    billing_pincode = "111111",
-                    billing_state = "Delhi",
-                    billing_country = "India",
-                    billing_email = "naruto@uzumaki.com",
-                    billing_phone = "9876543210",
-                    shipping_is_billing = true,
-                    shipping_customer_name = "",
-                    shipping_last_name = "",
-                    shipping_address = "",
-                    shipping_address_2 = "",
-                    shipping_city = "",
-                    shipping_pincode = "",
-                    shipping_country = "",
-                    shipping_state = "",
-                    shipping_email = "",
-                    shipping_phone = "",
-                    order_items = new[]
-                    {
-                new
-                {
-                    name = "Kunai",
-                    sku = "chakra123",
-                    units = 10,
-                    selling_price = "900",
-                    discount = "",
-                    tax = "",
-                    hsn = 441122
-                }
-            },
-                    payment_method = "Prepaid",
-                    shipping_charges = 0,
-                    giftwrap_charges = 0,
-                    transaction_charges = 0,
-                    total_discount = 0,
-                    sub_total = 9000,
-                    length = 10,
-                    breadth = 15,
-                    height = 20,
-                    weight = 2.5
-                };
-
-                string orderDataJson = Newtonsoft.Json.JsonConvert.SerializeObject(orderData);
-
-                // Construct the request
-                var request = new HttpRequestMessage
-                {
-                    RequestUri = new Uri("https://apiv2.shiprocket.in/v1/external/orders/create/adhoc"),
-                    Method = HttpMethod.Post,
-                    Content = new StringContent(orderDataJson, Encoding.UTF8, "application/json")
-                };
-
-                //request.Headers.Add("Authorization", $"Bearer {token}");
-                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-
-                // Send the request and get the response
-                var response = await client.SendAsync(request);
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                Console.WriteLine(responseContent);
-
-                // get value from response
-                dynamic responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject(responseContent);
-
-
-                //                {
-                //                    "order_id": 536391450,
-                //    "channel_order_id": "224-448",
-                //    "shipment_id": 534496590,
-                //    "status": "CANCELED",
-                //    "status_code": 5,
-                //    "onboarding_completed_now": 0,
-                //    "awb_code": "",
-                //    "courier_company_id": "",
-                //    "courier_name": ""
-                //}
-
-                // Get the shipment ID, order ID, and channel order ID from the response
-                //long shipmentId = responseObject.shipment_id;
-                //long orderId = responseObject.order_id;
-                //string channelOrderId = responseObject.channel_order_id;
-
-                // Return the response content
-                return responseContent;
-            }
-        }
-        static async Task<string> GetAuthTokenAsync()
-        {
-            string email = "21bmiit145@gmail.com";
-            string password = "Priyank@8414";
-
-            using (var client = new HttpClient())
-            {
-                var requestContent = new StringContent(
-                    $"{{\"email\": \"{email}\", \"password\": \"{password}\"}}",
-                    Encoding.UTF8,
-                    "application/json");
-
-                var response = await client.PostAsync("https://apiv2.shiprocket.in/v1/external/auth/login", requestContent);
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                // Extract token from response
-                dynamic responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject(responseContent);
-                string token = responseObject.token;
-
-                return token;
-            }
-        }
-
-        private async Task<int> PincodeServiceable(string pincode)
-        {
-            HttpClient client = new HttpClient();
-            String ship_token = "d7bf338ca22e659fc4e56d436b13226eacce0190";
-            client.DefaultRequestHeaders.Add("Authorization", "Token " + ship_token);
-
-            // API endpoint URL
-            try
-            {
-                string apiUrl = $"https://staging-express.delhivery.com/c/api/pin-codes/json/?filter_codes={pincode}";
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    // Read response content
-                    string responseBody = await response.Content.ReadAsStringAsync();
-
-                    // Parse JSON response
-                    JObject jsonResponse = JObject.Parse(responseBody);
-
-                    // Check if delivery_codes array is empty
-                    if (jsonResponse["delivery_codes"].HasValues)
-                    {
-                        Console.WriteLine("Pincode is serviceable.");
-
-                        // Pincode is serviceable
-                        return 1;
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Pincode is not serviceable.");
-                        return 0;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Failed to check pincode. Status code: {response.StatusCode}");
-                    return 0;
-                }
-
-            }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error fetching pincode details: " + ex.Message);
-            }
-            finally
-            {
-                // Dispose HttpClient
-                client.Dispose();
-            }
-            return 0;
-        }
 
 
         private string CreateOrder(decimal amountInSubunits, string currency, Dictionary<string, string> notes)
@@ -782,5 +590,7 @@ namespace OMSMS6.Customer
         }
     }
 
-   
+
+}
+
 }
