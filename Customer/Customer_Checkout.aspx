@@ -1,4 +1,4 @@
-﻿<%@ Page Title="OMSMS | Checkout" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind="Customer_Checkout.aspx.cs" Inherits="OMSMS6.Customer.Customer_Checkout" %>
+﻿<%@ Page Title="OMSMS | Checkout" Language="C#" Async="true"  MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind="Customer_Checkout.aspx.cs" Inherits="OMSMS6.Customer.Customer_Checkout" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
