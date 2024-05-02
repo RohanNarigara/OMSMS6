@@ -59,9 +59,9 @@
                                     Buy your favourite brand's mobiles and register now to stay tuned for moblie phones news
                                 </p>
 
-                                <asp:HyperLink
+                                <a
                                     class="bg-transparent text-white hover:bg-blue-100 text-white-300 hover:text-black rounded shadow hover:shadow-lg py-2 px-4 border border-blue-300 hover:border-transparent"
-                                    runat="server" NavigateUrl="" Text="Buy Now" />
+                                    Text="Buy Now" href="CUst_View_All_Product.aspx" > Buy Now! </a>
                             </div>
                             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
                                 <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
@@ -511,7 +511,7 @@
                             View More</button>
                     </div>--%>
         </div>
-        </section>--%>
+        </section>
 
 
 
