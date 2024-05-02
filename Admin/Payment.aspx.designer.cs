@@ -11,7 +11,7 @@ namespace OMSMS6.Admin
 {
 
 
-    public partial class Add_Payment
+    public partial class Payment
     {
     }
 }

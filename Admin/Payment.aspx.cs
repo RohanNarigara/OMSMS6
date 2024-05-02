@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace OMSMS6.Admin
 {
-    public partial class Add_Payment : System.Web.UI.Page
+    public partial class Payment : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

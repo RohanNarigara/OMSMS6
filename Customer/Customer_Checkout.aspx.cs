@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OMSMS6.Admin;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Razorpay.Api;
 using System;
 using System.Collections.Generic;
@@ -8,9 +10,16 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
+
+using System.Threading.Tasks;
+
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using HttpMethod = System.Net.Http.HttpMethod;
 
 namespace OMSMS6.Customer
 {
@@ -22,6 +31,7 @@ namespace OMSMS6.Customer
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
 
+        String ship_token = "d7bf338ca22e659fc4e56d436b13226eacce0190";
 
         String total;
         int prodid;
@@ -85,6 +95,25 @@ namespace OMSMS6.Customer
             }
             con.Close();
         }
+
+        public void deleteProductfromCart(int prdid)
+        {
+            int uid = (int)Session["uid"];
+
+            //Delete the product from the cart
+            con.Open();
+            string deleteProduct = "DELETE FROM tblCartProduct WHERE Custid = @uid AND pid = @prdid";
+            SqlCommand cmdDelete = new SqlCommand(deleteProduct, con);
+            cmdDelete.Parameters.AddWithValue("@uid", uid);
+            cmdDelete.Parameters.AddWithValue("@prdid", prdid);
+            int rowsDeleted = cmdDelete.ExecuteNonQuery();
+            if (rowsDeleted <= 0)
+            {
+                // alert user if the product was not deleted from the cart
+                Response.Write("<script>alert('Error deleting product from cart');</script>");
+            }
+        }
+
         // Modify the method to fetch product IDs dynamically based on the user's cart items
         protected List<int> GetProductIds(int userId)
         {
@@ -116,11 +145,12 @@ namespace OMSMS6.Customer
             return productIds;
         }
 
-        protected void Confirm_order(object sender, EventArgs e)
+        protected async void Confirm_order(object sender, EventArgs e)
         {
 
             Random random = new Random();
             int oid = random.Next(1, 999999); // Generate a random Order id
+
             Session["oid"] = oid;
 
             string pay_type = "";
@@ -148,8 +178,8 @@ namespace OMSMS6.Customer
 
                     try
                     {
-
                         List<int> productIds = GetProductIds(uid);
+
                         using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
                         {
                             con.Open();
@@ -164,90 +194,41 @@ namespace OMSMS6.Customer
                             cmd.Parameters.AddWithValue("@pay_type", pay_type);
                             int i = cmd.ExecuteNonQuery();
 
-
-
-                            // Fetch product details from the cart
-                            string selectProductDetails = "SELECT CP.pid AS ProductID, CP.Quantity FROM tblCartProduct CP WHERE CP.Custid = @uid";
-                            SqlCommand cmdSelect = new SqlCommand(selectProductDetails, con);
-                            cmdSelect.Parameters.AddWithValue("@uid", uid);
-                            SqlDataReader reader = cmdSelect.ExecuteReader();
-
-                            // Insert order product details
-                            string insertProductDetails = "INSERT INTO tblOrderProduct (OrderID, ProductID, Quantity) VALUES (@oid, @prdid, @qty)";
-                            SqlCommand cmd1 = new SqlCommand(insertProductDetails, con);
-
-                            try
+                            if (i > 0)
                             {
-                                // count the number of rows in reader
-                                int count = 0;
-                              
-                                while (reader.Read())
+                                foreach (int productId in productIds)
                                 {
+                                    int qty = GetProductQuantity(uid, productId);
 
-                                    int prdid = reader.GetInt32(reader.GetOrdinal("ProductID"));
-                                    string p  = reader["ProductID"].ToString();
-                                    p = "Product ID : ";
-                                    int qty = reader.GetInt32(reader.GetOrdinal("Quantity"));
+                                    string insertProductDetails = "INSERT INTO tblOrderProduct (Orderid, Pid, Quantity, cid, sid) " +
+                                                                   "SELECT @OrderId, cp.Pid, cp.Quantity, pd.cid, pd.sid " +
+                                                                   "FROM tblCartProduct cp " +
+                                                                   "INNER JOIN tblProductDetail pd ON cp.Pid = pd.id " +
+                                                                   "WHERE cp.CustId = @uid AND cp.Pid = @prdid";
+                                    SqlCommand cmd1 = new SqlCommand(insertProductDetails, con);
+                                    cmd1.Parameters.AddWithValue("@uid", uid);
+                                    cmd1.Parameters.AddWithValue("@OrderId", oid);
+                                    cmd1.Parameters.AddWithValue("@prdid", productId);
+                                    //cmd1.Parameters.AddWithValue("@qty", qty);
 
-                                    Response.Write("<script>alert('Product ID :  ' "+qty+");</script>");
-
-                                   
-                                    // Set parameters for the insert command
-                                    cmd1.Parameters.Clear();
-                                    cmd1.Parameters.AddWithValue("@oid", oid);
-                                    cmd1.Parameters.AddWithValue("@prdid", prdid);
-                                    cmd1.Parameters.AddWithValue("@qty", qty);
-
-                                    // Execute the insert command
                                     int rowsAffected = cmd1.ExecuteNonQuery();
-                                    count++;
-
                                     if (rowsAffected <= 0)
                                     {
-                                         // alert user if the order product details were not inserted successfully
-                                         Response.Write("<script>alert('Error inserting order product details');</script>");
-                                    }
-                                    else
-                                    {
-                                        Response.Write("<script>alert('Success product details');</script>");
-
-
-                                        // Delete the product from the cart
-                                        //string deleteProduct = "DELETE FROM tblCartProduct WHERE Custid = @uid AND pid = @prdid";
-                                        //SqlCommand cmdDelete = new SqlCommand(deleteProduct, con);
-                                        //cmdDelete.Parameters.AddWithValue("@uid", uid);
-                                        //cmdDelete.Parameters.AddWithValue("@prdid", prdid);
-                                        //int rowsDeleted = cmdDelete.ExecuteNonQuery();
-                                        //if (rowsDeleted <= 0)
-                                        //{
-                                        //    // alert user if the product was not deleted from the cart
-                                        //    Response.Write("<script>alert('Error deleting product from cart');</script>");
-                                        //}
+                                        Response.Write("<script>alert('Error inserting order product details');</script>");
                                     }
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                // Handle exceptions
-                                Console.WriteLine("Error inserting order product details: " + ex.Message);
-                            }
-                            finally
-                            {
-                                // Close the SqlDataReader
-                                reader.Close();
-                            }
 
-
-
-                            // Check if order insertion was successful
-                            if (i > 0 && j > 0)
-                            {
-                                // Order placed successfully
+                                // All product details inserted successfully
                                 Response.Write("<script>alert('Order has been placed successfully!');</script>");
                             }
+                            else
+                            {
+                                Response.Write("<script>alert('Error inserting order');</script>");
+                            }
+
                             emptyInputbox();
                         }
-                        //  Response.Redirect("Success_Order.aspx");
+
 
                     }
                     catch (Exception ex)
@@ -316,6 +297,220 @@ namespace OMSMS6.Customer
             }
         }
 
+        static async Task<String> CreateOrderAsync(string token)
+        {
+            using (var client = new HttpClient())
+            {
+                // Construct the order data
+                var orderData = new
+                {
+                    order_id = "224-448",
+                    order_date = "2024-01-24 11:11",
+                    pickup_location = "PRIYANK",
+                    channel_id = "",
+                    comment = "Reseller: M/s Goku",
+                    billing_customer_name = "Naruto",
+                    billing_last_name = "Uzumaki",
+                    billing_address = "House 221B, Leaf Village",
+                    billing_address_2 = "Near Hokage House",
+                    billing_city = "New Delhi",
+                    billing_pincode = "111111",
+                    billing_state = "Delhi",
+                    billing_country = "India",
+                    billing_email = "naruto@uzumaki.com",
+                    billing_phone = "9876543210",
+                    shipping_is_billing = true,
+                    shipping_customer_name = "",
+                    shipping_last_name = "",
+                    shipping_address = "",
+                    shipping_address_2 = "",
+                    shipping_city = "",
+                    shipping_pincode = "",
+                    shipping_country = "",
+                    shipping_state = "",
+                    shipping_email = "",
+                    shipping_phone = "",
+                    order_items = new[]
+                    {
+                new
+                {
+                    name = "Kunai",
+                    sku = "chakra123",
+                    units = 10,
+                    selling_price = "900",
+                    discount = "",
+                    tax = "",
+                    hsn = 441122
+                }
+            },
+                    payment_method = "Prepaid",
+                    shipping_charges = 0,
+                    giftwrap_charges = 0,
+                    transaction_charges = 0,
+                    total_discount = 0,
+                    sub_total = 9000,
+                    length = 10,
+                    breadth = 15,
+                    height = 20,
+                    weight = 2.5
+                };
+
+                string orderDataJson = Newtonsoft.Json.JsonConvert.SerializeObject(orderData);
+
+                // Construct the request
+                var request = new HttpRequestMessage
+                {
+                    RequestUri = new Uri("https://apiv2.shiprocket.in/v1/external/orders/create/adhoc"),
+                    Method = HttpMethod.Post,
+                    Content = new StringContent(orderDataJson, Encoding.UTF8, "application/json")
+                };
+
+                //request.Headers.Add("Authorization", $"Bearer {token}");
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+
+                // Send the request and get the response
+                var response = await client.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine(responseContent);
+
+                // get value from response
+                dynamic responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject(responseContent);
+
+
+                //{
+                //                    "order_id": 536391450,
+                //    "channel_order_id": "224-448",
+                //    "shipment_id": 534496590,
+                //    "status": "CANCELED",
+                //    "status_code": 5,
+                //    "onboarding_completed_now": 0,
+                //    "awb_code": "",
+                //    "courier_company_id": "",
+                //    "courier_name": ""
+                //}
+
+                // Get the shipment ID, order ID, and channel order ID from the response
+                long shipmentId = responseObject.shipment_id;
+                long orderId = responseObject.order_id;
+                string channelOrderId = responseObject.channel_order_id;
+
+                // Return the response content
+                return responseContent;
+            }
+        }
+        static async Task<string> GetAuthTokenAsync()
+        {
+            string email = "21bmiit145@gmail.com";
+            string password = "Priyank@8414";
+
+            using (var client = new HttpClient())
+            {
+                var requestContent = new StringContent(
+                    $"{{\"email\": \"{email}\", \"password\": \"{password}\"}}",
+                    Encoding.UTF8,
+                    "application/json");
+
+                var response = await client.PostAsync("https://apiv2.shiprocket.in/v1/external/auth/login", requestContent);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                // Extract token from response
+                dynamic responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject(responseContent);
+                string token = responseObject.token;
+
+                return token;
+            }
+        }
+
+        private async Task<int> PincodeServiceable(string pincode)
+        {
+            HttpClient client = new HttpClient();
+            String ship_token = "d7bf338ca22e659fc4e56d436b13226eacce0190";
+            client.DefaultRequestHeaders.Add("Authorization", "Token " + ship_token);
+
+            // API endpoint URL
+            try
+            {
+                string apiUrl = $"https://staging-express.delhivery.com/c/api/pin-codes/json/?filter_codes={pincode}";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Read response content
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    // Parse JSON response
+                    JObject jsonResponse = JObject.Parse(responseBody);
+
+                    // Check if delivery_codes array is empty
+                    if (jsonResponse["delivery_codes"].HasValues)
+                    {
+                        Console.WriteLine("Pincode is serviceable.");
+
+                        // Pincode is serviceable
+                        return 1;
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Pincode is not serviceable.");
+                        return 0;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to check pincode. Status code: {response.StatusCode}");
+                    return 0;
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error fetching pincode details: " + ex.Message);
+            }
+            finally
+            {
+                // Dispose HttpClient
+                client.Dispose();
+            }
+            return 0;
+        }
+
+
+        private int GetProductQuantity(int userId, int productId)
+        {
+            int quantity = 0;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+                {
+                    con.Open();
+
+                    string selectQuantityQuery = "SELECT Quantity FROM tblCartProduct WHERE CustId = @userId AND pid = @productId";
+                    SqlCommand cmd = new SqlCommand(selectQuantityQuery, con);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@productId", productId);
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        quantity = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Console.WriteLine("Error fetching product quantity: " + ex.Message);
+            }
+
+            return quantity;
+        }
+
         private void emptyInputbox()
         {
             txtfname.Text = "";
@@ -353,7 +548,7 @@ namespace OMSMS6.Customer
                 return e.Message;
             }
         }
-
-
     }
+
+   
 }

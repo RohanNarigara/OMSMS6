@@ -1,4 +1,4 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Customer_Navbar.master.cs" Inherits="OMSMS6.Res.Customer_Navbar" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Customer_Navbar.Master.cs" Inherits="OMSMS6.Res.Customer_Navbar" %>
 
 <%@ Register Src="../Links.ascx" TagName="Links" TagPrefix="omsms" %>
 
