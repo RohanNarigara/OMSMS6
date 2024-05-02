@@ -11,7 +11,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- Your content here -->
-    <div class="pl-[16%] pt-20 space-y-10 mr-3">
+    <div class="p-4 space-y-10 mr-3">
         <div class="flex justify-between space-x-10">
             <div class="flex-auto p-4 border-4 rounded-lg border-gray-700">
                 <div class="flex flex-wrap justify-between">

@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="text-sm font-light text-slate-500">
                                             <p class="text-sm font-normal text-slate-700">Invoice Number</p>
-                                            <asp:Label ID="orderId" runat="server" Text="Label"></asp:Label>
+                                            <asp:Label ID="ordernumber" runat="server" Text="Label"></asp:Label>
 
                                             <p class="mt-2 text-sm font-normal text-slate-700">
                                                 Date of Issue
@@ -109,7 +109,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <asp:Repeater ID="viewOrderlist" runat="server">
+                                            <asp:Repeater ID="viewOrderitems" runat="server">
                                                 <ItemTemplate>
                                                     <tr class="border-b border-slate-200">
                                                         <td class="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">

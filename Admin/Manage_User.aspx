@@ -98,7 +98,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="pl-[16%] pt-20 space-y-10">
+    <div class="p-4 space-y-10 mr-3">
         <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
             <div class="w-full p-8 lg:w-1/2">
                 <div class="flex justify-between">

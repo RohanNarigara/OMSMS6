@@ -51,13 +51,13 @@ namespace OMSMS6.Customer
         protected global::System.Web.UI.WebControls.Label cust_address;
 
         /// <summary>
-        /// orderId control.
+        /// ordernumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label orderId;
+        protected global::System.Web.UI.WebControls.Label ordernumber;
 
         /// <summary>
         /// orderDate control.
@@ -69,13 +69,13 @@ namespace OMSMS6.Customer
         protected global::System.Web.UI.WebControls.Label orderDate;
 
         /// <summary>
-        /// viewOrderlist control.
+        /// viewOrderitems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater viewOrderlist;
+        protected global::System.Web.UI.WebControls.Repeater viewOrderitems;
 
         /// <summary>
         /// sub control.

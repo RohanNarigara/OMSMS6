@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -66,7 +67,11 @@ namespace OMSMS6.Customer
 
         protected void bindBrand()
         {
-            SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+
+            //SqlConnection con = new SqlConnection("Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;");
+            ////SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
+
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
             con.Open();
             SqlCommand selectBrand = new SqlCommand("select * from tblBrand", con);
             SqlDataReader dr = selectBrand.ExecuteReader();
@@ -85,8 +90,10 @@ namespace OMSMS6.Customer
         {
             // string connectionString = "Data Source=Vishvas;Initial Catalog=OMSMS;Integrated Security=True;";
             string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;";
+ 
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (con)
             {
                 //SqlCommand cmd = new SqlCommand("SELECT p.Id, p.Name, p.ImageName, pd.Price FROM tblProduct p INNER JOIN tblProductDetail pd ON p.Id = pd.Pid", con);
 

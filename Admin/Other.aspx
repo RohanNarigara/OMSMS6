@@ -13,6 +13,7 @@
         <div class="relative w-fit">
             <a href="Add_State.aspx" class="bg-gray-700 hover:bg-gray-900 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">+ Add State</a>
         </div>
+
         <%-- Table to display State --%>
         <div class="relative">
             <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">States</h4>

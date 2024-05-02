@@ -63,7 +63,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="py-16">
+    <div class="p-4 space-y-10 mr-3">
         <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
             <div class="hidden lg:block lg:w-1/2 bg-cover"
                 style="background-image: url('../Res/Images/shop-image.jpg')">
