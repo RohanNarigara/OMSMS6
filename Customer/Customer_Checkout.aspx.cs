@@ -11,16 +11,13 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
-<<<<<<< HEAD
 using System.Security.Cryptography;
 using System.Text;
 
 using System.Threading.Tasks;
 
-=======
 using System.Text;
 using System.Threading.Tasks;
->>>>>>> e37953d48efe51965a189fd5da8354cae38bf62e
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -35,10 +32,7 @@ namespace OMSMS6.Customer
         //// SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;");
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-<<<<<<< HEAD
 
-=======
->>>>>>> e37953d48efe51965a189fd5da8354cae38bf62e
         String ship_token = "d7bf338ca22e659fc4e56d436b13226eacce0190";
 
         String total;
@@ -225,10 +219,8 @@ namespace OMSMS6.Customer
                                         Response.Write("<script>alert('Error inserting order product details');</script>");
                                     }
                                 }
-<<<<<<< HEAD
 
                                 // All product details inserted successfully
-=======
 
                             }
                             catch (Exception ex)
@@ -253,7 +245,6 @@ namespace OMSMS6.Customer
 
 
                                 // Order placed successfully
->>>>>>> e37953d48efe51965a189fd5da8354cae38bf62e
                                 Response.Write("<script>alert('Order has been placed successfully!');</script>");
                             }
                             else
