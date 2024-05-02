@@ -243,5 +243,7 @@
         function onClickClose() {
             window.location.href = "Default.aspx";
         }
+
+
     </script>
 </asp:Content>
