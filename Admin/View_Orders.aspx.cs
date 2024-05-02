@@ -26,7 +26,7 @@ namespace OMSMS6.Admin
         {
             //string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integra//ted Security=True;";
             // string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
-
+            
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
 
             using (con)
