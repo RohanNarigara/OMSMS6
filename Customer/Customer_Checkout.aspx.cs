@@ -557,6 +557,10 @@ namespace OMSMS6.Customer
             txtZipCode.Text = "";
         }
 
+
+
+
+
         private string CreateOrder(decimal amountInSubunits, string currency, Dictionary<string, string> notes)
         {
             try
@@ -588,3 +592,5 @@ namespace OMSMS6.Customer
 
 
 }
+
+

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="OMSMS | Products" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind=" Cust_View_All_Product.aspx.cs" Inherits="OMSMS6.Customer.Cust_View_All_Product" %>
+﻿git <%@ Page Title="OMSMS | Products" Language="C#" MasterPageFile="~/Res/Customer_Navbar.Master" AutoEventWireup="true" CodeBehind=" Cust_View_All_Product.aspx.cs" Inherits="OMSMS6.Customer.Cust_View_All_Product" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>OMSMS</title>

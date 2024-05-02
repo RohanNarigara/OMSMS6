@@ -16,9 +16,9 @@
     <%-- JQuery CDNs --%>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<!-- Fusion Charts -->
-<script src="Res/fusioncharts-suite-xt/js/fusioncharts.js"></script>
-<script src="Res/fusioncharts-suite-xt/js/fusioncharts.charts.js"></script>
+    <!-- Fusion Charts -->
+    <script src="Res/fusioncharts-suite-xt/js/fusioncharts.js"></script>
+    <script src="Res/fusioncharts-suite-xt/js/fusioncharts.charts.js"></script>
 
 
     <%-- Error Color --%>
@@ -27,7 +27,7 @@
             color: red;
         }
     </style>
-   <%-- <script>
+    <%-- <script>
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
@@ -52,11 +52,10 @@
             chart.render();
         }
 </script>--%>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="p-4 space-y-10 mr-3">
-       <%-- <div class="main-panel">
+        <%-- <div class="main-panel">
             <div class="content-wrapper">
                 <div id="chartContainer" style="height: 370px; width: 100%; background-color: cadetblue"></div>
             </div>
@@ -77,9 +76,17 @@
                 </asp:Chart>
             </div>--%>
 
-            <div id="chartContainer" style="height: 370px; width: 100%;">
+            <%--  <div id="chartContainer" style="height: 370px; width: 100%;">
                 <asp:Literal ID="chart" runat="server"></asp:Literal>
-            </div>
+            </div>--%>
+            <%-- Dropdown for select order status | view all orders | view delivered orders | view not delivered order etc.  --%>
+            <asp:DropDownList runat="server" ID="OrderStatus" CssClass="p-2 rounded border border-gray-200" AutoPostBack="true">
+                <asp:ListItem Text="All Orders" Value="All"></asp:ListItem>
+                <asp:ListItem Text="Delivered" Value="Delivered"></asp:ListItem>
+                <asp:ListItem Text="Not Delivered" Value="Not Delivered"></asp:ListItem>
+                <asp:ListItem Text="Processing" Value="Processing"></asp:ListItem>
+                <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
+            </asp:DropDownList>
 
             <div class="flex items-center justify-center h-screen">
                 <div class="bg-purple-200 border border-gray-200 rounded shadow p-6">
