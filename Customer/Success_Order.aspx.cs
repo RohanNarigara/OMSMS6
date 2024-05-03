@@ -67,10 +67,12 @@ namespace OMSMS6.Customer
                         cmd.ExecuteNonQuery();
 
                         lbl1.Text = "Payment type :" + pay_type;
-
+                        int uid = (int)Session["uid"];
+                        List<int> productIds = GetProductIds(uid);
                         // Insert product details for each product in the cart
                         foreach (int productId in productIds)
                         {
+
                             // Retrieve quantity for the product
                             int qty = GetProductQuantity(uid, productId);
 
@@ -114,6 +116,65 @@ namespace OMSMS6.Customer
 
 
         }
+
+        private int GetProductQuantity(int userId, int productId)
+        {
+            int quantity = 0;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+                {
+                    con.Open();
+                    string selectQuantityQuery = "SELECT Quantity FROM tblCartProduct WHERE Custid = @uid AND pid = @pid";
+                    SqlCommand cmdSelect = new SqlCommand(selectQuantityQuery, con);
+                    cmdSelect.Parameters.AddWithValue("@uid", userId);
+                    cmdSelect.Parameters.AddWithValue("@pid", productId);
+                    SqlDataReader reader = cmdSelect.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Error fetching product quantity: " + ex.Message + "');</script>");
+            }
+            return quantity;
+        }
+
+        protected List<int> GetProductIds(int userId)
+        {
+            List<int> productIds = new List<int>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+                {
+                    con.Open();
+                    string selectProductIdsQuery = "SELECT PD.id AS ProductID FROM tblCartProduct CP JOIN tblProductDetail PD ON CP.pid = PD.id WHERE CP.Custid = @uid";
+                    SqlCommand cmd = new SqlCommand(selectProductIdsQuery, con);
+                    cmd.Parameters.AddWithValue("@uid", userId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int productId = reader.GetInt32(reader.GetOrdinal("ProductID"));
+                        productIds.Add(productId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Console.WriteLine("Error fetching product IDs: " + ex.Message);
+            }
+
+            return productIds;
+        }
+
         private void binddata()
         {
             con.Close();
