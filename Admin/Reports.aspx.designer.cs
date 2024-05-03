@@ -11,43 +11,52 @@ namespace OMSMS6.Admin
 {
 
 
-    public partial class Payment
+    public partial class Reports
     {
 
         /// <summary>
-        /// COD control.
+        /// bwdatesreport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton COD;
+        protected global::System.Web.UI.HtmlControls.HtmlForm bwdatesreport;
 
         /// <summary>
-        /// online control.
+        /// fromdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton online;
+        protected global::System.Web.UI.WebControls.TextBox fromdate;
 
         /// <summary>
-        /// all control.
+        /// todate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton all;
+        protected global::System.Web.UI.WebControls.TextBox todate;
 
         /// <summary>
-        /// AllorderTableRecord control.
+        /// status control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater AllorderTableRecord;
+        protected global::System.Web.UI.WebControls.CheckBoxList status;
+
+        /// <summary>
+        /// btnsubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnsubmit;
     }
 }

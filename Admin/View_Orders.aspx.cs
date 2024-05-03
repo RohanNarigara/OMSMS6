@@ -15,10 +15,12 @@ namespace OMSMS6.Admin
         {
             if (!IsPostBack)
             {
-                BindOrderData();
-                //loadChart();
-            }
+                // Set the SelectedIndex to the index corresponding to "All Orders"
+                ddlOrder.SelectedIndex = ddlOrder.Items.IndexOf(ddlOrder.Items.FindByText("All Orders"));
 
+                // Call ddlOrder_SelectedIndexChanged to load the data for "All Orders" by default
+                ddlOrder_SelectedIndexChanged(ddlOrder, EventArgs.Empty);
+            }
         }
 
 
@@ -26,7 +28,7 @@ namespace OMSMS6.Admin
         {
             //string connectionString = "Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integra//ted Security=True;";
             // string connectionString = "Data Source=Vishvas;Initial Catalog=omsms;Integrated Security=True;";
-            
+
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
 
             using (con)
@@ -62,8 +64,64 @@ namespace OMSMS6.Admin
 
         protected void ddlOrder_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string query = "";
 
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            {
+                switch (ddlOrder.SelectedValue)
+                {
+                    case "Pending":
+                        query = "SELECT o.Orderid AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.email AS Email, u.contact AS Phone, p.name AS Product, op.Quantity * pd.price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.Pid INNER JOIN tblUsers u ON o.CustId = u.id WHERE o.DeliveryStatus = 'Pending';";
+                        break;
+                    case "Delivered":
+                        query = "SELECT o.Orderid AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.email AS Email, u.contact AS Phone, p.name AS Product, op.Quantity * pd.price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.Pid INNER JOIN tblUsers u ON o.CustId = u.id WHERE o.DeliveryStatus = 'Delivered';";
+                        break;
+                    case "Cancelled":
+                        query = "SELECT o.Orderid AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.email AS Email, u.contact AS Phone, p.name AS Product, op.Quantity * pd.price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.Pid INNER JOIN tblUsers u ON o.CustId = u.id WHERE o.DeliveryStatus = 'Cancelled';";
+                        break;
+                    case "All Orders":
+                        query = "SELECT o.Orderid AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.email AS Email, u.contact AS Phone, p.name AS Product, op.Quantity * pd.price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.Pid INNER JOIN tblUsers u ON o.CustId = u.id";
+                        break;
+                    case "Not Delivered":
+                        query = "SELECT o.Orderid AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.email AS Email, u.contact AS Phone, p.name AS Product, op.Quantity * pd.price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.Pid INNER JOIN tblUsers u ON o.CustId = u.id WHERE o.DeliveryStatus = 'Not Delivered';";
+                        break;
+                    case "Completed":
+                        query = "SELECT o.Orderid AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.email AS Email, u.contact AS Phone, p.name AS Product, op.Quantity * pd.price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.Pid INNER JOIN tblUsers u ON o.CustId = u.id WHERE o.DeliveryStatus = 'Completed';";
+                        break;
+                    default:
+                        query = "SELECT o.Orderid AS OrderNumber, o.OrderDate AS Date, o.CustId AS CustomerID, u.email AS Email, u.contact AS Phone, p.name AS Product, op.Quantity * pd.price AS Amount, o.DeliveryStatus AS Status FROM tblOrder o INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.id INNER JOIN tblProductDetail pd ON p.id = pd.Pid INNER JOIN tblUsers u ON o.CustId = u.id";
+                        break;
+                }
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                try
+                {
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        AllorderTableRecord.DataSource = reader;
+                        AllorderTableRecord.DataBind();
+                    }
+                    else
+                    {
+                        // Clear the repeater and display "No records found" message within the table
+                        AllorderTableRecord.DataSource = null;
+                        AllorderTableRecord.DataBind();
+                        AllorderTableRecord.Controls.Add(new LiteralControl("<tr><td colspan='8' class='text-center'>No records found</td></tr>"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script> alert('Error : " + ex.Message + "'); </script> ");
+                    Response.Write("<script>alert('No orders found.');</script>");
+                }
+            }
         }
+
+
 
         //    protected void loadChart()
         //    {

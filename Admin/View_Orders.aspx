@@ -73,19 +73,10 @@
                 </asp:Chart>
             </div>--%>
 
-<<<<<<< HEAD
             <%--  <div id="chartContainer" style="height: 370px; width: 100%;">
                 <asp:Literal ID="chart" runat="server"></asp:Literal>
             </div>--%>
-            <%-- Dropdown for select order status | view all orders | view delivered orders | view not delivered order etc.  --%>
-            <asp:DropDownList runat="server" ID="OrderStatus" CssClass="p-2 rounded border border-gray-200" AutoPostBack="true">
-                <asp:ListItem Text="All Orders" Value="All"></asp:ListItem>
-                <asp:ListItem Text="Delivered" Value="Delivered"></asp:ListItem>
-                <asp:ListItem Text="Not Delivered" Value="Not Delivered"></asp:ListItem>
-                <asp:ListItem Text="Processing" Value="Processing"></asp:ListItem>
-                <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
-            </asp:DropDownList>
-=======
+           
         <%-- <div id="chartContainer" style="height: 370px; width: 100%;">
                 <asp:Literal ID="chart" runat="server"></asp:Literal>
             </div>--%>
@@ -94,12 +85,11 @@
                 <asp:DropDownList runat="server" ID="ddlOrder" AutoPostBack="true" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded px-4 block w-full appearance-none" OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged">
                     <asp:ListItem Text="All Orders" Value="All Orders"></asp:ListItem>
                     <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
-                    <asp:ListItem Text="Processing" Value="Processing"></asp:ListItem>
+                    <asp:ListItem Text="Delivered" Value="Delivered"></asp:ListItem>
+                    <asp:ListItem Text="Not Delivered" Value="Not Delivered"></asp:ListItem>
                     <asp:ListItem Text="Completed" Value="Completed"></asp:ListItem>
-                    <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
                 </asp:DropDownList>
             </div>
->>>>>>> 7015187b99ebf96f1ff779330de665e08c66bcb2
 
             <h4 class="text-2xl bg-gray-700 w-fit text-white p-2 rounded-r-xl mb-5">Orders</h4>
             <div class="overflow-x-auto shadow-md sm:rounded-lg mr-2">

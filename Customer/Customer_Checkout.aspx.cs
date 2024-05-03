@@ -200,67 +200,59 @@ namespace OMSMS6.Customer
 
                             if (i > 0)
                             {
+                                // Order details inserted successfully
+                                // Now insert order product details
+                                Console.WriteLine("Order details inserted successfully");
+
+                                // Insert product details for each product in the cart
                                 foreach (int productId in productIds)
                                 {
+                                    // Retrieve quantity for the product
                                     int qty = GetProductQuantity(uid, productId);
 
+                                    // Insert product details into tblOrderProduct
+                                    Console.WriteLine($"Inserting product details for product ID: {productId}");
+
                                     string insertProductDetails = "INSERT INTO tblOrderProduct (Orderid, Pid, Quantity, cid, sid) " +
-                                                                   "SELECT @OrderId, cp.Pid, cp.Quantity, pd.cid, pd.sid " +
-                                                                   "FROM tblCartProduct cp " +
-                                                                   "INNER JOIN tblProductDetail pd ON cp.Pid = pd.id " +
-                                                                   "WHERE cp.CustId = @uid AND cp.Pid = @prdid";
+                                                                  "SELECT @OrderId, cp.Pid, cp.Quantity, pd.cid, pd.sid " +
+                                                                  "FROM tblCartProduct cp " +
+                                                                  "INNER JOIN tblProductDetail pd ON cp.Pid = pd.id " +
+                                                                  "WHERE cp.CustId = @uid AND cp.Pid = @prdid";
                                     SqlCommand cmd1 = new SqlCommand(insertProductDetails, con);
                                     cmd1.Parameters.AddWithValue("@uid", uid);
                                     cmd1.Parameters.AddWithValue("@OrderId", oid);
                                     cmd1.Parameters.AddWithValue("@prdid", productId);
-                                    //cmd1.Parameters.AddWithValue("@qty", qty);
 
                                     int rowsAffected = cmd1.ExecuteNonQuery();
                                     if (rowsAffected <= 0)
                                     {
                                         Response.Write("<script>alert('Error inserting order product details');</script>");
                                     }
+                                    else
+                                    {
+                                        Response.Write("<script>alert('order placed Succesfully');</script>");
+                                        emptyInputbox();
+
+                                    }
+                                    Response.Write("<script>alert('order placed Succesfully');</script>");
+                                    emptyInputbox();
                                 }
-
-                                // All product details inserted successfully
-
                             }
                             else
                             {
+                                // Error inserting order
+                                Console.WriteLine("Error inserting order");
                                 Response.Write("<script>alert('Error inserting order');</script>");
                             }
-
-
-
-                            // Check if order insertion was successful
-                            if (i > 0 && j > 0)
-                            {
-                                String token = await GetAuthTokenAsync();
-
-                                var response = await CreateOrderAsync(token);
-
-
-                                // Order placed successfully
-                                Response.Write("<script>alert('Order has been placed successfully!');</script>");
-                            }
-                            else
-                            {
-                                Response.Write("<script>alert('Error inserting order');</script>");
-                            }
-
-                            emptyInputbox();
                         }
                     }
-
-
-
-
                     catch (Exception ex)
                     {
-
+                        // Handle any exceptions
                         Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
                     }
                 }
+
                 else
                 {
                     // lbltotal.Text is not a valid integer

@@ -163,6 +163,7 @@
     <Content Include="Admin\Other.aspx" />
     <Content Include="Admin\Payment.aspx" />
     <Content Include="Admin\Products.aspx" />
+    <Content Include="Admin\Reports.aspx" />
     <Content Include="Admin\Users.aspx" />
     <Content Include="Admin\Res\Css\Admin_Css.css" />
     <Content Include="Admin\Res\Js\main.js" />
@@ -397,6 +398,13 @@
     </Compile>
     <Compile Include="Admin\Products.aspx.designer.cs">
       <DependentUpon>Products.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>

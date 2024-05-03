@@ -15,21 +15,13 @@ namespace OMSMS6.Admin
     {
 
         /// <summary>
-<<<<<<< HEAD
-        /// OrderStatus control.
-=======
         /// ddlOrder control.
->>>>>>> 7015187b99ebf96f1ff779330de665e08c66bcb2
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-<<<<<<< HEAD
-        protected global::System.Web.UI.WebControls.DropDownList OrderStatus;
-=======
         protected global::System.Web.UI.WebControls.DropDownList ddlOrder;
->>>>>>> 7015187b99ebf96f1ff779330de665e08c66bcb2
 
         /// <summary>
         /// AllorderTableRecord control.

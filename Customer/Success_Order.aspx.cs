@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Xml.Linq;
 using System.EnterpriseServices;
 using System.Configuration;
+using OMSMS6.Admin;
 
 namespace OMSMS6.Customer
 {
@@ -67,22 +68,31 @@ namespace OMSMS6.Customer
 
                         lbl1.Text = "Payment type :" + pay_type;
 
-                        //foreach (RepeaterItem item in viewcartlist.Items)
-                        //{
-                        //    Label lblProductId = (Label)item.FindControl("lblProductId");
-                        //    Label lblProductName = (Label)item.FindControl("lblProductName");
-                        //    Label lblPrice = (Label)item.FindControl("lblPrice");
-                        //    Label lblQuantity = (Label)item.FindControl("lblQuantity");
-                        //    Label lblColor = (Label)item.FindControl("lblColor");
-                        //    Label lblStorage = (Label)item.FindControl("lblStorage");
+                        // Insert product details for each product in the cart
+                        foreach (int productId in productIds)
+                        {
+                            // Retrieve quantity for the product
+                            int qty = GetProductQuantity(uid, productId);
 
-                        //    int pid = Convert.ToInt32(lblProductId.Text);
-                        //    string pname = lblProductName.Text;
-                        //    int price = Convert.ToInt32(lblPrice.Text);
-                        //    int quantity = Convert.ToInt32(lblQuantity.Text);
-                        //    string color = lblColor.Text;
-                        //    string storage = lblStorage.Text;
-                        //}
+                            // Insert product details into tblOrderProduct
+                            Console.WriteLine($"Inserting product details for product ID: {productId}");
+
+                            string insertProductDetails = "INSERT INTO tblOrderProduct (Orderid, Pid, Quantity, cid, sid) " +
+                                                          "SELECT @OrderId, cp.Pid, cp.Quantity, pd.cid, pd.sid " +
+                                                          "FROM tblCartProduct cp " +
+                                                          "INNER JOIN tblProductDetail pd ON cp.Pid = pd.id " +
+                                                          "WHERE cp.CustId = @uid AND cp.Pid = @prdid";
+                            SqlCommand cmd1 = new SqlCommand(insertProductDetails, con);
+                            cmd1.Parameters.AddWithValue("@uid", uid);
+                            cmd1.Parameters.AddWithValue("@OrderId", oid);
+                            cmd1.Parameters.AddWithValue("@prdid", productId);
+
+                            int rowsAffected = cmd1.ExecuteNonQuery();
+                            if (rowsAffected <= 0)
+                            {
+                                Response.Write("<script>alert('Error inserting order product details');</script>");
+                            }
+                        }
 
                     }
                     catch (Exception ex)
