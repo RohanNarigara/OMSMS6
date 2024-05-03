@@ -144,6 +144,23 @@ namespace OMSMS6.Customer
             return quantity;
         }
 
+        public void deleteProductfromCart(int prdid)
+        {
+            int uid = (int)Session["uid"];
+
+            //Delete the product from the cart
+            con.Open();
+            string deleteProduct = "DELETE FROM tblCartProduct WHERE Custid = @uid AND pid = @prdid";
+            SqlCommand cmdDelete = new SqlCommand(deleteProduct, con);
+            cmdDelete.Parameters.AddWithValue("@uid", uid);
+            cmdDelete.Parameters.AddWithValue("@prdid", prdid);
+            int rowsDeleted = cmdDelete.ExecuteNonQuery();
+            if (rowsDeleted <= 0)
+            {
+                // alert user if the product was not deleted from the cart
+                Response.Write("<script>alert('Error deleting product from cart');</script>");
+            }
+        }
         protected List<int> GetProductIds(int userId)
         {
             List<int> productIds = new List<int>();

@@ -234,7 +234,7 @@ namespace OMSMS6.Customer
                                         emptyInputbox();
 
                                     }
-                                    Response.Write("<script>alert('order placed Succesfully');</script>");
+                                   
                                     emptyInputbox();
                                 }
                             }
@@ -327,11 +327,12 @@ namespace OMSMS6.Customer
         {
             using (var client = new HttpClient())
             {
+                DateTime curuuntDateTime = DateTime.Now;
                 // Construct the order data
                 var orderData = new
                 {
                     order_id = "224-448",
-                    order_date = "2024-01-24 11:11",
+                    order_date = curuuntDateTime.ToString("yyyy-MM-dd HH-mm"),
                     pickup_location = "PRIYANK",
                     channel_id = "",
                     comment = "Reseller: M/s Goku",
@@ -515,6 +516,7 @@ namespace OMSMS6.Customer
                 {
                     con.Open();
 
+                    string selectQuantityQuery = "SELECT Quantity FROM tblCartProduct WHERE CustId = @userId AND pid = @productId";
                     string selectQuantityQuery = "SELECT Quantity FROM tblCartProduct WHERE CustId = @userId AND pid = @productId";
                     SqlCommand cmd = new SqlCommand(selectQuantityQuery, con);
                     cmd.Parameters.AddWithValue("@userId", userId);
