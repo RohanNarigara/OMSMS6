@@ -24,6 +24,7 @@ using System.Web.UI.WebControls;
 using HttpMethod = System.Net.Http.HttpMethod;
 using System.Diagnostics.Eventing.Reader;
 using System.Net.NetworkInformation;
+using System.Security.Policy;
 
 namespace OMSMS6.Customer
 {
@@ -232,9 +233,14 @@ namespace OMSMS6.Customer
                                     {
                                         Response.Write("<script>alert('order placed Succesfully');</script>");
                                         emptyInputbox();
+                                        deleteProductfromCart(productId);
+                                        String token = await GetAuthTokenAsync();
+
+                                        var response = await CreateOrderAsync(token, oid.ToString(),fname,address,city,state,pincode,email,phone);
+
 
                                     }
-                                   
+
                                     emptyInputbox();
                                 }
                             }
@@ -303,11 +309,22 @@ namespace OMSMS6.Customer
 
 
                     // create a shipment
+                    string fname = txtfname.Text;
+                    string lname = txtlname.Text;
+                    string email = txtemail.Text;
+                    string phone = txtcono.Text;
+                    string address1 = txtaddress.Text;
+                    string city1 = txtCity.Text;
+                    int totalamt = Convert.ToInt32(lbltotal.Text);
+                    string state1 = txtState.Text;
+                    string pincode1 = txtZipCode.Text;
+                   
+                    string orderdate = DateTime.Now.ToString("yyyy-MM-dd");
 
 
                     String token = await GetAuthTokenAsync();
 
-                    var response = await CreateOrderAsync(token);
+                    var response = await CreateOrderAsync(token, oid.ToString(), fname, address1, city1, state1, pincode1, email, phone);
 
 
                     string jsFunction = "OpenPaymentWindow('" + _key + "', '" + amt + "', '" + currency + "', '" + name + "', '" + description + "', '" + imageLogo + "', '" + orderId + "', '" + profileName + "', '" + profileEmail + "', '" + profileMobile + "', '" + JsonConvert.SerializeObject(notes) + "');";
@@ -323,7 +340,7 @@ namespace OMSMS6.Customer
             }
         }
 
-        static async Task<String> CreateOrderAsync(string token)
+        static async Task<String> CreateOrderAsync(string token, string oid, string uname, string address, string city, string state, string pincode, string email, string cono)
         {
             using (var client = new HttpClient())
             {
@@ -331,21 +348,21 @@ namespace OMSMS6.Customer
                 // Construct the order data
                 var orderData = new
                 {
-                    order_id = "224-448",
+                    order_id = "01_"+ oid,
                     order_date = curuuntDateTime.ToString("yyyy-MM-dd HH-mm"),
-                    pickup_location = "PRIYANK",
+                    pickup_location = "202 B, Sahjnand Resi., Kamred",
                     channel_id = "",
                     comment = "Reseller: M/s Goku",
-                    billing_customer_name = "Naruto",
-                    billing_last_name = "Uzumaki",
-                    billing_address = "House 221B, Leaf Village",
-                    billing_address_2 = "Near Hokage House",
-                    billing_city = "New Delhi",
-                    billing_pincode = "111111",
-                    billing_state = "Delhi",
+                    billing_customer_name = uname,
+                    billing_last_name = "",
+                    billing_address = address,
+                    billing_address_2 = " " ,
+                    billing_city = city,
+                    billing_pincode = pincode,
+                    billing_state = state,
                     billing_country = "India",
-                    billing_email = "naruto@uzumaki.com",
-                    billing_phone = "9876543210",
+                    billing_email = email,
+                    billing_phone = cono,
                     shipping_is_billing = true,
                     shipping_customer_name = "",
                     shipping_last_name = "",
@@ -517,7 +534,7 @@ namespace OMSMS6.Customer
                     con.Open();
 
                     string selectQuantityQuery = "SELECT Quantity FROM tblCartProduct WHERE CustId = @userId AND pid = @productId";
-                    string selectQuantityQuery = "SELECT Quantity FROM tblCartProduct WHERE CustId = @userId AND pid = @productId";
+                   
                     SqlCommand cmd = new SqlCommand(selectQuantityQuery, con);
                     cmd.Parameters.AddWithValue("@userId", userId);
                     cmd.Parameters.AddWithValue("@productId", productId);

@@ -71,7 +71,7 @@
                     </section>
                 </div>
 
-                <div id="slide2" class="carousel-item relative w-full">
+                <%--<div id="slide2" class="carousel-item relative w-full">
 
                     <section
                         class="relative bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat">
@@ -106,19 +106,19 @@
                         </div>
                     </section>
 
-                </div>
+                </div>--%>
                 <div id="slide3" class="carousel-item relative w-full">
-                    <img src="https://daisyui.com/images/stock/photo-1414694762283-acccc27bca85.jpg" class="w-full" />
+                    <img src="https://photos5.appleinsider.com/gallery/38174-72484-iphone-12-pro-hero-xl.jpg" class="w-full" />
                     <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide2" class="btn btn-circle">❮</a>
-                        <a href="#slide4" class="btn btn-circle">❯</a>
+                       <%-- <a href="#slide2" class="btn btn-circle"></a>
+                        <a href="#slide4" class="btn btn-circle"></a>--%>
                     </div>
                 </div>
                 <div id="slide4" class="carousel-item relative w-full">
-                    <img src="https://daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.jpg" class="w-full" />
+                    <img src="https://m-cdn.phonearena.com/images/article/142969-wide-two_1200/Google-introduces-a-few-useful-speech-features-with-the-Pixel-7.webp?1665086381" class="w-full" />
                     <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide3" class="btn btn-circle">❮</a>
-                        <a href="#slide1" class="btn btn-circle">❯</a>
+                        <%--<a href="#slide3" class="btn btn-circle">❮</a>
+                        <a href="#slide1" class="btn btn-circle">❯</a>--%>
                     </div>
                 </div>
             </div>
@@ -552,7 +552,7 @@
                                 class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
 
                                 <li>
-                                    <img src="./disney.svg" alt="Disney" />
+                                    <img src="https://raw.githubusercontent.com/cruip/cruip-tutorials/16d063a406b2c7b667ad97d83fc1697cb0b2cde2/logo-carousel//disney.svg" alt="Disney" />
                                 </li>
                                 <li>
                                     <img src="https://raw.githubusercontent.com/cruip/cruip-tutorials/16d063a406b2c7b667ad97d83fc1697cb0b2cde2/logo-carousel/airbnb.svg"
@@ -563,16 +563,16 @@
                                         alt="Apple" />
                                 </li>
                                 <li>
-                                    <img src="./spark.svg" alt="Spark" />
+                                    <img src="https://raw.githubusercontent.com/cruip/cruip-tutorials/16d063a406b2c7b667ad97d83fc1697cb0b2cde2/logo-carousel//facebook.svg" alt="Facebook" />
                                 </li>
                                 <li>
-                                    <img src="./samsung.svg" alt="Samsung" />
+                                    <img src="https://raw.githubusercontent.com/cruip/cruip-tutorials/16d063a406b2c7b667ad97d83fc1697cb0b2cde2/logo-carousel//samsung.svg" alt="Samsung" />
                                 </li>
                                 <li>
-                                    <img src="./quora.svg" alt="Quora" />
+                                    <img src="https://raw.githubusercontent.com/cruip/cruip-tutorials/16d063a406b2c7b667ad97d83fc1697cb0b2cde2/logo-carousel//quora.svg" alt="Quora" />
                                 </li>
                                 <li>
-                                    <img src="./sass.svg" alt="Sass" />
+                                    <img src="https://raw.githubusercontent.com/cruip/cruip-tutorials/16d063a406b2c7b667ad97d83fc1697cb0b2cde2/logo-carousel//sass.svg" alt="Sass" />
                                 </li>
                             </ul>
                         </div>

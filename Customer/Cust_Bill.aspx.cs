@@ -35,59 +35,34 @@ namespace OMSMS6.Customer
         protected void LoadBill()
         {
             String odrid = Request.QueryString["orderId"].ToString();
-            //using (SqlConnection con = new SqlConnection("Data Source=LAPTOP-SHON9L4N\\SQLEXPRESS;Initial Catalog=omsms;Integrated Security=True;"))
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             {
-                con.Close();
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SELECT o.Orderid AS OrderId, u.name AS CustomerName, p.name AS ProductName, o.DeliveryAddress, o.OrderDate, op.Id AS OrderProductId, op.Quantity as Quantity, pd.price as Price, (op.Quantity * pd.price) AS Total FROM tblOrder o INNER JOIN tblUsers u ON o.CustId = u.id INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.Id INNER JOIN tblProductDetail pd ON p.id = pd.pid WHERE o.Orderid = @odrid", con);
                 cmd.Parameters.AddWithValue("@odrid", odrid);
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        // Load the data into controls
-                        cust_name.Text = reader["CustomerName"].ToString();
-                        cust_address.Text = reader["DeliveryAddress"].ToString();
-                        string address = reader["DeliveryAddress"].ToString();
-                        ordernumber.Text = reader["OrderId"].ToString();
+                DataTable dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
 
-                        orderDate.Text = reader["OrderDate"].ToString();
+                // Load the data into controls
+                cust_name.Text = dt.Rows[0]["CustomerName"].ToString();
+                cust_address.Text = dt.Rows[0]["DeliveryAddress"].ToString();
+                ordernumber.Text = dt.Rows[0]["OrderId"].ToString();
+                orderDate.Text = dt.Rows[0]["OrderDate"].ToString();
 
-                        lblGrandtotal.Text = reader["Total"].ToString();
+                decimal totalAmount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Price"]) * row.Field<int>("Quantity"));
+                sub.Text = string.Format("&#8377;{0}.00", totalAmount);
+                int subTotal = Convert.ToInt32(totalAmount);
+                int grandtotal = subTotal + 200;
+                lblGrandtotal.Text = grandtotal.ToString();
+                sub.Text = string.Format("&#8377;{0}.00", subTotal);
 
-                        // Set subtotal and grand total values
-                        //int subTotal = Convert.ToInt32(reader["Total"]);
-                        //int grandtotal = subTotal + 200;
-                        //lblGrandtotal.Text = grandtotal.ToString();
-                        //sub.Text = string.Format("&#8377;{0}.00", subTotal);
-
-
-
-
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-                        decimal totalAmount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Price"]) * row.Field<int>("Quantity"));
-                        sub.Text = string.Format("&#8377;{0}.00", totalAmount);
-                        int subTotal = Convert.ToInt32(totalAmount);
-                        int grandtotal = subTotal + 200;
-                        lblGrandtotal.Text = grandtotal.ToString();
-                        sub.Text = string.Format("&#8377;{0}.00", subTotal);
-
-                        //// Load repeater data
-
-                        //viewOrderlist.DataSource = dt;
-                        //viewOrderlist.DataBind();
-
-                        dt.Load(reader);
-                        viewOrderitems.DataSource = dt;
-                        viewOrderitems.DataBind();
-                    }
-                }
+                // Load repeater data
+                viewOrderitems.DataSource = dt;
+                viewOrderitems.DataBind();
             }
-
         }
+
 
 
 

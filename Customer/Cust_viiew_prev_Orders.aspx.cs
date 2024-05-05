@@ -36,11 +36,10 @@ namespace OMSMS6.Customer
 
 
             con.Open();
-            //string uid = "1"; // Assuming the user ID is always "1"           
-            int uid = (int)Session["uid"]; // Assuming the user ID is always "1"
+            int uid = (int)Session["uid"];
 
-           // int uid = 7;
-            SqlCommand cmd = new SqlCommand("SELECT o.Orderid AS OrderId, u.Name AS CustomerName, MIN(p.imageName) AS Imagename, MIN(p.Name) AS ProductName, MIN(pd.Price) AS Price, SUM(op.Quantity) AS Quantity  FROM tblOrder o  INNER JOIN tblUsers u ON o.CustId = u.Id  INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.Id  INNER JOIN tblProductDetail pd ON p.Id = pd.Pid AND pd.cid = op.cid AND pd.sid = op.sid WHERE u.Id = @uid GROUP BY o.Orderid, u.Name;", con);
+            // int uid = 7;
+            SqlCommand cmd = new SqlCommand("SELECT o.Orderid AS OrderId, u.Name AS CustomerName, p.imageName AS Imagename, p.Name AS ProductName, pd.Price AS Price, op.Quantity AS Quantity FROM tblOrder o INNER JOIN tblUsers u ON o.CustId = u.Id INNER JOIN tblOrderProduct op ON o.Orderid = op.Orderid INNER JOIN tblProduct p ON op.Pid = p.Id INNER JOIN tblProductDetail pd ON p.Id = pd.Pid AND pd.cid = op.cid AND pd.sid = op.sid WHERE u.Id = @uid", con);
             cmd.Parameters.AddWithValue("@uid", uid);
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)

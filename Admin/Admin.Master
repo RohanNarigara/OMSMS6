@@ -65,7 +65,7 @@
 
 
             <li>
-                <a href="#">
+                <a href="https://app.shiprocket.in/seller/orders/new?sku=&order_ids=&order_status=&channel_id=&payment_method=&pickup_address_id=&delivery_country=&from=2024-Apr-04&to=2024-May-03" target="_blank">
                     <span class="icon">
                         <ion-icon name="cube-outline"></ion-icon>
                     </span>
@@ -82,14 +82,14 @@
                 </a>
             </li>
 
-            <li>
+            <%--<li>
                 <a href="Reports.aspx">
                     <span class="icon">
                         <ion-icon name="document-text-outline"></ion-icon>
                     </span>
                     <span class="title">Reports</span>
                 </a>
-            </li>
+            </li>--%>
 
             <li>
                 <a href="Other.aspx">

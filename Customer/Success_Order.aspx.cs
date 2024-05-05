@@ -88,6 +88,8 @@ namespace OMSMS6.Customer
                             cmd1.Parameters.AddWithValue("@uid", uid);
                             cmd1.Parameters.AddWithValue("@OrderId", oid);
                             cmd1.Parameters.AddWithValue("@prdid", productId);
+                            deleteProductfromCart(productId);
+                            
 
                             int rowsAffected = cmd1.ExecuteNonQuery();
                             if (rowsAffected <= 0)

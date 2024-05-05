@@ -103,7 +103,7 @@
                             <th scope="col" class="px-6 py-3">Product</th>
                             <th scope="col" class="px-6 py-3">Amount</th>
                             <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">Action</th>
+                            <%--<th scope="col" class="px-6 py-3">Action</th>--%>
                         </tr>
                     </thead>
                     <tbody class="text-center">
@@ -126,12 +126,12 @@
                                     </td>
 
 
-                                    <td class="px-6 py-4">
-                                        <%--  <a href="View_Orders_Details.aspx?oid=<%# Eval("OrderNumber") %>" class="btn p-1 rounded bg-indigo-500 text-white hover:bg-indigo-600">
-                                                    View Details </a>--%>
+                                    <%--<td class="px-6 py-4">
+                                       
                                         <asp:HyperLink NavigateUrl='<%# "View_Order_Details.aspx?oid=" + Eval("OrderNumber") %>' runat="server" CssClass="btn p-1 rounded bg-indigo-500 text-white hover:bg-indigo-600">View Details</asp:HyperLink>
 
-                                    </td>
+                                    </td>--%>
+
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>
